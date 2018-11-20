@@ -1,0 +1,14 @@
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\BackendTest.deps.json
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\BackendTest.runtimeconfig.json
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\BackendTest.runtimeconfig.dev.json
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\BackendTest.dll
+C:\Users\Frank\source\repos\Backend\BackendTest\bin\Debug\netcoreapp2.0\BackendTest.pdb
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.csprojAssemblyReference.cache
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.csproj.CoreCompileInputs.cache
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.AssemblyInfoInputs.cache
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.AssemblyInfo.cs
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.dll
+C:\Users\Frank\source\repos\Backend\BackendTest\obj\Debug\netcoreapp2.0\BackendTest.pdb
