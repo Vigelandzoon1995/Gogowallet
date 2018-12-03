@@ -21,7 +21,8 @@ export class SigninPage {
     //Api controller via AuthServices
     this.navCtrl.push(TabsPage);
   }
-  goToSignUp(){
+  
+  navigateToRegister(){
     this.navCtrl.push(SignupPage);
   }
 }

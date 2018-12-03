@@ -1,20 +1,52 @@
 <!--
-  Generated template for the SigninPage page.
+  Generated template for the SignupPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>signin</ion-title>
-  </ion-navbar>
-
+  <h1 class="title">Go Go Wallet</h1>
 </ion-header>
 
-
 <ion-content padding>
-  <p>ADD SIGN IN PROPERTIES FOR USER AND PIN</p>
-  <button ion-button (click)="signin()" >SIGNIN</button>
-  <button ion-button (click)="goToSignUp()" >SIGNUP</button>
+  <video autoplay loop src="../../assets/video/vid7.mp4"></video>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+
+          <ion-item class="transparent-input">
+            <ion-label floating>Username</ion-label>
+            <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
+          </ion-item>
+
+          <ion-item class="transparent-input">
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+            <small>Minimum of 12 characters</small>
+          </ion-item>
+          
+          <div hidden></div>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="signin-col">
+        <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.form.valid"(click)="showAlert()">Login</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col class="signin-col">
+         <button ion-button class="register-link" full type="button" (click)="navigateToRegister()" clear>Register</button>
+        </ion-col>
+    </ion-row>
+
+  </form>
 </ion-content>
+
+
+
+
