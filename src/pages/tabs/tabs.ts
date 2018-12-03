@@ -24,42 +24,7 @@ export class TabsPage {
   title: string;
 
   constructor(public popoverCtrl: PopoverController,private navCtrl: NavController ) {
-    // this.tabsPages= [];
 
-    // this.tabsPage = {
-    //   TabsRootPage:"tab1Root",
-    //   Name: "Overview",
-    //   Icon:"home" 
-    // }
-    // this.tabsPages.push(this.tabsPage);
-
-    // this.tabsPage = {
-    //   TabsRootPage:"tab2Root",
-    //   Name: "Track",
-    //   Icon:"locate" 
-    // }
-    // this.tabsPages.push(this.tabsPage);
-
-    // this.tabsPage = {
-    //   TabsRootPage:"tab3Root",
-    //   Name: "Alarm",
-    //   Icon:"alarm" 
-    // }
-    // this.tabsPages.push(this.tabsPage);
-
-    // this.tabsPage = {
-    //   TabsRootPage:"tab4Root",
-    //   Name: "Notification",
-    //   Icon:"notifications" 
-    // }
-    // this.tabsPages.push(this.tabsPage);
-    // this.tabsPage = {
-    //   TabsRootPage:"tab5Root",
-    //   Name: "Profile",
-    //   Icon:"contact" 
-    // }
-    // this.tabsPages.push(this.tabsPage);
-   
   }
   
   presentPopover(myEvent) {
