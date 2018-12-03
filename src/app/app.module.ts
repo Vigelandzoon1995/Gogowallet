@@ -17,6 +17,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PopoverComponent } from '../components/popover/popover';
 import { SettingsPage } from '../pages/settings/settings';
+import { BankInfoPage } from '../pages/bank-info/bank-info';
+import { GogowalletPage } from '../pages/gogowallet/gogowallet';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { SettingsPage } from '../pages/settings/settings';
     ProfilePage,
     PopoverComponent,
     SettingsPage,
+    BankInfoPage,
+    GogowalletPage,
     TabsPage
   ],
   imports: [
@@ -48,6 +52,8 @@ import { SettingsPage } from '../pages/settings/settings';
     ProfilePage,
     PopoverComponent,
     SettingsPage,
+    BankInfoPage,
+    GogowalletPage,
     TabsPage
   ],
   providers: [
