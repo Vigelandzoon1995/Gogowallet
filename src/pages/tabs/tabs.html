@@ -1,22 +1,9 @@
-<ion-header>
-    <ion-toolbar >
-      <ion-title>
-        {{title}}
-      </ion-title> 
-      <ion-buttons end>
-        <button icon-only (click)="presentPopover($event)">
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-
 
 <ion-tabs >
-  <ion-tab (ionSelect)="setTitle('Overview')" [root]="tab1Root" tabTitle="Overview" tabIcon="home"></ion-tab>
-  <ion-tab (ionSelect)="setTitle('Track')" [root]="tab2Root" tabTitle="Track" tabIcon="locate"></ion-tab>
-  <ion-tab (ionSelect)="setTitle('Alarm')" [root]="tab3Root" tabTitle="Alarm" tabIcon="alarm"></ion-tab>
-  <ion-tab (ionSelect)="setTitle('Notification')" [root]="tab4Root" tabTitle="Notification" tabIcon="notifications"></ion-tab>
-  <ion-tab (ionSelect)="setTitle('Profile')" [root]="tab5Root" tabTitle="Profile" tabIcon="contact"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="Overview" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Track" tabIcon="locate"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Alarm" tabIcon="alarm"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Notification" tabIcon="notifications"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Profile" tabIcon="contact"></ion-tab>
 </ion-tabs>
 
