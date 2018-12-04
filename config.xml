@@ -91,5 +91,5 @@
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCkJEZtkCK1urLuwBRsooqttYDNIzsOBf4" />
     </plugin>
     <engine name="android" spec="7.1.4" />
-    <engine name="browser" spec="~5.0.4" />
+    <engine name="browser" spec="5.0.4" />
 </widget>
