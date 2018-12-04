@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { CustomValidators } from '../../shared/helpers/custom-validators';
 
 @IonicPage()
 @Component({
@@ -25,11 +26,18 @@ export class SigninPage {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
+        // 1. Password Field is Required
         Validators.required,
-        Validators.minLength(8),
-        Validators.minLength(8),
-        Validators.maxLength(20),
-        Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])")
+        // 2. check whether the entered password has a number
+        CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+        // 3. check whether the entered password has upper case letter
+        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+        // 4. check whether the entered password has a lower-case letter
+        CustomValidators.patternValidator(/[a-z]/, { hasLowerCase: true }),
+        // 5. check whether the entered password has a special character
+        CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true }),
+        // 6. Has a minimum length of 8 characters
+        Validators.minLength(8)
       ])
     });
   }

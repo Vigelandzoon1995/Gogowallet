@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import {TabsPage} from '../tabs/tabs';
-import User from '../../services/models/user.model';
+import { TabsPage } from '../tabs/tabs';
+import User from '../../shared/services/models/user.model';
 
 /**
  * Generated class for the SignupPage page.
@@ -25,11 +25,11 @@ export class SignupPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
-  
+
   register() {
-    if(this.user.password == this.password_confirm){
-      alert('Succes'); 
-    }else{
+    if (this.user.password == this.password_confirm) {
+      alert('Succes');
+    } else {
       alert('Failed')
     }
   }

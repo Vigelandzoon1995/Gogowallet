@@ -19,7 +19,7 @@
           </ion-item>
 
           <!-- Email error-->
-          <ion-item no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email') ) && loginForm.get('email').touched">
+          <ion-item no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
             <div class="danger" *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
               E-mail is required.
             </div>
@@ -33,12 +33,15 @@
             <ion-input type="password" [(ngModel)]="passwordInput" formControlName="password"></ion-input>
           </ion-item>
 
-          <!-- Passeord error-->
-          <ion-item no-lines *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('minlength') ) && loginForm.get('password').touched">
+          <!-- Password error-->
+          <ion-item no-lines *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('minlength') 
+          || loginForm.get('password').hasError('hasNumber') || loginForm.get('password').hasError('hasCapitalCase') || loginForm.get('password').hasError('hasLowerCase') 
+          || loginForm.get('password').hasError('hasSpecialCharacters')) && loginForm.get('password').touched">
             <div class="danger" *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
               Password is required.
             </div>
-            <div class="danger" *ngIf="loginForm.get('password').hasError('minlength') && loginForm.get('password').touched">
+            <div class="danger" *ngIf="(loginForm.get('password').hasError('hasNumber') || loginForm.get('password').hasError('hasCapitalCase') 
+              || loginForm.get('password').hasError('hasLowerCase') || loginForm.get('password').hasError('hasSpecialCharacters')) && loginForm.get('password').touched">
               A password must be at least 8 characters long, contain at least one number and have a mixture of
               uppercase, lowercase letters and a special character.
             </div>
