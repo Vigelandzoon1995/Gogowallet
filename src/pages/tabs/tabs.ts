@@ -9,6 +9,7 @@ import { SettingsPage } from '../settings/settings';
 import { Events, NavController } from 'ionic-angular';
 import { BankInfoPage } from '../bank-info/bank-info';
 import { GogowalletPage } from '../gogowallet/gogowallet';
+import { BudgetsPage } from '../budgets/budgets';
 @Component({
   templateUrl: 'tabs.html'
 })
@@ -32,6 +33,9 @@ export class TabsPage {
     })
     events.subscribe('navTo:gogowallet', () =>{
       this.navCtrl.push(GogowalletPage);
+    })
+    events.subscribe('navTo:budgets', () =>{
+      this.navCtrl.push(BudgetsPage);
     })
   }
 }

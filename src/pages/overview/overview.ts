@@ -53,4 +53,8 @@ export class OverviewPage {
    this.events.publish('navTo:settings');
   }
 
+  navToBudgetsPage(){
+    this.events.publish('navTo:budgets');
+   }
+
 }

@@ -19,6 +19,8 @@ import { PopoverComponent } from '../components/popover/popover';
 import { SettingsPage } from '../pages/settings/settings';
 import { BankInfoPage } from '../pages/bank-info/bank-info';
 import { GogowalletPage } from '../pages/gogowallet/gogowallet';
+import { BudgetsPage } from '../pages/budgets/budgets';
+import { BudgetPage } from '../pages/budget/budget';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { GogowalletPage } from '../pages/gogowallet/gogowallet';
     SettingsPage,
     BankInfoPage,
     GogowalletPage,
+    BudgetsPage,
+    BudgetPage,
     TabsPage
   ],
   imports: [
@@ -54,6 +58,8 @@ import { GogowalletPage } from '../pages/gogowallet/gogowallet';
     SettingsPage,
     BankInfoPage,
     GogowalletPage,
+    BudgetsPage,
+    BudgetPage,
     TabsPage
   ],
   providers: [
