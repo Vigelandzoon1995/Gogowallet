@@ -21,19 +21,6 @@ page-signin {
         font-weight: 400;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
     }
-   
-    .transparent-input{
-        background: transparent;
-       
-        ion-label{
-            color: white !important;
-            text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
-        }
-
-        input{
-            color: white;
-        }
-    }
     
     .login-btn{
         background-color: black;

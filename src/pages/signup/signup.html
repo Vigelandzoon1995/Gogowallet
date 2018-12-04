@@ -6,46 +6,54 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="whitetransparent">
     <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="register()" #registerForm="ngForm">
+  <form #registerForm="ngForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
-          <ion-item>
-            <ion-input type="text" placeholder="John" name="first_name" [(ngModel)]="first_name" required></ion-input>
+          <ion-item class="transparent-input">
+            <ion-label floating>First Name</ion-label>
+            <ion-input type="text" name="first_name" [(ngModel)]="user.first_name" required></ion-input>
           </ion-item>
 
-          <ion-item>
-            <ion-input type="text" placeholder="Doe" name="last_name" [(ngModel)]="last_name" required></ion-input>
+          <ion-item class="transparent-input">
+            <ion-label floating>Last Name</ion-label>
+            <ion-input type="text" name="last_name" [(ngModel)]="user.last_name" required></ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-input type="email" placeholder="johndoe@gmail.com" name="email" [(ngModel)]="email" required></ion-input>
+        
+          <ion-item class="transparent-input">
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" name="email" [(ngModel)]="user.email" required></ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="password" required></ion-input>
+        
+          <ion-item class="transparent-input">
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="user.password" required></ion-input>
+            <small>Minimum of 12 characters</small>
+          </ion-item>
+          
+          <ion-item class="transparent-input">
+            <ion-label floating>Confirm Password</ion-label>
+            <ion-input type="password" name="password_confirm" [(ngModel)]="password_confirm" required></ion-input>
             <small>Minimum of 12 characters</small>
           </ion-item>
 
-          <ion-item>
-            <ion-input type="password" placeholder="Confirm Password" class="custom-input" name="confirmation_password" [(ngModel)]="confirmation_password" required></ion-input>
-          </ion-item>
+          <div hidden></div>
 
         </ion-list>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col class="signup-col">
-        <button ion-button class="submit-btn" full type="button" [disabled]="!registerForm.form.valid"(click)="showAlert()">Register</button>
+      <ion-col>
+        <button ion-button class="register-btn" full type="button" [disabled]="!registerForm.form.valid"(click)="register()">Register</button>
       </ion-col>
     </ion-row>
 

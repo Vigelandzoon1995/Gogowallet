@@ -14,3 +14,17 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// Transparent input
+.transparent-input{
+    background: transparent;
+   
+    ion-label{
+        color: white !important;
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+    }
+  
+    input{
+        color: white;
+    }
+  }
