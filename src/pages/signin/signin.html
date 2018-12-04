@@ -9,14 +9,17 @@
 </ion-header>
 
 <ion-content padding>
-  <video autoplay loop src="../../assets/video/vid7.mp4"></video>
-  <form (ngSubmit)="login()" #loginForm="ngForm">
+  <video webkit-playsinline playsinline muted autoplay loop poster="../../assets/imgs/bg5.jpeg">
+    <source src="assets/video/vid6.mp4" type='video/mp4; codecs="h.264"'>
+    <source src="assets/video/vid6.webm" type="video/webm">
+  </video>
+  <form #loginForm="ngForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
           <ion-item class="transparent-input">
-            <ion-label floating>Username</ion-label>
+            <ion-label floating>Email</ion-label>
             <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
           </ion-item>
 
@@ -33,13 +36,13 @@
     </ion-row>
 
     <ion-row>
-      <ion-col class="signin-col">
+      <ion-col>
         <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.form.valid"(click)="signin()">Login</button>
       </ion-col>
     </ion-row>
 
     <ion-row>
-        <ion-col class="signin-col">
+        <ion-col>
          <button ion-button class="register-link" full type="button" (click)="navigateToRegister()" clear>Register</button>
         </ion-col>
     </ion-row>
