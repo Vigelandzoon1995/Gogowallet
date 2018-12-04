@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { BankInfoPage } from '../../pages/bank-info/bank-info';
-import { GogowalletPage } from '../../pages/gogowallet/gogowallet';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 /**
  * Generated class for the ProfilePage page.
@@ -17,7 +15,7 @@ import { GogowalletPage } from '../../pages/gogowallet/gogowallet';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
   }
 
   ionViewDidLoad() {
@@ -25,10 +23,10 @@ export class ProfilePage {
   }
   
   goToBankInfo(){
-    this.navCtrl.push(BankInfoPage);
+    this.events.publish('navTo:bankinfo');
   }
   goToGoGoWallet(){
-    this.navCtrl.push(GogowalletPage);
+    this.events.publish('navTo:gogowallet');
   }
 
 }

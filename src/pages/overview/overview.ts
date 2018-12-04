@@ -50,7 +50,7 @@ export class OverviewPage {
   }
 
   goToSettingsPage(){
-   this.navCtrl.push(SettingsPage);
+   this.events.publish('navTo:settings');
   }
 
 }
