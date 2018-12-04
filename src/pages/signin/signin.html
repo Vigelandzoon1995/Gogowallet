@@ -13,6 +13,7 @@
     <source src="assets/video/vid6.mp4" type='video/mp4; codecs="h.264"'>
     <source src="assets/video/vid6.webm" type="video/webm">
   </video>
+
   <form #loginForm="ngForm">
     <ion-row>
       <ion-col>
@@ -20,13 +21,14 @@
 
           <ion-item class="transparent-input">
             <ion-label floating>Email</ion-label>
-            <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
+            <ion-input type="email" [(ngModel)]="emailInput" name="email" required email #email="ngModel"></ion-input>
+            <small [hidden]="email.valid || email.pristine">Hello</small>
           </ion-item>
 
           <ion-item class="transparent-input">
             <ion-label floating>Password</ion-label>
-            <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
-            <small>Minimum of 12 characters</small>
+            <ion-input type="password" [(ngModel)]="passwordInput" name="password" pattern="(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[$@$!%?&])[A-Za-z\d$@$!%?&].{8,}" required></ion-input>
+           
           </ion-item>
           
           <div hidden></div>
@@ -37,7 +39,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.form.valid"(click)="signin()">Login</button>
+        <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.valid"(click)="signin()">Login</button>
       </ion-col>
     </ion-row>
 
