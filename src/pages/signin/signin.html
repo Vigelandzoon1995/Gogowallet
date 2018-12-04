@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SignupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <h1 class="title">Go Go Wallet</h1>
 </ion-header>
@@ -14,23 +8,42 @@
     <source src="assets/video/vid6.webm" type="video/webm">
   </video>
 
-  <form #loginForm="ngForm">
+  <form novalidate [formGroup]="loginForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
           <ion-item class="transparent-input">
             <ion-label floating>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="emailInput" name="email" required email #email="ngModel"></ion-input>
-            <small [hidden]="email.valid || email.pristine">Hello</small>
+            <ion-input type="email" [(ngModel)]="emailInput" formControlName="email"></ion-input>
+          </ion-item>
+
+          <!-- Email error-->
+          <ion-item no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email') ) && loginForm.get('email').touched">
+            <div class="danger" *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+              E-mail is required.
+            </div>
+            <div class="danger" *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').touched">
+              Please enter a valid e-mail.
+            </div>
           </ion-item>
 
           <ion-item class="transparent-input">
             <ion-label floating>Password</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordInput" name="password" pattern="(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[$@$!%?&])[A-Za-z\d$@$!%?&].{8,}" required></ion-input>
-           
+            <ion-input type="password" [(ngModel)]="passwordInput" formControlName="password"></ion-input>
           </ion-item>
-          
+
+          <!-- Passeord error-->
+          <ion-item no-lines *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('minlength') ) && loginForm.get('password').touched">
+            <div class="danger" *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+              Password is required.
+            </div>
+            <div class="danger" *ngIf="loginForm.get('password').hasError('minlength') && loginForm.get('password').touched">
+              A password must be at least 8 characters long, contain at least one number and have a mixture of
+              uppercase, lowercase letters and a special character.
+            </div>
+          </ion-item>
+
           <div hidden></div>
 
         </ion-list>
@@ -39,19 +52,15 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.valid"(click)="signin()">Login</button>
+        <button ion-button class="login-btn" full type="button" [disabled]="!loginForm.valid" (click)="signin()">Login</button>
       </ion-col>
     </ion-row>
 
     <ion-row>
-        <ion-col>
-         <button ion-button class="register-link" full type="button" (click)="navigateToRegister()" clear>Register</button>
-        </ion-col>
+      <ion-col>
+        <button ion-button class="register-link" full type="button" (click)="navigateToRegister()" clear>Register</button>
+      </ion-col>
     </ion-row>
 
   </form>
 </ion-content>
-
-
-
-
