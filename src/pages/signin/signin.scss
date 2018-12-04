@@ -11,8 +11,10 @@ page-signin {
         z-index: -100;
         object-fit: cover;
         transform: translate(-50%, -75%);
+        background: url('../../assets/video/vid6.mp4') no-repeat;
+        background-size: cover;
     }
-
+    
     .title{
         text-align: center;
         font-size: 3.7rem;

@@ -9,7 +9,10 @@
 </ion-header>
 
 <ion-content padding>
-  <video playsinline autoplay loop preload="auto" src="../../assets/video/vid7.mp4"></video>
+  <video webkit-playsinline playsinline muted autoplay loop poster="../../assets/imgs/bg5.jpeg">
+    <source src="assets/video/vid6.mp4" type='video/mp4; codecs="h.264"'>
+    <source src="assets/video/vid6.webm" type="video/webm">
+  </video>
   <form #loginForm="ngForm">
     <ion-row>
       <ion-col>
