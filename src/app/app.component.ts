@@ -11,16 +11,14 @@ import { SigninPage } from '../pages/signin/signin';
 })
 export class MyApp {
   rootPage: any = SigninPage;
-  showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      //splashScreen.hide();
+      splashScreen.hide();
 
-      timer(3000).subscribe(() => this.showSplash = false)
     });
   }
 }
