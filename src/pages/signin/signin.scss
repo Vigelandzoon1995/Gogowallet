@@ -1,8 +1,7 @@
 page-signin {
-
     video {
         position: fixed;
-        top: 75%;
+        top: 0%;
         left: 50%;
         min-width: 100%;
         min-height: 100%;
@@ -10,12 +9,9 @@ page-signin {
         height: auto;
         z-index: -100;
         object-fit: cover;
-        transform: translate(-50%, -75%);
-        background: url('../../assets/video/vid6.mp4') no-repeat;
-        background-size: cover;
+        transform: translateX(-50%);
     }
-    
-    .title{
+    .title {
         text-align: center;
         font-size: 3.7rem;
         color: white;
@@ -23,17 +19,14 @@ page-signin {
         font-weight: 400;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
     }
-    
-    .login-btn{
+    .login-btn {
         background-color: black;
         color: white;
-
-        &:hover{
+        &:hover {
             background-color: #888 !important;
         }
     }
-
-    .register-link{
+    .register-link {
         color: white;
     }
 }
