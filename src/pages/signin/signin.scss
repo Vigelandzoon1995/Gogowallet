@@ -1,21 +1,27 @@
 page-signin {
-
+    form {
+        background-color: rgba(0,0,0,0.15);
+    }
     video {
         position: fixed;
-        top: 75%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
+        top: 0%;
+        bottom: 0;
+        left: 75%;
+        min-width: 100vw;
+        min-height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
         z-index: -100;
         object-fit: cover;
-        transform: translate(-50%, -75%);
-        background: url('../../assets/video/vid6.mp4') no-repeat;
-        background-size: cover;
+        transform: translateX(-75%);
     }
-    
-    .title{
+    ion-content,
+    ion-toolbar,
+    ion-header {
+        background: transparent !important;
+    }
+    .title {
+        background: transparent;
         text-align: center;
         font-size: 3.7rem;
         color: white;
@@ -23,17 +29,18 @@ page-signin {
         font-weight: 400;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
     }
-    
-    .login-btn{
+    .login-btn {
         background-color: black;
         color: white;
-
-        &:hover{
+        &:hover {
             background-color: #888 !important;
         }
     }
-
-    .register-link{
+    .register-link, {
         color: white;
+    }
+    .reset-link {
+        color: white;
+        font-size: 1rem;
     }
 }

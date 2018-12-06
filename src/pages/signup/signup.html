@@ -1,48 +1,97 @@
-<!--
-  Generated template for the SignupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar color="whitetransparent">
+  <ion-navbar color="darktransparent">
     <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <form #registerForm="ngForm">
+  <form novalidate [formGroup]="registerForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
           <ion-item class="transparent-input">
             <ion-label floating>First Name</ion-label>
-            <ion-input type="text" name="first_name" [(ngModel)]="user.first_name" required></ion-input>
+            <ion-input type="text" [(ngModel)]="user.first_name" formControlName="first_name" required></ion-input>
+          </ion-item>
+
+          <!-- First name error-->
+          <ion-item class="error" no-lines *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
+            <span *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
+              First name is required.
+            </span>
           </ion-item>
 
           <ion-item class="transparent-input">
             <ion-label floating>Last Name</ion-label>
-            <ion-input type="text" name="last_name" [(ngModel)]="user.last_name" required></ion-input>
+            <ion-input type="text" [(ngModel)]="user.last_name" formControlName="last_name" required></ion-input>
           </ion-item>
-        
+
+          <!-- Last name error-->
+          <ion-item class="error" no-lines *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
+            <span *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
+              Last name is required.
+            </span>
+          </ion-item>
+
           <ion-item class="transparent-input">
             <ion-label floating>Email</ion-label>
-            <ion-input type="email" name="email" [(ngModel)]="user.email" required></ion-input>
+            <ion-input type="email" [(ngModel)]="user.email" formControlName="email" required></ion-input>
           </ion-item>
-        
+
+          <!-- Email error-->
+          <ion-item class="error" no-lines *ngIf="(registerForm.get('email').hasError('required') || registerForm.get('email').hasError('email')) && registerForm.get('email').touched">
+            <span *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+              E-mail is required.
+            </span>
+            <span *ngIf="!registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+              Please enter a valid e-mail.
+            </span>
+          </ion-item>
+
           <ion-item class="transparent-input">
             <ion-label floating>Password</ion-label>
-            <ion-input type="password" name="password" [(ngModel)]="user.password" required></ion-input>
-            <small>Minimum of 12 characters</small>
+            <ion-input type="password" [(ngModel)]="user.password" formControlName="password" required></ion-input>
           </ion-item>
-          
+
+          <!-- Password error-->
+          <ion-item class="error" no-lines *ngIf="(registerForm.get('password').hasError('required') || registerForm.get('password').hasError('minlength') 
+                    || registerForm.get('password').hasError('hasNumber') || registerForm.get('password').hasError('hasCapitalCase') || registerForm.get('password').hasError('hasLowerCase') 
+                    || registerForm.get('password').hasError('hasSpecialCharacters')) && registerForm.get('password').touched">
+
+            <span *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
+              Password is required.
+            </span>
+            <span *ngIf="(registerForm.get('password').hasError('hasNumber') || registerForm.get('password').hasError('hasCapitalCase') 
+                        || registerForm.get('password').hasError('hasLowerCase') || registerForm.get('password').hasError('hasSpecialCharacters')) && registerForm.get('password').touched">
+              A password must be at least 10 characters long, contain at least two numbers and have a mixture of
+              uppercase, lowercase letters and a special character.
+            </span>
+          </ion-item>
+
           <ion-item class="transparent-input">
             <ion-label floating>Confirm Password</ion-label>
-            <ion-input type="password" name="password_confirm" [(ngModel)]="password_confirm" required></ion-input>
-            <small>Minimum of 12 characters</small>
+            <ion-input type="password" [(ngModel)]="password_confirm" formControlName="confirm_password" required></ion-input>
+          </ion-item>
+
+          <!-- Confirm Password error-->
+          <ion-item class="error" no-lines *ngIf="(registerForm.get('confirm_password').hasError('required') || registerForm.get('confirm_password').hasError('minlength') 
+                    || registerForm.get('confirm_password').hasError('hasNumber') || registerForm.get('confirm_password').hasError('hasCapitalCase') || registerForm.get('confirm_password').hasError('hasLowerCase') 
+                    || registerForm.get('confirm_password').hasError('hasSpecialCharacters') || registerForm.get('confirm_password').hasError('NoPassswordMatch')) && registerForm.get('confirm_password').touched">
+
+            <span *ngIf="registerForm.get('confirm_password').hasError('required') && registerForm.get('confirm_password').touched">
+              Password is required.
+            </span>
+            <span *ngIf="(registerForm.get('confirm_password').hasError('hasNumber') || registerForm.get('confirm_password').hasError('hasCapitalCase') 
+                        || registerForm.get('confirm_password').hasError('hasLowerCase') || registerForm.get('confirm_password').hasError('hasSpecialCharacters')) && registerForm.get('confirm_password').touched">
+              A password must be at least 10 characters long, contain at least two numbers and have a mixture of
+              uppercase, lowercase letters and a special character.
+            </span>
+            <span *ngIf="registerForm.get('confirm_password').hasError('NoPassswordMatch')">
+              Password does not match.
+            </span>
           </ion-item>
 
           <div hidden></div>
@@ -53,13 +102,9 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button class="register-btn" full type="button" [disabled]="!registerForm.form.valid"(click)="register()">Register</button>
+        <button ion-button class="register-btn" full round type="button" [disabled]="!registerForm.valid" (click)="register()">Register</button>
       </ion-col>
     </ion-row>
 
   </form>
 </ion-content>
-
-
-
-
