@@ -18,7 +18,7 @@
           </ion-item>
 
           <!-- First name error-->
-          <ion-item class="error" no-lines *ngIf="registerForm.get('first_name').hasError('required' && registerForm.get('first_name').touched">
+          <ion-item class="error" no-lines *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
             <span *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
               First name is required.
             </span>
@@ -30,7 +30,7 @@
           </ion-item>
 
           <!-- Last name error-->
-          <ion-item class="error" no-lines *ngIf="registerForm.get('last_name').hasError('required' && registerForm.get('last_name').touched">
+          <ion-item class="error" no-lines *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
             <span *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
               Last name is required.
             </span>
