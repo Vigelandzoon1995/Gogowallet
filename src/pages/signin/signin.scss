@@ -11,7 +11,13 @@ page-signin {
         object-fit: cover;
         transform: translateX(-50%);
     }
+    ion-content,
+    ion-toolbar,
+    ion-header {
+        background: transparent !important
+    }
     .title {
+        background: transparent;
         text-align: center;
         font-size: 3.7rem;
         color: white;
