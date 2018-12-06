@@ -20,28 +20,28 @@
 
           <ion-item class="transparent-input">
             <ion-label floating>First Name</ion-label>
-            <ion-input type="text" name="first_name" [(ngModel)]="user.first_name" required></ion-input>
+            <ion-input type="text" name="first_name" [(ngModel)]="user.first_name" formControlName="first_name" required></ion-input>
           </ion-item>
 
           <ion-item class="transparent-input">
             <ion-label floating>Last Name</ion-label>
-            <ion-input type="text" name="last_name" [(ngModel)]="user.last_name" required></ion-input>
+            <ion-input type="text" name="last_name" [(ngModel)]="user.last_name" formControlName="last_name" required></ion-input>
           </ion-item>
         
           <ion-item class="transparent-input">
             <ion-label floating>Email</ion-label>
-            <ion-input type="email" name="email" [(ngModel)]="user.email" required></ion-input>
+            <ion-input type="email" name="email" [(ngModel)]="user.email" formControlName="email" required></ion-input>
           </ion-item>
         
           <ion-item class="transparent-input">
             <ion-label floating>Password</ion-label>
-            <ion-input type="password" name="password" [(ngModel)]="user.password" required></ion-input>
+            <ion-input type="password" name="password" [(ngModel)]="user.password" formControlName="password" required></ion-input>
             <small>Minimum of 12 characters</small>
           </ion-item>
           
           <ion-item class="transparent-input">
             <ion-label floating>Confirm Password</ion-label>
-            <ion-input type="password" name="password_confirm" [(ngModel)]="password_confirm" required></ion-input>
+            <ion-input type="password" name="password_confirm" [(ngModel)]="password_confirm" formControlName="confirm_password" required></ion-input>
             <small>Minimum of 12 characters</small>
           </ion-item>
 
