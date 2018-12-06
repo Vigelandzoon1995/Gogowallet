@@ -22,14 +22,6 @@ export class SignupPage {
   ionViewDidLoad() {
   }
 
-  register() {
-    if (this.user.password == this.password_confirm) {
-      alert('Succes');
-    } else {
-      alert('Failed')
-    }
-  }
-
   createFormGroup() {
     this.registerForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -67,5 +59,13 @@ export class SignupPage {
       {
         validator: CustomValidators.passwordMatchValidator
       });
+  }
+
+  register() {
+    if (this.user.password == this.password_confirm) {
+      alert('Succes');
+    } else {
+      alert('Failed')
+    }
   }
 }

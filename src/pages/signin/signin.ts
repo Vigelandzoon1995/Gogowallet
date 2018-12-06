@@ -4,6 +4,7 @@ import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
+import { ResetPasswordPage } from '../reset-password/reset-password';
 
 @IonicPage()
 @Component({
@@ -51,6 +52,6 @@ export class SigninPage {
   }
 
   navigateToReset() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push(ResetPasswordPage);
   }
 }
