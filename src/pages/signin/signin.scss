@@ -4,20 +4,21 @@ page-signin {
     }
     video {
         position: fixed;
-        top: 75%;
+        top: 0%;
+        bottom: 0;
         left: 75%;
-        min-width: 100%;
-        min-height: 100%;
-        max-height: 100%;
-        max-width: 100%;
+        min-width: 100vw;
+        min-height: 100vh;
+        max-width: 100vw;
+        max-height: 100vh;
         z-index: -100;
         object-fit: cover;
-        transform: translate(-75%,-75%);
+        transform: translateX(-75%);
     }
     ion-content,
     ion-toolbar,
     ion-header {
-        background: transparent !important
+        background: transparent !important;
     }
     .title {
         background: transparent;

@@ -1,4 +1,4 @@
-<ion-header color="whitetransparent">
+<ion-header>
   <h1 class="title">Go Go Wallet</h1>
 </ion-header>
 
@@ -21,10 +21,10 @@
           <!-- Email error-->
           <ion-item class="error" no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
             <span *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-              E-mail is required
+              E-mail is required.
             </span>
             <span *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-              Please enter a valid e-mail
+              Please enter a valid e-mail.
             </span>
           </ion-item>
 
@@ -42,7 +42,7 @@
             </div>
             <div *ngIf="(loginForm.get('password').hasError('hasNumber') || loginForm.get('password').hasError('hasCapitalCase') 
               || loginForm.get('password').hasError('hasLowerCase') || loginForm.get('password').hasError('hasSpecialCharacters')) && loginForm.get('password').touched">
-              A password must be at least 8 characters long, contain at least one number and have a mixture of
+              A password must be at least 10 characters long, contain at least two numbers and have a mixture of
               uppercase, lowercase letters and a special character.
             </div>
           </ion-item>
