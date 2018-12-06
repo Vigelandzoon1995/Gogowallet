@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { OverviewPage } from '../pages/overview/overview';
 import { TrackPage } from '../pages/track/track';
 import { AlarmPage } from '../pages/alarm/alarm';
@@ -38,7 +39,8 @@ import { BudgetPage } from '../pages/budget/budget';
     GogowalletPage,
     BudgetsPage,
     BudgetPage,
-    TabsPage
+    TabsPage,
+    ResetPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -60,12 +62,13 @@ import { BudgetPage } from '../pages/budget/budget';
     GogowalletPage,
     BudgetsPage,
     BudgetPage,
-    TabsPage
+    TabsPage,
+    ResetPasswordPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
