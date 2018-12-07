@@ -31,7 +31,7 @@ export class SignupPage {
         // 1. Password Field is Required
         Validators.required,
         // 2. check whether the entered password has a number
-        CustomValidators.patternValidator(/\d{2,}/, { hasNumber: true }),
+        CustomValidators.patternValidator(/\d{2, }/, { hasNumber: true }),
         // 3. check whether the entered password has upper case letter
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
         // 4. check whether the entered password has a lower-case letter
@@ -45,7 +45,7 @@ export class SignupPage {
         // 1. Password Field is Required
         Validators.required,
         // 2. check whether the entered password has a number
-        CustomValidators.patternValidator(/\d{2,}/, { hasNumber: true }),
+        CustomValidators.patternValidator(/\d{2, }/, { hasNumber: true }),
         // 3. check whether the entered password has upper case letter
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
         // 4. check whether the entered password has a lower-case letter
