@@ -12,7 +12,6 @@
     <ion-row>
       <ion-col>
         <ion-list inset>
-
           <ion-item class="transparent-input">
             <ion-label floating>Email</ion-label>
             <ion-input type="email" [(ngModel)]="emailInput" formControlName="email"></ion-input>
@@ -34,16 +33,9 @@
           </ion-item>
 
           <!-- Password error-->
-          <ion-item class="error" no-lines *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('minlength') 
-          || loginForm.get('password').hasError('hasNumber') || loginForm.get('password').hasError('hasCapitalCase') || loginForm.get('password').hasError('hasLowerCase') 
-          || loginForm.get('password').hasError('hasSpecialCharacters')) && loginForm.get('password').touched">
+          <ion-item class="error" no-lines *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
             <div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
               Password is required.
-            </div>
-            <div *ngIf="(loginForm.get('password').hasError('hasNumber') || loginForm.get('password').hasError('hasCapitalCase') 
-              || loginForm.get('password').hasError('hasLowerCase') || loginForm.get('password').hasError('hasSpecialCharacters')) && loginForm.get('password').touched">
-              A password must be at least 10 characters long, contain at least two numbers and have a mixture of
-              uppercase, lowercase letters and a special character.
             </div>
           </ion-item>
 
@@ -55,7 +47,8 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button class="login-btn" full round type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
+        <!-- <button ion-button class="login-btn" full round type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button> -->
+        <button ion-button class="login-btn" full round type="button" (click)="signIn()">Login</button>
       </ion-col>
     </ion-row>
 
