@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @IonicPage()
 @Component({
@@ -19,14 +13,10 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
   }
-  
-  goToBankInfo(){
-    this.events.publish('navTo:bankinfo');
-  }
-  goToGoGoWallet(){
-    this.events.publish('navTo:gogowallet');
+
+  navigateToEditProfile() {
+    this.navCtrl.push(EditProfilePage);
   }
 
 }

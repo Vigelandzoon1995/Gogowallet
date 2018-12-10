@@ -1,27 +1,30 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Transfer } from '@ionic-native/transfer';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { PopoverComponent } from '../components/popover/popover';
+import { AlarmPage } from '../pages/alarm/alarm';
+import { BankInfoPage } from '../pages/bank-info/bank-info';
+import { BudgetPage } from '../pages/budget/budget';
+import { BudgetsPage } from '../pages/budgets/budgets';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { GogowalletPage } from '../pages/gogowallet/gogowallet';
+import { NotificationPage } from '../pages/notification/notification';
+import { OverviewPage } from '../pages/overview/overview';
+import { ProfilePage } from '../pages/profile/profile';
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { SettingsPage } from '../pages/settings/settings';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password';
-import { OverviewPage } from '../pages/overview/overview';
-import { TrackPage } from '../pages/track/track';
-import { AlarmPage } from '../pages/alarm/alarm';
-import { NotificationPage } from '../pages/notification/notification';
-import { ProfilePage } from '../pages/profile/profile';
-
 import { TabsPage } from '../pages/tabs/tabs';
+import { TrackPage } from '../pages/track/track';
+import { MyApp } from './app.component';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { PopoverComponent } from '../components/popover/popover';
-import { SettingsPage } from '../pages/settings/settings';
-import { BankInfoPage } from '../pages/bank-info/bank-info';
-import { GogowalletPage } from '../pages/gogowallet/gogowallet';
-import { BudgetsPage } from '../pages/budgets/budgets';
-import { BudgetPage } from '../pages/budget/budget';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { BudgetPage } from '../pages/budget/budget';
     BudgetsPage,
     BudgetPage,
     TabsPage,
-    ResetPasswordPage
+    ResetPasswordPage,
+    EditProfilePage
   ],
   imports: [
     BrowserModule,
@@ -63,11 +67,16 @@ import { BudgetPage } from '../pages/budget/budget';
     BudgetsPage,
     BudgetPage,
     TabsPage,
-    ResetPasswordPage
+    ResetPasswordPage,
+    EditProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

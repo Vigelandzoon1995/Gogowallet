@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AlertController } from 'ionic-angular';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertController, IonicPage, NavController } from 'ionic-angular';
 import { SigninPage } from '../signin/signin';
 
 @IonicPage()
