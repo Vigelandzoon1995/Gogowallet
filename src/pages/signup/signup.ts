@@ -30,30 +30,15 @@ export class SignupPage {
       password: new FormControl('', [
         // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has a number
-        CustomValidators.patternValidator(/\d{2, }/, { hasNumber: true }),
-        // 3. check whether the entered password has upper case letter
-        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-        // 4. check whether the entered password has a lower-case letter
-        CustomValidators.patternValidator(/[a-z]/, { hasLowerCase: true }),
-        // 5. check whether the entered password has a special character
-        CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true }),
-        // 6. Has a minimum length of 10 characters
-        Validators.minLength(10)
+        // 2. check whether the entered password has all the requirements
+        CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
+
       ]),
       confirm_password: new FormControl('', [
         // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has a number
-        CustomValidators.patternValidator(/\d{2, }/, { hasNumber: true }),
-        // 3. check whether the entered password has upper case letter
-        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-        // 4. check whether the entered password has a lower-case letter
-        CustomValidators.patternValidator(/[a-z]/, { hasLowerCase: true }),
-        // 5. check whether the entered password has a special character
-        CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true }),
-        // 6. Has a minimum length of 10 characters
-        Validators.minLength(10)
+        // 2. check whether the entered password has all the requirements
+        CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ])
     },
       {
