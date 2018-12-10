@@ -12,6 +12,20 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+// Helper
+//-----------------------------------------------------------------
+
+// Center Text
+.text-center {
+    text-align: center;
+}
+
+
+// Input
+//-----------------------------------------------------------------
+
 // Transparent input
 .transparent-input {
     background: transparent;
@@ -24,6 +38,10 @@
     }
 }
 
+
+// Error Handling
+//-----------------------------------------------------------------
+
 // Error messages
 .error {
     color: red;
@@ -33,4 +51,17 @@
     font-size: 1.3rem;
     padding: 0;
     margin: 0;
+}
+
+
+
+// Profile
+//-----------------------------------------------------------------
+
+// Profile picture
+.profile {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 180px;
+    width: 180px;
 }

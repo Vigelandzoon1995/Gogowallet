@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
-import { SignupPage } from '../signup/signup';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { CustomValidators } from '../../shared/helpers/custom-validators';
 import { ResetPasswordPage } from '../reset-password/reset-password';
+import { SignupPage } from '../signup/signup';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
