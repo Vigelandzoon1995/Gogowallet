@@ -10,6 +10,7 @@ import { Events, NavController } from 'ionic-angular';
 import { BankInfoPage } from '../bank-info/bank-info';
 import { GogowalletPage } from '../gogowallet/gogowallet';
 import { BudgetsPage } from '../budgets/budgets';
+import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
 @Component({
   templateUrl: 'tabs.html'
 })
@@ -21,20 +22,20 @@ export class TabsPage {
   tab4Root = NotificationPage;
   tab5Root = ProfilePage;
 
-  constructor(private navCtrl: NavController,  public events: Events) {
-    events.subscribe('user:signout', () =>{
+  constructor(private navCtrl: NavController, public events: Events) {
+    events.subscribe('user:signout', () => {
       this.navCtrl.popToRoot();
     })
-    events.subscribe('navTo:settings', () =>{
+    events.subscribe('navTo:settings', () => {
       this.navCtrl.push(SettingsPage);
     })
-    events.subscribe('navTo:bankinfo', () =>{
+    events.subscribe('navTo:bankinfo', () => {
       this.navCtrl.push(BankInfoPage);
     })
-    events.subscribe('navTo:gogowallet', () =>{
+    events.subscribe('navTo:gogowallet', () => {
       this.navCtrl.push(GogowalletPage);
     })
-    events.subscribe('navTo:budgets', () =>{
+    events.subscribe('navTo:budgets', () => {
       this.navCtrl.push(BudgetsPage);
     })
   }

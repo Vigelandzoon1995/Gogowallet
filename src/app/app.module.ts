@@ -1,4 +1,5 @@
 import { ErrorHandler, NgModule } from '@angular/core';
+import { Http, HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
@@ -7,7 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
-import { JwtHelper, AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthConfig, AuthHttp, JwtHelper } from 'angular2-jwt';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
 import { AlarmPage } from '../pages/alarm/alarm';
@@ -15,6 +16,7 @@ import { BankInfoPage } from '../pages/bank-info/bank-info';
 import { BudgetPage } from '../pages/budget/budget';
 import { BudgetsPage } from '../pages/budgets/budgets';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
 import { GogowalletPage } from '../pages/gogowallet/gogowallet';
 import { NotificationPage } from '../pages/notification/notification';
 import { OverviewPage } from '../pages/overview/overview';
@@ -27,15 +29,12 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
 import { AuthService } from '../shared/authentication/auth.service';
 import { MyApp } from './app.component';
-import { Http, HttpModule } from '@angular/http';
-
-let storage = new Storage();
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
     noJwtError: true,
     globalHeaders: [{ 'Accept': 'application/json' }],
-    tokenGetter: (() => storage.get('id_token')),
+    tokenGetter: (() => localStorage.get('id_token')),
   }), http);
 }
 
@@ -57,7 +56,8 @@ export function getAuthHttp(http) {
     BudgetPage,
     TabsPage,
     ResetPasswordPage,
-    EditProfilePage
+    EditProfilePage,
+    EmergencyContactsPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +83,8 @@ export function getAuthHttp(http) {
     BudgetPage,
     TabsPage,
     ResetPasswordPage,
-    EditProfilePage
+    EditProfilePage,
+    EmergencyContactsPage
   ],
   providers: [
     StatusBar,

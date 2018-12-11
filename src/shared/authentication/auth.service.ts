@@ -10,7 +10,6 @@ import { environment as ENV } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-    private cfg: any;
     idToken: string;
     refreshSubscription: any;
 
