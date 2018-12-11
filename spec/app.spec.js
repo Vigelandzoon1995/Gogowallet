@@ -8,7 +8,7 @@ describe("Server", () => {
     describe("GET /", () => {
         var data = {};
         beforeAll((done) => {
-            Request.get("http://localhost:3000/", (error, response, body) => {
+            Request.get("http://localhost:3333/", (error, response, body) => {
                 data.status = response.statusCode;
                 data.body = body;
                 done();

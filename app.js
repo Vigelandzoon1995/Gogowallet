@@ -4,11 +4,29 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
 
 
 var app = express();
+
+var mysql = require("mysql");
+var fs = require('fs');
+
+var obj = JSON.parse(fs.readFileSync('../dbconnection.json', 'utf8'));
+
+const db = mysql.createConnection(obj);
+
+// connect to database
+db.connect((err) => {
+  if (err) {
+      throw err;
+  }
+  console.log('Connected to database');
+});
+global.db = db;
 
 var http = require('http');
 //poepasdpiduoaisudioasduasdasd
@@ -26,13 +44,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -44,9 +61,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-
 
 module.exports = app;
 
