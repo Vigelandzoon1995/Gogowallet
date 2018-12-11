@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AddContactPage } from '../add-contact/add-contact';
+import Contact from '../../shared/models/contact.model';
 
 @IonicPage()
 @Component({
@@ -8,8 +9,10 @@ import { AddContactPage } from '../add-contact/add-contact';
   templateUrl: 'emergency-contacts.html',
 })
 export class EmergencyContactsPage {
+  contacts: Contact[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+    this.getContacts();
   }
 
   ionViewDidLoad() {
@@ -17,5 +20,26 @@ export class EmergencyContactsPage {
 
   addContact() {
     this.navCtrl.push(AddContactPage);
+  }
+
+  getContacts() {
+    this.contacts = [
+      {
+        id: 1,
+        user_id: 1,
+        name: 'Rabobank',
+        phone: '088 722 67 67',
+        thumbnail: '../../assets/imgs/credit-card.jpg',
+        notes: ''
+      },
+      {
+        id: 2,
+        user_id: 1,
+        name: 'ABN AMRO',
+        phone: '0900 0024',
+        thumbnail: '../../assets/imgs/debit-card.jpg',
+        notes: ''
+      }
+    ];
   }
 }

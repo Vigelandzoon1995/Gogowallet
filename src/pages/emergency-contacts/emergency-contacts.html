@@ -11,16 +11,10 @@
 
 <ion-content padding class="card-background-page">
 
-  <ion-card>
-    <img src="../../assets/imgs/credit-card.jpg" />
-    <div class="card-title">Rabobank</div>
-    <div class="card-subtitle">088 722 67 67</div>
-  </ion-card>
-
-  <ion-card>
-    <img src="../../assets/imgs/health-card.jpg" />
-    <div class="card-title">VGZ</div>
-    <div class="card-subtitle">088 131 10 30</div>
+  <ion-card *ngFor="let contact of contacts">
+    <img [src]="contact.thumbnail" />
+    <div class="card-title">{{ contact.name }}</div>
+    <div class="card-subtitle">{{ contact.phone }}</div>
   </ion-card>
 
 </ion-content>
