@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController } from 'ionic-angular';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
-import User from '../../shared/services/models/user.model';
+import User from '../../shared/models/user.model';
 
 @IonicPage()
 @Component({

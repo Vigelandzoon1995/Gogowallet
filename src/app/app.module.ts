@@ -6,6 +6,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
+import { IonicStorageModule } from '@ionic/storage';
+import { JwtHelper, AuthHttp, AuthConfig } from 'angular2-jwt';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
 import { AlarmPage } from '../pages/alarm/alarm';
@@ -23,8 +25,19 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
+import { AuthService } from '../shared/authentication/auth.service';
 import { MyApp } from './app.component';
+import { Http, HttpModule } from '@angular/http';
 
+let storage = new Storage();
+
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    noJwtError: true,
+    globalHeaders: [{ 'Accept': 'application/json' }],
+    tokenGetter: (() => storage.get('id_token')),
+  }), http);
+}
 
 @NgModule({
   declarations: [
@@ -48,6 +61,8 @@ import { MyApp } from './app.component';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -72,11 +87,18 @@ import { MyApp } from './app.component';
   ],
   providers: [
     StatusBar,
+    JwtHelper,
     SplashScreen,
     File,
     Transfer,
     Camera,
     FilePath,
+    AuthService,
+    {
+      provide: AuthHttp,
+      useFactory: getAuthHttp,
+      deps: [Http]
+    },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
