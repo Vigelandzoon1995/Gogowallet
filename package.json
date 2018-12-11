@@ -8,6 +8,7 @@
     "test": "./node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
