@@ -11,6 +11,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AuthConfig, AuthHttp, JwtHelper } from 'angular2-jwt';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
+import { AddContactPage } from '../pages/add-contact/add-contact';
 import { AlarmPage } from '../pages/alarm/alarm';
 import { BankInfoPage } from '../pages/bank-info/bank-info';
 import { BudgetPage } from '../pages/budget/budget';
@@ -57,7 +58,8 @@ export function getAuthHttp(http) {
     TabsPage,
     ResetPasswordPage,
     EditProfilePage,
-    EmergencyContactsPage
+    EmergencyContactsPage,
+    AddContactPage
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ export function getAuthHttp(http) {
     TabsPage,
     ResetPasswordPage,
     EditProfilePage,
-    EmergencyContactsPage
+    EmergencyContactsPage,
+    AddContactPage
   ],
   providers: [
     StatusBar,

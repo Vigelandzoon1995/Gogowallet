@@ -38,5 +38,8 @@ export class TabsPage {
     events.subscribe('navTo:budgets', () => {
       this.navCtrl.push(BudgetsPage);
     })
+    events.subscribe('navTo:contacts', () => {
+      this.navCtrl.push(EmergencyContactsPage);
+    })
   }
 }

@@ -50,7 +50,7 @@ export class OverviewPage {
   }
 
   navigateToContacts() {
-    this.navCtrl.push(EmergencyContactsPage);
+    this.events.publish('navTo:contacts');
   }
 
 }

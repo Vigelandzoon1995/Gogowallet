@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EmergencyContactsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { AddContactPage } from '../add-contact/add-contact';
 
 @IonicPage()
 @Component({
@@ -15,11 +9,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EmergencyContactsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EmergencyContactsPage');
   }
 
+  addContact() {
+    this.navCtrl.push(AddContactPage);
+  }
 }

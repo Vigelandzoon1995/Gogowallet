@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Create Emergency Contact</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form novalidate [formGroup]="contactForm">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Name Organization</ion-label>
+            <ion-input type="text" formControlName="name" [(ngModel)]="contact.name" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Phone Number</ion-label>
+            <ion-input type="tel" formControlName="phone" [(ngModel)]="contact.phone" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Notes</ion-label>
+            <ion-input type="text" formControlName="notes" [(ngModel)]="contact.notes"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Background Image</ion-label>
+            <ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail">
+              <ion-option value="1">Blue Credit Card</ion-option>
+              <ion-option value="2">Gold Credit Card</ion-option>
+              <ion-option value="3">Red Credit Card</ion-option>
+              <ion-option value="4">Health Insurance Card</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <div hidden></div>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button class="save-btn" full round type="button" [disabled]="!contactForm.valid">Save</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
