@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { DomSanitizer } from '@angular/platform-browser';
+import User from '../../shared/models/user.model';
 
 @IonicPage()
 @Component({
@@ -12,11 +13,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class EditProfilePage {
   profileForm: FormGroup;
-  public base64Image: string;
+  user: User;
+  newPassword: string;
+  base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
     private DomSanitizer: DomSanitizer) {
     this.createFormGroup();
+    this.getUser();
   }
 
   ionViewDidLoad() {
@@ -28,18 +32,18 @@ export class EditProfilePage {
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
       password: new FormControl('', [
-        // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has all the requirements
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ]),
       new_password: new FormControl('', [
-        // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has all the requirements
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ])
     });
+  }
+
+  getUser() {
+    this.user = new User();
   }
 
   uploadImage() {
@@ -49,9 +53,11 @@ export class EditProfilePage {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    }
+    };
+
     this.camera.getPicture(options).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
+      this.user.profile_picture = this.base64Image;
     }, (err) => {
       console.log(err);
     });
