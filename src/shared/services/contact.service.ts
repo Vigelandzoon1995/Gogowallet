@@ -11,6 +11,11 @@ export class ContactService {
 
     constructor(private http: AuthHttp) { }
 
+    getById(id: number): Observable<Contact> {
+        return this.http.get(this.apiUrl + `getById?id=${id}`)
+            .pipe(catchError(error => Observable.throw(error)));
+    }
+
     getAll(): Observable<Contact[]> {
         return this.http.get(this.apiUrl + 'getAll')
             .pipe(catchError(error => Observable.throw(error)));

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Emergency Contact Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form novalidate [formGroup]="contactForm">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Name Organization</ion-label>
+            <ion-input type="text" formControlName="name" [(ngModel)]="contact.name" readonly="true"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Phone Number</ion-label>
+            <ion-input type="tel" formControlName="phone" [(ngModel)]="contact.phone" readonly="true"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Notes</ion-label>
+            <ion-input type="text" formControlName="notes" [(ngModel)]="contact.notes" readonly="true"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Type of Card</ion-label>
+            <ion-input type="text" formControlName="thumbnail" [(ngModel)]="contact.thumbnail" readonly="true"></ion-input>
+          </ion-item>
+
+          <div hidden></div>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button full round type="button" [disabled]="!contactForm.valid">Edit</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

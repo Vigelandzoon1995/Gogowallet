@@ -11,6 +11,11 @@ export class UserService {
 
     constructor(private http: AuthHttp) { }
 
+    getById(id: number): Observable<User> {
+        return this.http.get(this.apiUrl + `getById?id=${id}`)
+            .pipe(catchError(error => Observable.throw(error)));
+    }
+
     getByEmail(email: string): Observable<User> {
         return this.http.get(this.apiUrl + `getByEmail?email=${email}`)
             .pipe(catchError(error => Observable.throw(error)));
