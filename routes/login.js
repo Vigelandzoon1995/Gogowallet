@@ -9,23 +9,30 @@ const someOtherPlaintextPassword = 'not_bacon';
 const hashed = '';
 
 router.post('/', function (req, res) {
-  bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
-    //console.log(hash)
-  });
-  const token = jwt.sign({ id: 3 }, "secretkey");
-  res.json({
-    token: token
-  })
-  /*
-db.query(`SELECT Id 
-from Users 
-where Username =`,
-function (error, results, fields) {
-if (results != null) {
-  
-}
-});
-*/
+  var username = req.body.username;
+  db.query("SELECT * from Users where Username = ?",
+    [username],
+    function (error, results, fields) {
+      console.log(results)
+      if (results.length != 0 && results[0].Password != null && results[0].ID != null) {
+        bcrypt.compare(req.body.password, results[0].Password, function (err, result) {
+          if (result) {
+            var token = jwt.sign({ id: results[0].ID }, "secretkey");
+            res.json({
+              token: token
+            })
+          } else {
+            res.json({
+              token: false
+            })
+          }
+        });
+      } else {
+        res.json({
+          token: false
+        })
+      }
+    });
 });
 
 module.exports = router;

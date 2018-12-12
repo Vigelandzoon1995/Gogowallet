@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test-init": "./node_modules/jasmine/bin/jasmine.js init",
-    "test": "./node_modules/jasmine/bin/jasmine.js"
+    "test-init": "node ./node_modules/jasmine/bin/jasmine.js init",
+    "test": "node ./node_modules/jasmine/bin/jasmine.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.2",
@@ -20,7 +20,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "jasmine": "^3.3.0",
+    "jasmine": "^3.3.1",
     "mysql": "^2.16.0"
   }
 }
