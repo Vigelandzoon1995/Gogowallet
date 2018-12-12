@@ -5,7 +5,6 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
@@ -13,7 +12,7 @@ $app-direction: ltr;
 
 
 @import "ionic.globals";
-@import url('https://fonts.googleapis.com/css?family=Lobster|Racing+Sans+One|Raleway:400,600');
+@import url('https://fonts.googleapis.com/css?family=Racing+Sans+One|Source+Sans+Pro|Poppins|Raleway:400,600');
 
 
 // Shared Variables

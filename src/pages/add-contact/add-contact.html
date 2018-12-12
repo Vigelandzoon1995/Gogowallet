@@ -25,12 +25,12 @@
           </ion-item>
 
           <ion-item>
-            <ion-label>Background Image</ion-label>
+            <ion-label>Type of Card</ion-label>
             <ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail">
-              <ion-option value="../../assets/imgs/credit-card.jpg">Blue Credit Card</ion-option>
-              <ion-option value="../../assets/imgs/gold-credit-card.jpg">Gold Credit Card</ion-option>
-              <ion-option value="../../assets/imgs/debit-card.jpg">Red Credit Card</ion-option>
-              <ion-option value="../../assets/imgs/health-card.jpg">Health Insurance Card</ion-option>
+              <ion-option value="card">Bank</ion-option>
+              <ion-option value="person">Identification</ion-option>
+              <ion-option value="medkit">Health</ion-option>
+              <ion-option value="bus">Transport</ion-option>
             </ion-select>
           </ion-item>
 

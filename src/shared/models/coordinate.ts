@@ -1,4 +1,4 @@
 export default class Coordinate {
-    x: number = null;
-    y: number = null;
+    latitude: number = null;
+    longitude: number = null;
 }

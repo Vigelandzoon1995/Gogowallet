@@ -9,12 +9,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="card-background-page">
-
-  <ion-card *ngFor="let contact of contacts">
-    <img [src]="contact.thumbnail" />
-    <div class="card-title">{{ contact.name }}</div>
-    <div class="card-subtitle">{{ contact.phone }}</div>
-  </ion-card>
-
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let contact of contacts">
+      <ion-thumbnail item-start>
+        <ion-icon name="{{contact.thumbnail}}"></ion-icon>
+      </ion-thumbnail>
+      <h2>{{ contact.name }}</h2>
+      <button ion-button clear item-end>View</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -9,6 +9,22 @@ page-emergency-contacts {
     filter: blur(3px);
   }
 
+  ion-list ion-thumbnail {
+    margin: 0 auto;
+  }
+
+  ion-list ion-thumbnail ion-icon {
+    position: fixed;
+    top: 50%;
+    font-size: 3rem;
+    background-color: #0080ff;
+    color: #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    margin-left: 1rem;
+    padding: 14px 16px;
+  }
+
   .card-title {
     position: absolute;
     top: 36%;

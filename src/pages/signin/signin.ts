@@ -26,7 +26,6 @@ export class SigninPage {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
-        // 1. Password Field is Required
         Validators.required
       ])
     });

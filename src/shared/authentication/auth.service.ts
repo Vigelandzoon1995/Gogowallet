@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
-import Login from '../models/login.model';
 import User from '../models/user.model';
 import { environment as ENV } from '../../environments/environment';
 
@@ -31,8 +30,8 @@ export class AuthService {
             .catch(e => console.log("An error occured during registration.", e));
     }
 
-    login(credentials: Login) {
-        return this.http.post(ENV.BASE_URL + '/login', credentials)
+    login(email: string, password: string) {
+        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
             .toPromise()
             .then(data => {
                 let rs = data.json();
@@ -149,9 +148,8 @@ export class AuthService {
                 });
 
             } else {
-                //there is no user logined
+                //there is no user logged in
                 console.info("No signed in user.");
-
             }
         });
     }

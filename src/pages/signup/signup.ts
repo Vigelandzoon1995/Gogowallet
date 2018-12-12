@@ -27,15 +27,11 @@ export class SignupPage {
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
       password: new FormControl('', [
-        // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has all the requirements
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ]),
       confirm_password: new FormControl('', [
-        // 1. Password Field is Required
         Validators.required,
-        // 2. check whether the entered password has all the requirements
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ])
     },

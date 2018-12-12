@@ -12,7 +12,7 @@ export class UserService {
     constructor(private http: AuthHttp) { }
 
     getByEmail(email: string): Observable<User> {
-        return this.http.get(this.apiUrl + 'getByEmail?email=' + email)
+        return this.http.get(this.apiUrl + `getByEmail?email=${email}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -22,7 +22,7 @@ export class UserService {
     }
 
     checkCredentials(email: string, password: string): Observable<User> {
-        return this.http.get(this.apiUrl + 'authenticate?email=' + email + '&password=' + password)
+        return this.http.get(this.apiUrl + `authenticate?email=${email}&password=${password}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -37,7 +37,7 @@ export class UserService {
     }
 
     delete(email: string): Observable<boolean> {
-        return this.http.delete(this.apiUrl + 'delete?email=' + email)
+        return this.http.delete(this.apiUrl + `delete?email=${email}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -51,7 +51,7 @@ export class UserService {
     }
 
     resetPassword(email: string): Observable<any> {
-        return this.http.get(this.apiUrl + 'resetPassword?email=' + email)
+        return this.http.get(this.apiUrl + `resetPassword?email=${email}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
