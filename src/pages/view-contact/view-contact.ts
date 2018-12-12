@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
+import { EditContactPage } from '../edit-contact/edit-contact';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,10 @@ export class ViewContactPage {
       (response) => this.contact = response,
       (error) => { }
     );
+  }
+
+  editContact(id: number) {
+    this.navCtrl.push(EditContactPage, id);
   }
 
 }

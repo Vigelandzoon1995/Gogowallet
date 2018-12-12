@@ -16,7 +16,7 @@
         <ion-icon name="{{contact.thumbnail}}"></ion-icon>
       </ion-thumbnail>
       <h2>{{ contact.name }}</h2>
-      <button ion-button clear item-end>View</button>
+      <button ion-button clear item-end (click)="showDetails(contact.id)">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

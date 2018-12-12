@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AddContactPage } from '../add-contact/add-contact';
 import Contact from '../../shared/models/contact.model';
+import { ViewContactPage } from '../view-contact/view-contact';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,10 @@ export class EmergencyContactsPage {
 
   addContact() {
     this.navCtrl.push(AddContactPage);
+  }
+
+  showDetails(id: number) {
+    this.navCtrl.push(ViewContactPage, id);
   }
 
   getContacts() {
