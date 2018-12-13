@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
@@ -19,7 +18,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private DomSanitizer: DomSanitizer, private androidPermissions: AndroidPermissions) {
+    private DomSanitizer: DomSanitizer) {
     this.createFormGroup();
     this.getUser();
   }
@@ -62,26 +61,5 @@ export class EditProfilePage {
     }, (err) => {
       console.log(err);
     });
-  }
-
-  checkPermissions() {
-    let hasPermissions = false;
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-
-    if (!hasPermissions) {
-      this.askPermissions();
-    }
-  }
-
-  askPermissions() {
-    this.androidPermissions.requestPermissions(
-      [
-        this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
-        this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
-        this.androidPermissions.PERMISSION.CAMERA
-      ]
-    );
   }
 }
