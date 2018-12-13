@@ -6,7 +6,7 @@ const saltRounds = 14;
 
 router.post('/', function (req, res) {
     if (req.body.password != null &&
-        req.body.password.length > 10) {
+        req.body.password.length >= 8) {
         bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
             var email = req.body.email;
             var first_name = req.body.first_name;
@@ -40,7 +40,7 @@ router.post('/', function (req, res) {
             );
         });
     } else {
-        console.log(error)
+        console.log("")
         res.json({
             success: false
         })
