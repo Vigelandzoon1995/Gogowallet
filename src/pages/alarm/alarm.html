@@ -1,28 +1,26 @@
-
 <ion-header>
-  <ion-navbar>
-      <ion-title>Alarm</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Alarm</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
 
-    <ion-item>
-        <ion-label>Distance alarm</ion-label>
-        <ion-toggle></ion-toggle>
-    </ion-item>
+  <ion-item>
+    <ion-label>Distance alarm</ion-label>
+    <ion-toggle></ion-toggle>
+  </ion-item>
 
-    <ion-item>
-      <ion-label>Distance lock protection</ion-label>
-      <ion-toggle></ion-toggle>
-    </ion-item>
+  <ion-item>
+    <ion-label>Distance lock protection</ion-label>
+    <ion-toggle></ion-toggle>
+  </ion-item>
 
-    <ion-item>
-      <ion-label>Distance</ion-label>
-      <ion-select [(ngModel)]="Distance">
-        <ion-option value="5" checked>5</ion-option>
-        <ion-option value="10">10</ion-option>
-      </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-label>Distance</ion-label>
+    <ion-select [(ngModel)]="Distance">
+      <ion-option value="5" checked>5</ion-option>
+      <ion-option value="10">10</ion-option>
+    </ion-select>
+  </ion-item>
 </ion-content>
