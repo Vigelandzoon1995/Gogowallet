@@ -34,16 +34,17 @@ export class SigninPage {
   }
 
   signIn() {
-    this.userService.checkCredentials(this.emailInput, this.passwordInput).subscribe(
-      (response) => {
-        //Save user locally
-        this.storage.set('currentUser', response);
+    this.navCtrl.push(TabsPage);
+    // this.userService.checkCredentials(this.emailInput, this.passwordInput).subscribe(
+    //   (response) => {
+    //     //Save user locally
+    //     this.storage.set('currentUser', response);
 
-        // Navigate to home
-        this.navCtrl.push(TabsPage);
-      },
-      (error) => { }
-    );
+    //     // Navigate to home
+    //     this.navCtrl.push(TabsPage);
+    //   },
+    //   (error) => { }
+    // );
   }
 
   navigateToRegister() {
