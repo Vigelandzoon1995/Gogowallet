@@ -85,7 +85,9 @@
         "ANDROID_SUPPORT_VERSION": "27.+"
       },
       "cordova.plugins.diagnostic": {},
-      "cordova-plugin-android-permissions": {}
+      "cordova-plugin-android-permissions": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "android",

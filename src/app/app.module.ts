@@ -34,6 +34,7 @@ import { ContactService } from '../shared/services/contact.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -97,6 +98,8 @@ export function getAuthHttp(http) {
     StatusBar,
     JwtHelper,
     SplashScreen,
+    FileTransfer,
+    FileTransferObject,
     File,
     Transfer,
     Camera,

@@ -5,6 +5,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private DomSanitizer: DomSanitizer) {
+    private transfer: FileTransfer, private DomSanitizer: DomSanitizer) {
     this.createFormGroup();
     this.getUser();
   }
@@ -51,7 +52,6 @@ export class EditProfilePage {
       quality: 50, // picture quality
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
 
