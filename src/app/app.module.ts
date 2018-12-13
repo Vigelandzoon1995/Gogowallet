@@ -33,6 +33,7 @@ import { AuthService } from '../shared/authentication/auth.service';
 import { ContactService } from '../shared/services/contact.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -104,6 +105,7 @@ export function getAuthHttp(http) {
     UserService,
     LocationService,
     ContactService,
+    AndroidPermissions,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
