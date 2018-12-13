@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { LocationService } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
@@ -29,6 +30,8 @@ import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
 import { AuthService } from '../shared/authentication/auth.service';
+import { ContactService } from '../shared/services/contact.service';
+import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
 
 export function getAuthHttp(http) {
@@ -98,6 +101,9 @@ export function getAuthHttp(http) {
     Camera,
     FilePath,
     AuthService,
+    UserService,
+    LocationService,
+    ContactService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
