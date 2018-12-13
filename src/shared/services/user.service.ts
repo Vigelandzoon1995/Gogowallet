@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
@@ -7,9 +7,9 @@ import User from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    private apiUrl = ENV.BASE_URL + '/users/';
+    private apiUrl = ENV.BASE_URL;
 
-    constructor(private http: AuthHttp) { }
+    constructor(private http: Http) { }
 
     getById(id: number): Observable<User> {
         return this.http.get(this.apiUrl + `getById?id=${id}`)
@@ -27,7 +27,7 @@ export class UserService {
     }
 
     checkCredentials(email: string, password: string): Observable<User> {
-        return this.http.get(this.apiUrl + `authenticate?email=${email}&password=${password}`)
+        return this.http.get(this.apiUrl + `/login?email=${email}&password=${password}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -37,7 +37,7 @@ export class UserService {
     }
 
     create(user: User): Observable<User> {
-        return this.http.post(this.apiUrl + 'create', user)
+        return this.http.post(this.apiUrl + '/register', user)
             .pipe(catchError(error => Observable.throw(error)));
     }
 

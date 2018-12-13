@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController } from 'ionic-angular';
-import { AuthService } from '../../shared/authentication/auth.service';
 import { UserService } from '../../shared/services/user.service';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
@@ -18,7 +17,7 @@ export class SigninPage {
   emailInput: string;
   passwordInput: string;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService,
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService,
     private storage: Storage) {
     this.createFormGroup();
   }

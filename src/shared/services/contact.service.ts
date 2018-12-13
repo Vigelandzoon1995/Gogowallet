@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
@@ -9,7 +9,7 @@ import Contact from '../models/contact.model';
 export class ContactService {
     private apiUrl = ENV.BASE_URL + '/contacts/';
 
-    constructor(private http: AuthHttp) { }
+    constructor(private http: Http) { }
 
     getById(id: number): Observable<Contact> {
         return this.http.get(this.apiUrl + `getById?id=${id}`)

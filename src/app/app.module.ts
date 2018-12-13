@@ -1,15 +1,16 @@
 import { ErrorHandler, NgModule } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { LocationService } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
-import { AuthConfig, AuthHttp, JwtHelper } from 'angular2-jwt';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddContactPage } from '../pages/add-contact/add-contact';
@@ -29,20 +30,9 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
-import { AuthService } from '../shared/authentication/auth.service';
 import { ContactService } from '../shared/services/contact.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    noJwtError: true,
-    globalHeaders: [{ 'Accept': 'application/json' }],
-    tokenGetter: (() => localStorage.get('id_token')),
-  }), http);
-}
 
 @NgModule({
   declarations: [
@@ -70,7 +60,7 @@ export function getAuthHttp(http) {
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -96,7 +86,6 @@ export function getAuthHttp(http) {
   ],
   providers: [
     StatusBar,
-    JwtHelper,
     SplashScreen,
     FileTransfer,
     FileTransferObject,
@@ -104,16 +93,10 @@ export function getAuthHttp(http) {
     Transfer,
     Camera,
     FilePath,
-    AuthService,
     UserService,
     LocationService,
     ContactService,
     AndroidPermissions,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    },
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

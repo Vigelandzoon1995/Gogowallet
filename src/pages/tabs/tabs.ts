@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
-import { AuthService } from '../../shared/authentication/auth.service';
 import { AlarmPage } from '../alarm/alarm';
 import { BankInfoPage } from '../bank-info/bank-info';
 import { BudgetsPage } from '../budgets/budgets';
@@ -22,13 +21,12 @@ export class TabsPage {
   tab4Root = NotificationPage;
   tab5Root = ProfilePage;
 
-  constructor(private navCtrl: NavController, public events: Events, private authService: AuthService) {
+  constructor(private navCtrl: NavController, public events: Events) {
     this.subscribeEvents();
   }
 
   subscribeEvents() {
     this.events.subscribe('user:signout', () => {
-      //this.authService.logout();
       this.navCtrl.popToRoot();
     });
     this.events.subscribe('navTo:settings', () => {

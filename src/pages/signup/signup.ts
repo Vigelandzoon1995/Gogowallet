@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, NavController } from 'ionic-angular';
-import { AuthService } from '../../shared/authentication/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
@@ -16,7 +15,7 @@ export class SignupPage {
   user: User = new User();
   password_confirm: string;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService,
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService,
     public alertCtrl: AlertController) {
     this.createFormGroup();
   }
@@ -44,7 +43,7 @@ export class SignupPage {
   }
 
   register() {
-    this.authService.register(this.user).then(
+    this.userService.create(this.user).subscribe(
       (response) => {
         //Show message
         const alert = this.alertCtrl.create({
@@ -62,6 +61,21 @@ export class SignupPage {
         });
         alert.present();
       },
+      (error) => {
+        //Show message
+        const alert = this.alertCtrl.create({
+          title: 'Failed to Register',
+          subTitle: 'An error occured while registering. Please try again.',
+          buttons: [
+            {
+              text: 'OK',
+              handler: data => {
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
     );
   }
 }
