@@ -16,7 +16,11 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      this.checkPermissions();
+      splashScreen.hide();
+
+      if (platform.is('android')) {
+        this.checkPermissions();
+      }
     });
   }
 
@@ -37,6 +41,5 @@ export class MyApp {
         this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
       ]
     );
-    this.splashScreen.hide();
   }
 }
