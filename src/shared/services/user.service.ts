@@ -24,13 +24,8 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    checkCredentials(email: string, password: string): Observable<User> {
+    checkCredentials(email: string, password: string): Observable<any> {
         return this.http.get(ENV.BASE_URL + `/login?email=${email}&password=${password}`)
-            .map(res => res.json())
-            .map((result) => {
-                localStorage.setItem('auth_token', result);
-                return true;
-            })
             .pipe(catchError(error => Observable.throw(error)));
     }
 

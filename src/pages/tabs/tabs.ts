@@ -10,6 +10,7 @@ import { OverviewPage } from '../overview/overview';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { TrackPage } from '../track/track';
+import { AuthGuard } from '../../shared/helpers/auth.guard';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -21,12 +22,13 @@ export class TabsPage {
   tab4Root = NotificationPage;
   tab5Root = ProfilePage;
 
-  constructor(private navCtrl: NavController, public events: Events) {
+  constructor(private navCtrl: NavController, public events: Events, private authGuard: AuthGuard) {
     this.subscribeEvents();
   }
 
   subscribeEvents() {
     this.events.subscribe('user:signout', () => {
+      this.authGuard.signOut();
       this.navCtrl.popToRoot();
     });
     this.events.subscribe('navTo:settings', () => {

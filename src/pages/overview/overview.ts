@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
-import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
 
 @IonicPage()
 @Component({
