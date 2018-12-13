@@ -15,8 +15,7 @@ export class SignupPage {
   user: User = new User();
   password_confirm: string;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService,
-    public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, public alertCtrl: AlertController) {
     this.createFormGroup();
   }
 
@@ -45,7 +44,7 @@ export class SignupPage {
   register() {
     this.userService.create(this.user).subscribe(
       (response) => {
-        //Show message
+        //Show success message
         const alert = this.alertCtrl.create({
           title: 'Successfully Registered',
           subTitle: 'You have successfully been registered.',
@@ -62,7 +61,7 @@ export class SignupPage {
         alert.present();
       },
       (error) => {
-        //Show message
+        //Show error message
         const alert = this.alertCtrl.create({
           title: 'Failed to Register',
           subTitle: 'An error occured while registering. Please try again.',

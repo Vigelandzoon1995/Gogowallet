@@ -7,32 +7,30 @@ import Contact from '../models/contact.model';
 
 @Injectable()
 export class ContactService {
-    private apiUrl = ENV.BASE_URL + '/contacts/';
-
     constructor(private http: Http) { }
 
     getById(id: number): Observable<Contact> {
-        return this.http.get(this.apiUrl + `getById?id=${id}`)
+        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getAll(): Observable<Contact[]> {
-        return this.http.get(this.apiUrl + 'getAll')
+        return this.http.get(ENV.BASE_URL + '/getAll')
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     create(contact: Contact): Observable<Contact> {
-        return this.http.post(this.apiUrl + 'create', contact)
+        return this.http.post(ENV.BASE_URL + '/create', contact)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     update(contact: Contact): Observable<Contact> {
-        return this.http.put(this.apiUrl + 'update', contact)
+        return this.http.put(ENV.BASE_URL + '/update', contact)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     delete(user_id: number, contact: string): Observable<boolean> {
-        return this.http.delete(this.apiUrl + `delete?user=${user_id}&contact=${contact}`)
+        return this.http.delete(ENV.BASE_URL + `/delete?user=${user_id}&contact=${contact}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

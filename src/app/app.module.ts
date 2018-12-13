@@ -33,6 +33,7 @@ import { TrackPage } from '../pages/track/track';
 import { ContactService } from '../shared/services/contact.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { AuthGuard } from '../shared/helpers/auth.guard';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { MyApp } from './app.component';
     LocationService,
     ContactService,
     AndroidPermissions,
+    AuthGuard,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

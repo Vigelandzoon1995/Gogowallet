@@ -8,27 +8,25 @@ import Location from '../models/location.model';
 
 @Injectable()
 export class LocationService {
-    private apiUrl = ENV.BASE_URL + '/location/';
-
     constructor(private http: Http) { }
 
     getAll(): Observable<Location[]> {
-        return this.http.get(this.apiUrl + 'getAll')
+        return this.http.get(ENV.BASE_URL + '/getAll')
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getSince(start: Date): Observable<Location[]> {
-        return this.http.get(this.apiUrl + `getSince?start=${start}`)
+        return this.http.get(ENV.BASE_URL + `/getSince?start=${start}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getBetweenDates(start: Date, end: Date): Observable<Location[]> {
-        return this.http.get(this.apiUrl + `getBetweenDates?start=${start}&end=${end}`)
+        return this.http.get(ENV.BASE_URL + `/getBetweenDates?start=${start}&end=${end}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getByLocation(coordinate: Coordinate): Observable<Location[]> {
-        return this.http.get(this.apiUrl + `getByLocation?lat=${coordinate.latitude}&lon=${coordinate.longitude}`)
+        return this.http.get(ENV.BASE_URL + `/getByLocation?lat=${coordinate.latitude}&lon=${coordinate.longitude}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
