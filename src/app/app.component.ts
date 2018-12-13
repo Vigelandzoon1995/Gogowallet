@@ -16,9 +16,8 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
-
       this.checkPermissions();
+      splashScreen.hide();
     });
   }
 
@@ -26,6 +25,7 @@ export class MyApp {
     let hasPermissions = false;
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
 
     if (!hasPermissions) {
       this.askPermissions();
@@ -37,6 +37,7 @@ export class MyApp {
       [
         this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
         this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+        this.androidPermissions.PERMISSION.CAMERA,
       ]
     );
   }
