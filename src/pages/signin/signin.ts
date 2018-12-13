@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 import { IonicPage, NavController } from 'ionic-angular';
+import { UserService } from '../../shared/services/user.service';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
 import { TabsPage } from '../tabs/tabs';
@@ -15,7 +17,7 @@ export class SigninPage {
   emailInput: string;
   passwordInput: string;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, private storage: Storage) {
     this.createFormGroup();
   }
 
@@ -32,7 +34,16 @@ export class SigninPage {
   }
 
   signIn() {
-    this.navCtrl.push(TabsPage);
+    this.userService.checkCredentials(this.emailInput, this.passwordInput).subscribe(
+      (response) => {
+        //Save user locally
+        this.storage.set('currentUser', response);
+
+        // Navigate to home
+        this.navCtrl.push(TabsPage);
+      },
+      (error) => { }
+    );
   }
 
   navigateToRegister() {

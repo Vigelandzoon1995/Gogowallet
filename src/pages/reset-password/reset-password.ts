@@ -28,7 +28,7 @@ export class ResetPasswordPage {
   reset() {
     const alert = this.alertCtrl.create({
       title: 'Password Reset',
-      subTitle: 'An e-mail with your temporary password has been sent!',
+      subTitle: 'Please check your e-mail for instructions on how to reset your password.',
       buttons: [
         {
           text: 'OK',

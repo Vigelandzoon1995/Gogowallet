@@ -31,6 +31,11 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
+    checkCredentialsByPin(email: string, pin: string): Observable<User> {
+        return this.http.get(this.apiUrl + `authenticate?email=${email}&pin=${pin}`)
+            .pipe(catchError(error => Observable.throw(error)));
+    }
+
     create(user: User): Observable<User> {
         return this.http.post(this.apiUrl + 'create', user)
             .pipe(catchError(error => Observable.throw(error)));

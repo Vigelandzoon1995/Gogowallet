@@ -23,22 +23,26 @@ export class TabsPage {
   tab5Root = ProfilePage;
 
   constructor(private navCtrl: NavController, public events: Events) {
-    events.subscribe('user:signout', () => {
+    this.subscribeEvents();
+  }
+
+  subscribeEvents() {
+    this.events.subscribe('user:signout', () => {
       this.navCtrl.popToRoot();
     })
-    events.subscribe('navTo:settings', () => {
+    this.events.subscribe('navTo:settings', () => {
       this.navCtrl.push(SettingsPage);
     })
-    events.subscribe('navTo:bankinfo', () => {
+    this.events.subscribe('navTo:bankinfo', () => {
       this.navCtrl.push(BankInfoPage);
     })
-    events.subscribe('navTo:gogowallet', () => {
+    this.events.subscribe('navTo:gogowallet', () => {
       this.navCtrl.push(GogowalletPage);
     })
-    events.subscribe('navTo:budgets', () => {
+    this.events.subscribe('navTo:budgets', () => {
       this.navCtrl.push(BudgetsPage);
     })
-    events.subscribe('navTo:contacts', () => {
+    this.events.subscribe('navTo:contacts', () => {
       this.navCtrl.push(EmergencyContactsPage);
     })
   }
