@@ -11,7 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddContactPage } from '../pages/add-contact/add-contact';
 import { AlarmPage } from '../pages/alarm/alarm';
