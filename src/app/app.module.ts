@@ -34,6 +34,7 @@ import { ContactService } from '../shared/services/contact.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
 import { AuthGuard } from '../shared/helpers/auth.guard';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { AuthGuard } from '../shared/helpers/auth.guard';
     File,
     Transfer,
     Camera,
+    LocalNotifications,
     FilePath,
     UserService,
     LocationService,
