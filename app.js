@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -35,6 +36,8 @@ var http = require('http');
 
 http.createServer(app).listen(3333, "0.0.0.0");
 
+app.use(cors)
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // view engine setup
@@ -56,12 +59,6 @@ app.use('/register', registerRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
 });
 
 // error handler
