@@ -36,7 +36,7 @@ var http = require('http');
 
 http.createServer(app).listen(3333, "0.0.0.0");
 
-app.use(cors)
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
