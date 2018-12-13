@@ -26,6 +26,11 @@
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE"/>
+        </config-file>
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -102,4 +107,5 @@
     </plugin>
     <engine name="android" spec="7.1.4" />
     <engine name="browser" spec="5.0.4" />
+    <plugin name="cordova.plugins.diagnostic" spec="4.0.10" />
 </widget>

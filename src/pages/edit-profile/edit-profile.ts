@@ -18,7 +18,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private DomSanitizer: DomSanitizer) {
+    private DomSanitizer: DomSanitizer, private diagnostic: Diagnostic) {
     this.createFormGroup();
     this.getUser();
   }
@@ -61,5 +61,9 @@ export class EditProfilePage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  askPermissions() {
+
   }
 }
