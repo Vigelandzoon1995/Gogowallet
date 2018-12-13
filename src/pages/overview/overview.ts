@@ -37,7 +37,6 @@ export class OverviewPage {
   }
 
   signout() {
-    console.log("signout");
     this.events.publish('user:signout');
   }
 

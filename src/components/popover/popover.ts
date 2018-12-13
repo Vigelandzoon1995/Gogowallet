@@ -13,22 +13,22 @@ import { ViewController } from 'ionic-angular';
 })
 export class PopoverComponent {
 
-  items:any
+  items: any
 
   constructor(private viewCtrl: ViewController) {
     this.items = [
-      {item:"SIGNOUT"},
-      {item:"SETTINGS"}
+      { item: "Sign Out" },
+      { item: "Settings" }
     ];
   }
 
-  itemClick(item){
+  itemClick(item) {
     try {
       this.viewCtrl.dismiss(item);
     } catch (Nullpointerexception) {
       console.log(Nullpointerexception);
     }
-   
+
   }
 
 }
