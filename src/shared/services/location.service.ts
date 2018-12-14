@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
-import Coordinate from '../models/coordinate';
 import Location from '../models/location.model';
 
 @Injectable()
@@ -22,11 +21,6 @@ export class LocationService {
 
     getBetweenDates(start: Date, end: Date): Observable<Location[]> {
         return this.http.get(ENV.BASE_URL + `/getBetweenDates?start=${start}&end=${end}`)
-            .pipe(catchError(error => Observable.throw(error)));
-    }
-
-    getByLocation(coordinate: Coordinate): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + `/getByLocation?lat=${coordinate.latitude}&lon=${coordinate.longitude}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

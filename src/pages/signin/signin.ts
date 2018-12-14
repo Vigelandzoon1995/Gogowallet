@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController } from 'ionic-angular';
+import { Observable } from 'rxjs';
 import { AuthGuard } from '../../shared/helpers/auth.guard';
 import { UserService } from '../../shared/services/user.service';
 import { ResetPasswordPage } from '../reset-password/reset-password';
@@ -40,8 +41,14 @@ export class SigninPage {
     // this.authGuard.signIn(this.emailInput, this.passwordInput).subscribe(
     //   (response) => {
     //     if (response) {
-    //       // Navigate to home
-    //       this.navCtrl.push(TabsPage);
+    //       if (response.token != false) {
+
+    //         // Navigate to home
+    //         this.navCtrl.push(TabsPage);
+
+    //         // Save user locally
+    //         //this.getCurrentUser();
+    //       }
     //     }
     //   },
     //   (error) => {
@@ -62,6 +69,18 @@ export class SigninPage {
     //     alert.present();
     //   }
     // );
+  }
+
+  getCurrentUser() {
+    this.userService.getByEmail(this.emailInput).subscribe(
+      (response) => {
+        this.authGuard.saveUser(response);
+
+        // Navigate to home
+        this.navCtrl.push(TabsPage);
+      },
+      (error) => { Observable.throw(error); }
+    );
   }
 
   navigateToRegister() {

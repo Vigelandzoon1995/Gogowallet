@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { AddContactPage } from '../add-contact/add-contact';
+import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
+import { ContactService } from '../../shared/services/contact.service';
+import { AddContactPage } from '../add-contact/add-contact';
 import { ViewContactPage } from '../view-contact/view-contact';
+import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -12,7 +14,7 @@ import { ViewContactPage } from '../view-contact/view-contact';
 export class EmergencyContactsPage {
   contacts: Contact[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService) {
     this.getContacts();
   }
 
@@ -46,5 +48,10 @@ export class EmergencyContactsPage {
         notes: ''
       }
     ];
+
+    // this.contactService.getAll().subscribe(
+    //   (response) => this.contacts = response,
+    //   (error) => { Observable.throw(error); }
+    // );
   }
 }

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, NavController } from 'ionic-angular';
+import { UserService } from '../../shared/services/user.service';
 import { SigninPage } from '../signin/signin';
+import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -12,7 +14,7 @@ export class ResetPasswordPage {
   resetForm: FormGroup;
   email: string;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, public alertCtrl: AlertController, private userService: UserService) {
     this.createFormGroup();
   }
 
@@ -25,7 +27,14 @@ export class ResetPasswordPage {
     });
   }
 
-  reset() {
+  submit() {
+    this.userService.resetPassword(this.email).subscribe(
+      (response) => this.showAlert(),
+      (error) => { Observable.throw(error); }
+    );
+  }
+
+  showAlert() {
     const alert = this.alertCtrl.create({
       title: 'Password Reset',
       subTitle: 'Please check your e-mail for instructions on how to reset your password.',

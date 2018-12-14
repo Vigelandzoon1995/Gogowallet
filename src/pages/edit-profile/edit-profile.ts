@@ -6,6 +6,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { UserService } from '../../shared/services/user.service';
+import { Observable } from 'rxjs';
+import { AuthGuard } from '../../shared/helpers/auth.guard';
 
 @IonicPage()
 @Component({
@@ -19,7 +22,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private transfer: FileTransfer, private DomSanitizer: DomSanitizer) {
+    private transfer: FileTransfer, private DomSanitizer: DomSanitizer, private userService: UserService, private authGuard: AuthGuard) {
     this.createFormGroup();
     this.getUser();
   }
@@ -45,6 +48,16 @@ export class EditProfilePage {
 
   getUser() {
     this.user = new User();
+  }
+
+  submit() {
+    this.userService.update(this.user).subscribe(
+      (response) => {
+        this.authGuard.removeUser();
+        this.authGuard.saveUser(response);
+      },
+      (error) => { Observable.throw(error); }
+    );
   }
 
   uploadImage() {

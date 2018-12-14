@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SigninPage } from './signin';
-import { FormsModule} from '@angular/forms'
+import { FormsModule } from '@angular/forms'
+import { AuthGuard } from '../../shared/helpers/auth.guard';
 
 @NgModule({
   declarations: [
@@ -11,5 +12,6 @@ import { FormsModule} from '@angular/forms'
     FormsModule,
     IonicPageModule.forChild(SigninPage),
   ],
+  providers: [AuthGuard]
 })
-export class SigninPageModule {}
+export class SigninPageModule { }

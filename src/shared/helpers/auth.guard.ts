@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { SigninPage } from '../../pages/signin/signin';
+import User from '../models/user.model';
 import { UserService } from '../services/user.service';
 
 @Injectable()
@@ -41,5 +42,13 @@ export class AuthGuard {
 
     checkToken() {
         return this.isLoggedIn;
+    }
+
+    saveUser(user: User) {
+        this.storage.set('currentUser', user);
+    }
+
+    removeUser() {
+        this.storage.remove('currentUser');
     }
 }

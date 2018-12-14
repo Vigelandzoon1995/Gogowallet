@@ -25,12 +25,12 @@ export class UserService {
     }
 
     checkCredentials(email: string, password: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + `/login?email=${email}&password=${password}`)
+        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     checkCredentialsByPin(email: string, pin: string): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/authenticate?email=${email}&pin=${pin}`)
+        return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -45,12 +45,12 @@ export class UserService {
     }
 
     delete(email: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/delete?email=${email}`)
+        return this.http.delete(ENV.BASE_URL + `/ delete? email = ${email}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     resetPassword(email: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + `/resetPassword?email=${email}`)
+        return this.http.get(ENV.BASE_URL + `/ resetPassword ? email = ${email}`)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

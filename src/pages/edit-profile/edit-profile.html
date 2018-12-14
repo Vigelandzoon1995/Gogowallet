@@ -49,7 +49,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button class="save-btn" full round type="button" [disabled]="!profileForm.valid">Save</button>
+        <button ion-button class="save-btn" full round type="button" [disabled]="!profileForm.valid" (click)="submit()">Save</button>
       </ion-col>
     </ion-row>
   </form>
