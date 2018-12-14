@@ -16,7 +16,7 @@ export class MyApp {
   rootPage: any = SigninPage;
 
   constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
-    private localNotifications: LocalNotifications, private userService: UserService, private authService: AuthenticationService) {
+    private localNotifications: LocalNotifications) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -27,8 +27,6 @@ export class MyApp {
         this.checkPermissions();
       }
 
-      // Circular dependency fix
-      this.authService.setProvider(this.userService);
     });
   }
 

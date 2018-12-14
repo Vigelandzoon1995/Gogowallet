@@ -10,10 +10,9 @@ import Budget from '../models/budget.model';
 export class BudgetService {
     private headers = new Headers({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
     });
 
-    constructor(private http: Http, private authService: AuthenticationService) { }
+    constructor(private http: Http) { }
 
     getById(id: number): Observable<Budget> {
         return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })

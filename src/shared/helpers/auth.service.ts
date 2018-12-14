@@ -4,19 +4,17 @@ import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { SigninPage } from '../../pages/signin/signin';
 import User from '../models/user.model';
+import { Http } from '@angular/http';
+import { catchError } from 'rxjs/operators';
+import { environment as ENV } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
     @ViewChild('mainNav') nav: NavController;
 
     private isLoggedIn = false;
-    private userService: any;
 
-    constructor(private storage: Storage) { }
-
-    setProvider(provider) {
-        this.userService = provider;
-    }
+    constructor(private http: Http, private storage: Storage) { }
 
     canActivate() {
         if (!this.storage.get('auth_token')) {
@@ -29,7 +27,8 @@ export class AuthenticationService {
     }
 
     signIn(email: string, password: string): Observable<any> {
-        return this.userService.checkCredentials(email, password)
+        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
+            .pipe(catchError(error => Observable.throw(error)))
             .map(res => res.json())
             .map((result) => {
                 this.setToken(result);

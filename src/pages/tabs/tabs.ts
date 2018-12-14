@@ -23,14 +23,13 @@ export class TabsPage {
   tab4Root = NotificationPage;
   tab5Root = ProfilePage;
 
-  constructor(private navCtrl: NavController, public events: Events, private authService: AuthenticationService) {
+  constructor(private navCtrl: NavController, public events: Events) {
 
     this.subscribeEvents();
   }
 
   subscribeEvents() {
     this.events.subscribe('user:signout', () => {
-      this.authService.signOut();
       this.navCtrl.popToRoot();
     });
     this.events.subscribe('navTo:settings', () => {

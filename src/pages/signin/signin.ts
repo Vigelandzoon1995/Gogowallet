@@ -20,7 +20,7 @@ export class SigninPage {
   passwordInput: string;
 
   constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, private storage: Storage,
-    public alertCtrl: AlertController, private authService: AuthenticationService) {
+    public alertCtrl: AlertController) {
     this.createFormGroup();
   }
 
@@ -71,17 +71,17 @@ export class SigninPage {
     // );
   }
 
-  getCurrentUser() {
-    this.userService.getByEmail(this.emailInput).subscribe(
-      (response) => {
-        this.authService.saveUser(response);
+  // getCurrentUser() {
+  //   this.userService.getByEmail(this.emailInput).subscribe(
+  //     (response) => {
+  //       this.authService.saveUser(response);
 
-        // Navigate to home
-        this.navCtrl.push(TabsPage);
-      },
-      (error) => { Observable.throw(error); }
-    );
-  }
+  //       // Navigate to home
+  //       this.navCtrl.push(TabsPage);
+  //     },
+  //     (error) => { Observable.throw(error); }
+  //   );
+  // }
 
   navigateToRegister() {
     this.navCtrl.push(SignupPage);

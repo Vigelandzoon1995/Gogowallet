@@ -10,10 +10,9 @@ import Location from '../models/location.model';
 export class LocationService {
     private headers = new Headers({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
     });
 
-    constructor(private http: Http, private authService: AuthenticationService) { }
+    constructor(private http: Http) { }
 
     getAll(): Observable<Location[]> {
         return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })

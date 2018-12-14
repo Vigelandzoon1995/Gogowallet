@@ -10,10 +10,9 @@ import User from '../models/user.model';
 export class UserService {
     private headers = new Headers({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authService.getToken()
     });
 
-    constructor(private http: Http, private authService: AuthenticationService) { }
+    constructor(private http: Http) { }
 
     getById(id: number): Observable<User> {
         return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
@@ -31,17 +30,17 @@ export class UserService {
     }
 
     checkCredentials(email: string, password: string): Observable<any> {
-        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password }, { headers: this.headers })
+        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     checkCredentialsByPin(email: string, pin: string): Observable<User> {
-        return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin }, { headers: this.headers })
+        return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     create(user: User): Observable<User> {
-        return this.http.post(ENV.BASE_URL + '/register', user, { headers: this.headers })
+        return this.http.post(ENV.BASE_URL + '/register', user)
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -56,7 +55,7 @@ export class UserService {
     }
 
     resetPassword(email: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + '/resetPassword?email=' + email, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/resetPassword?email=' + email)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
