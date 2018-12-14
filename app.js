@@ -26,7 +26,7 @@ const db = mysql.createConnection(obj);
 // connect to database
 db.connect((err) => {
   if (err) {
-      throw err;
+    throw err;
   }
   console.log('Connected to database');
 });
@@ -34,7 +34,13 @@ global.db = db;
 
 var http = require('http');
 
-http.createServer(app).listen(3333, "0.0.0.0");
+if (process.argv[1].includes("jasmine.js")) {
+  http.createServer(app).listen(4444, "0.0.0.0");
+  console.log("running at port 4444")
+} else {
+  http.createServer(app).listen(3333, "0.0.0.0");
+  console.log("running at port 3333")
+}
 
 app.use(cors())
 
@@ -57,12 +63,12 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

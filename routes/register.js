@@ -6,12 +6,12 @@ const saltRounds = 14;
 
 router.post('/', function (req, res) {
     if (req.body.password != null &&
-        req.body.password.length >= 8) {
+        req.body.password.length >= 8 &&
+        /^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(req.body.password)) {
         bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
             var email = req.body.email;
             var first_name = req.body.first_name;
             var last_name = req.body.last_name;
-            console.log(req.body)
             db.query('INSERT INTO users (email, first_name, last_name) SELECT ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT email FROM users WHERE email=?);',
                 [email, first_name, last_name, email],
                 function (error, results, fields) {
