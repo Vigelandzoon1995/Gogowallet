@@ -15,14 +15,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BudgetPage {
 
-  shouldHide:boolean
-
+  shouldHide:boolean;
+  budget: { category: string , startdate:string, enddate: string, starttime:string, endtime: string, amount: string, alarm: boolean, limitlock:boolean};
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.shouldHide=true;
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BudgetPage');
+  }
+
+  save(){
+    //Todo save budget
   }
   
   public event = {
