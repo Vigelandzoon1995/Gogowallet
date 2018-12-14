@@ -18,14 +18,13 @@ export class BudgetPage {
   shouldHide:boolean
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  
-    this.shouldHide=true
-    
+    this.shouldHide=true;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BudgetPage');
   }
+  
   public event = {
     monthStart: '1990-02-19',
     timeStarts: '07:43',
