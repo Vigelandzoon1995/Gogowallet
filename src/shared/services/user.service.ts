@@ -3,24 +3,25 @@ import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
-import User from '../models/user.model';
 import { AuthenticationService } from '../helpers/auth.service';
+import User from '../models/user.model';
 
 @Injectable()
 export class UserService {
     private headers = new Headers({
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.authService.getToken()
     });
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthenticationService) { }
 
     getById(id: number): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getByEmail(email: string): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/getByEmail?email=${email}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getByEmail?email=' + email, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -50,12 +51,12 @@ export class UserService {
     }
 
     delete(email: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/ delete? email = ${email}`, { headers: this.headers })
+        return this.http.delete(ENV.BASE_URL + '/delete?email=' + email, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     resetPassword(email: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + `/ resetPassword ? email = ${email}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/resetPassword?email=' + email, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NavController, Platform } from 'ionic-angular';
 import { SigninPage } from '../pages/signin/signin';
+import { AuthenticationService } from '../shared/helpers/auth.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +16,7 @@ export class MyApp {
   rootPage: any = SigninPage;
 
   constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
-    private localNotifications: LocalNotifications) {
+    private localNotifications: LocalNotifications, private userService: UserService, private authService: AuthenticationService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -24,6 +26,9 @@ export class MyApp {
       if (platform.is('android')) {
         this.checkPermissions();
       }
+
+      // Circular dependency fix
+      this.authService.setProvider(this.userService);
     });
   }
 

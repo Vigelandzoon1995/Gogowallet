@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 import User from '../models/user.model';
-import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthenticationService {
     private isLoggedIn = false;
+    private userService: any;
 
-    constructor(private userService: UserService, private storage: Storage) { }
+    constructor(private storage: Storage) { }
+
+    setProvider(provider) {
+        this.userService = provider;
+    }
 
     canActivate() {
         if (!this.storage.get('auth_token')) {

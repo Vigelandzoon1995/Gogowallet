@@ -16,12 +16,12 @@ export class TransactionService {
     constructor(private http: Http, private authService: AuthenticationService) { }
 
     getById(id: number): Observable<Transaction> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getByUser(user: number): Observable<Transaction> {
-        return this.http.get(ENV.BASE_URL + `/getByUser?id=${user}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getByUser?id=' + user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -31,12 +31,12 @@ export class TransactionService {
     }
 
     getSince(start: Date): Observable<Transaction[]> {
-        return this.http.get(ENV.BASE_URL + `/getSince?start=${start}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getSince?start=' + start, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getBetweenDates(start: Date, end: Date): Observable<Transaction[]> {
-        return this.http.get(ENV.BASE_URL + `/getBetweenDates?start=${start}&end=${end}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getBetweenDates?start=' + start + '&end=' + end, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -46,7 +46,7 @@ export class TransactionService {
     }
 
     delete(id: number): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/delete?id=${id}`, { headers: this.headers })
+        return this.http.delete(ENV.BASE_URL + '/delete?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

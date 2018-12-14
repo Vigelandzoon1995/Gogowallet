@@ -21,12 +21,12 @@ export class LocationService {
     }
 
     getSince(start: Date): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + `/getSince?start=${start}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getSince?start=' + start, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getBetweenDates(start: Date, end: Date): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + `/getBetweenDates?start=${start}&end=${end}`, { headers: this.headers })
+        return this.http.get(ENV.BASE_URL + '/getBetweenDates?start=' + start + '&end=' + end, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

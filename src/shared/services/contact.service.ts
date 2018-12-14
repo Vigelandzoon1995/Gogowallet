@@ -36,7 +36,7 @@ export class ContactService {
     }
 
     delete(user_id: number, contact: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/delete?user=${user_id}&contact=${contact}`, { headers: this.headers })
+        return this.http.delete(ENV.BASE_URL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
