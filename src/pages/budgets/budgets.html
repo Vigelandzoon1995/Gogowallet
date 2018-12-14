@@ -2,108 +2,38 @@
   <ion-navbar color="primary">
     <ion-title>Budgets</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="navToBudget()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
+        <button ion-button icon-only (click)="navToBudget()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-12>
-          <ion-label text-right>
-            <h2>€750,-</h2>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4>
-          <ion-label>
-            <h2>Active</h2>
-          </ion-label>
-        </ion-col>
-        <ion-col col-8>
-          <ion-label text-right>
-            <h6>Date-time A till Date-time B</h6>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
+<ion-list>
+  <ion-card *ngFor="let item of data" (click)="openBudget(item)">
+    <ion-card-header>
+      {{item.category}}
+          <button ion-button icon-only (click)="delete()">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+    </ion-card-header>
+      <ion-card-content> 
+          <ion-item>
+              <ion-label>Amount</ion-label>
+              <ion-label end><h6>{{item.amount}}</h6></ion-label>
+          </ion-item>
+          <hr>
+          <ion-item>
+              <ion-label>Start at</ion-label>
+              <ion-label end> <h6>{{item.startdate}} - {{item.starttime}}</h6></ion-label>
+          </ion-item>
+          <hr>
+          <ion-item>
+              <ion-label>Ends at</ion-label>
+              <ion-label end> <h6> {{item.enddate}} - {{item.endtime}}</h6></ion-label>
+          </ion-item>
+      </ion-card-content>
   </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-12>
-          <ion-label text-right>
-            <h2>€300,-</h2>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4>
-          <ion-label>
-            <h2>Waiting</h2>
-          </ion-label>
-        </ion-col>
-        <ion-col col-8>
-          <ion-label text-right>
-            <h6>Date-time A till Date-time B</h6>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-12>
-          <ion-label text-right>
-            <h2>100,-</h2>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4>
-          <ion-label>
-            <h2>Active</h2>
-          </ion-label>
-        </ion-col>
-        <ion-col col-8>
-          <ion-label text-right>
-            <h6>Date-time A till Date-time B</h6>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-12>
-          <ion-label text-right>
-            <h2>€2000,-</h2>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4>
-          <ion-label>
-            <h2>Active</h2>
-          </ion-label>
-        </ion-col>
-        <ion-col col-8>
-          <ion-label text-right>
-            <h6>Date-time A till Date-time B</h6>
-          </ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+      </ion-list>
 </ion-content>
