@@ -15,11 +15,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BudgetPage {
 
+  shouldHide:boolean
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+    this.shouldHide=true
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BudgetPage');
+  }
+  public event = {
+    monthStart: '1990-02-19',
+    timeStarts: '07:43',
+    timeEnds: '07:43',
+    monthEnds: '1990-02-20'
   }
 
 }

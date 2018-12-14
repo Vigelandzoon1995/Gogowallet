@@ -1,9 +1,19 @@
 page-budget {
-    .button-inner{
-      
-        height: 50%;
-        width: 50%; 
 
+    ion-card.card ion-card-header {
+        background-color: map-get($colors, primary);
+        color: white;
+      
     }
+
+    hr{
+        margin: 0;
+    }
+
+    ion-footer{
+        #save-button{
+            margin: 0;
+        }    
+    }        
 
 }
