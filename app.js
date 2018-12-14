@@ -34,9 +34,10 @@ global.db = db;
 
 var http = require('http');
 
+//If the command is ran using a jasmine instance, use the test port 4444
 if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
-  console.log("running at port 4444")
+  console.log("running jasmine test environment at port 4444")
 } else {
   http.createServer(app).listen(3333, "0.0.0.0");
   console.log("running at port 3333")
