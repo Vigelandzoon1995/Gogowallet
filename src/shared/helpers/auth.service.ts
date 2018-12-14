@@ -1,23 +1,18 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import { SigninPage } from '../../pages/signin/signin';
 import User from '../models/user.model';
 import { UserService } from '../services/user.service';
 
 @Injectable()
-export class AuthGuard {
-    @ViewChild('mainNav') nav: NavController;
+export class AuthenticationService {
     private isLoggedIn = false;
 
     constructor(private userService: UserService, private storage: Storage) { }
 
     canActivate() {
         if (!this.storage.get('auth_token')) {
-            this.nav.push(SigninPage);
             this.isLoggedIn = false;
-
             return false;
         }
 
@@ -28,7 +23,7 @@ export class AuthGuard {
         return this.userService.checkCredentials(email, password)
             .map(res => res.json())
             .map((result) => {
-                this.storage.set('auth_token', result);
+                this.setToken(result);
                 this.isLoggedIn = true;
 
                 return result;
@@ -40,8 +35,19 @@ export class AuthGuard {
         this.isLoggedIn = false;
     }
 
-    checkToken() {
-        return this.isLoggedIn;
+    setToken(token: any) {
+        this.storage.set('auth_token', token);
+    }
+
+    getToken(): String {
+        let token = '';
+        this.storage.get('auth_token').then((response) => { token = response });
+
+        return token;
+    }
+
+    clearToken() {
+        this.storage.remove('auth_token');
     }
 
     saveUser(user: User) {

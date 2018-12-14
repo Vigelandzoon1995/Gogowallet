@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Platform } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { SigninPage } from '../pages/signin/signin';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild('mainNav') nav: NavController;
   rootPage: any = SigninPage;
 
   constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,

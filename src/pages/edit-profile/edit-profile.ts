@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { UserService } from '../../shared/services/user.service';
-import { Observable } from 'rxjs';
-import { AuthGuard } from '../../shared/helpers/auth.guard';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private transfer: FileTransfer, private DomSanitizer: DomSanitizer, private userService: UserService, private authGuard: AuthGuard) {
+    private transfer: FileTransfer, private DomSanitizer: DomSanitizer, private userService: UserService, private authService: AuthenticationService) {
     this.createFormGroup();
     this.getUser();
   }
@@ -53,8 +53,8 @@ export class EditProfilePage {
   submit() {
     this.userService.update(this.user).subscribe(
       (response) => {
-        this.authGuard.removeUser();
-        this.authGuard.saveUser(response);
+        this.authService.removeUser();
+        this.authService.saveUser(response);
       },
       (error) => { Observable.throw(error); }
     );

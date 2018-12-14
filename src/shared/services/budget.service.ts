@@ -1,36 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
+import { AuthenticationService } from '../helpers/auth.service';
 import Budget from '../models/budget.model';
 
 @Injectable()
 export class BudgetService {
-    constructor(private http: Http) { }
+    private headers = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.authService.getToken()
+    });
+
+    constructor(private http: Http, private authService: AuthenticationService) { }
 
     getById(id: number): Observable<Budget> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`)
+        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getAll(): Observable<Budget[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll')
+        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     create(budget: Budget): Observable<Budget> {
-        return this.http.post(ENV.BASE_URL + '/create', budget)
+        return this.http.post(ENV.BASE_URL + '/create', budget, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     update(budget: Budget): Observable<Budget> {
-        return this.http.put(ENV.BASE_URL + '/update', budget)
+        return this.http.put(ENV.BASE_URL + '/update', budget, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     delete(id: number): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/delete?id=${id}`)
+        return this.http.delete(ENV.BASE_URL + `/delete?id=${id}`, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
