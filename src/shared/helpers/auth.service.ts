@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { SigninPage } from '../../pages/signin/signin';
 import User from '../models/user.model';
 
 @Injectable()
 export class AuthenticationService {
+    @ViewChild('mainNav') nav: NavController;
+
     private isLoggedIn = false;
     private userService: any;
 
@@ -17,6 +21,7 @@ export class AuthenticationService {
     canActivate() {
         if (!this.storage.get('auth_token')) {
             this.isLoggedIn = false;
+            this.nav.push(SigninPage);
             return false;
         }
 
@@ -37,6 +42,8 @@ export class AuthenticationService {
     signOut() {
         this.storage.remove('auth_token');
         this.isLoggedIn = false;
+
+        this.nav.push(SigninPage);
     }
 
     setToken(token: any) {
