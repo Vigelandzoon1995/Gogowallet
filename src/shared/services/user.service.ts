@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
-import { AuthenticationService } from '../helpers/auth.service';
 import User from '../models/user.model';
 
 @Injectable()
@@ -29,18 +28,8 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    checkCredentials(email: string, password: string): Observable<any> {
-        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
-
     checkCredentialsByPin(email: string, pin: string): Observable<User> {
         return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
-
-    create(user: User): Observable<User> {
-        return this.http.post(ENV.BASE_URL + '/register', user)
             .pipe(catchError(error => Observable.throw(error)));
     }
 

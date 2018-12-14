@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { FileTransfer } from '@ionic-native/file-transfer';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
@@ -22,7 +21,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private transfer: FileTransfer, private DomSanitizer: DomSanitizer, private userService: UserService, private authService: AuthenticationService) {
+    private DomSanitizer: DomSanitizer, private userService: UserService, private authService: AuthenticationService) {
     this.createFormGroup();
     this.getUser();
   }

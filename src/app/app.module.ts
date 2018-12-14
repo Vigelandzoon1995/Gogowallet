@@ -89,6 +89,7 @@ import { MyApp } from './app.component';
     AddContactPage
   ],
   providers: [
+    AuthenticationService,
     StatusBar,
     SplashScreen,
     FileTransfer,
@@ -104,7 +105,6 @@ import { MyApp } from './app.component';
     ContactService,
     BudgetService,
     TransactionService,
-    AuthenticationService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
