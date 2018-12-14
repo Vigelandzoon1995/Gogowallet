@@ -49,15 +49,6 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    upload(file: any, user: User): Observable<User> {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('model', JSON.stringify(user));
-
-        return this.http.post(ENV.BASE_URL + '/upload', formData)
-            .pipe(catchError(error => Observable.throw(error)));
-    }
-
     resetPassword(email: string): Observable<any> {
         return this.http.get(ENV.BASE_URL + `/resetPassword?email=${email}`)
             .pipe(catchError(error => Observable.throw(error)));
