@@ -5,7 +5,7 @@ describe("Server", () => {
     beforeAll(() => {
         server = require("../app");
     });
-    describe("GET /", () => {
+    describe("GET Users/", () => {
         var data = {};
         beforeAll((done) => {
             Request.get("http://localhost:3333/users", (error, response, body) => {
@@ -14,8 +14,8 @@ describe("Server", () => {
                 done();
             });
         });
-        it("Status 200", () => {
-            expect(data.status).toBe(200);
+        it("Status 403: Unauthorized", () => {
+            expect(data.status).toBe(403);
         });
     });
 });
