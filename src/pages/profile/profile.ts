@@ -16,7 +16,8 @@ export class ProfilePage {
   }
 
   navigateToEditProfile() {
-    this.navCtrl.push(EditProfilePage);
+   // this.navCtrl.push(EditProfilePage);
+    this.events.publish('navTo:editprofilepage');
   }
 
 }

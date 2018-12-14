@@ -11,6 +11,7 @@ import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { TrackPage } from '../track/track';
 import { AuthGuard } from '../../shared/helpers/auth.guard';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -45,6 +46,9 @@ export class TabsPage {
     });
     this.events.subscribe('navTo:contacts', () => {
       this.navCtrl.push(EmergencyContactsPage);
+    });
+    this.events.subscribe('navTo:editprofilepage', () => {
+      this.navCtrl.push(EditProfilePage);
     });
   }
 }
