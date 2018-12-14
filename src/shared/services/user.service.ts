@@ -1,36 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
+import { AuthenticationService } from '../helpers/auth.service';
 import User from '../models/user.model';
 
 @Injectable()
 export class UserService {
+    private headers = new Headers({
+        'Content-Type': 'application/json',
+    });
+
     constructor(private http: Http) { }
 
     getById(id: number): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`)
+        return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getByEmail(email: string): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/getByEmail?email=${email}`)
+        return this.http.get(ENV.BASE_URL + '/getByEmail?email=' + email, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     getAll(): Observable<User[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll')
+        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     checkCredentials(email: string, password: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + `/login?email=${email}&password=${password}`)
+        return this.http.post(ENV.BASE_URL + '/login', { email: email, password: password })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     checkCredentialsByPin(email: string, pin: string): Observable<User> {
-        return this.http.get(ENV.BASE_URL + `/authenticate?email=${email}&pin=${pin}`)
+        return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
@@ -40,17 +45,17 @@ export class UserService {
     }
 
     update(user: User): Observable<User> {
-        return this.http.put(ENV.BASE_URL + '/update', user)
+        return this.http.put(ENV.BASE_URL + '/update', user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     delete(email: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + `/delete?email=${email}`)
+        return this.http.delete(ENV.BASE_URL + '/delete?email=' + email, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
     resetPassword(email: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + `/resetPassword?email=${email}`)
+        return this.http.get(ENV.BASE_URL + '/resetPassword?email=' + email)
             .pipe(catchError(error => Observable.throw(error)));
     }
 }

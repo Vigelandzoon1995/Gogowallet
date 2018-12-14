@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController } from 'ionic-angular';
-import { AuthGuard } from '../../shared/helpers/auth.guard';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { UserService } from '../../shared/services/user.service';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
@@ -19,7 +20,7 @@ export class SigninPage {
   passwordInput: string;
 
   constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private userService: UserService, private storage: Storage,
-    public alertCtrl: AlertController, private authGuard: AuthGuard) {
+    public alertCtrl: AlertController) {
     this.createFormGroup();
   }
 
@@ -37,11 +38,17 @@ export class SigninPage {
 
   signIn() {
     this.navCtrl.push(TabsPage);
-    // this.authGuard.signIn(this.emailInput, this.passwordInput).subscribe(
+    // this.authService.signIn(this.emailInput, this.passwordInput).subscribe(
     //   (response) => {
     //     if (response) {
-    //       // Navigate to home
-    //       this.navCtrl.push(TabsPage);
+    //       if (response.token != false) {
+
+    //         // Navigate to home
+    //         this.navCtrl.push(TabsPage);
+
+    //         // Save user locally
+    //         //this.getCurrentUser();
+    //       }
     //     }
     //   },
     //   (error) => {
@@ -63,6 +70,18 @@ export class SigninPage {
     //   }
     // );
   }
+
+  // getCurrentUser() {
+  //   this.userService.getByEmail(this.emailInput).subscribe(
+  //     (response) => {
+  //       this.authService.saveUser(response);
+
+  //       // Navigate to home
+  //       this.navCtrl.push(TabsPage);
+  //     },
+  //     (error) => { Observable.throw(error); }
+  //   );
+  // }
 
   navigateToRegister() {
     this.navCtrl.push(SignupPage);

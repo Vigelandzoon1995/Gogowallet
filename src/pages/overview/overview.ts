@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @IonicPage()
 @Component({
@@ -10,7 +10,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 })
 export class OverviewPage {
 
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,private localNotifications: LocalNotifications) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events, private localNotifications: LocalNotifications) {
   }
 
   ionViewDidLoad() {
@@ -51,13 +51,13 @@ export class OverviewPage {
   navigateToContacts() {
     this.events.publish('navTo:contacts');
   }
-  notify(){
+  notify() {
     this.localNotifications.schedule({
       text: 'Delayed ILocalNotification',
-      trigger: {at: new Date(new Date().getTime() + 3600)},
+      trigger: { at: new Date(new Date().getTime() + 3600) },
       led: 'FF0000',
       sound: null
-   });
+    });
   }
 
 }

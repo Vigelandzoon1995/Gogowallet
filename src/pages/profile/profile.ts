@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EditProfilePage } from '../edit-profile/edit-profile';
+import User from '../../shared/models/user.model';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -8,15 +10,21 @@ import { EditProfilePage } from '../edit-profile/edit-profile';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  currentUser: User = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private storage: Storage, private DomSanitizer: DomSanitizer) {
+    this.getCurrentUser();
   }
 
   ionViewDidLoad() {
   }
 
+  getCurrentUser() {
+    if (this.storage.get('currentUser') != null) {
+      this.storage.get('currentUser').then((response) => this.currentUser = response);
+    }
+  }
   navigateToEditProfile() {
-   // this.navCtrl.push(EditProfilePage);
     this.events.publish('navTo:editprofilepage');
   }
 

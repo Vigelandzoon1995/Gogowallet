@@ -7,11 +7,12 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { LocationService } from '@ionic-native/google-maps';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
-import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddContactPage } from '../pages/add-contact/add-contact';
 import { AlarmPage } from '../pages/alarm/alarm';
@@ -30,11 +31,12 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
+import { AuthenticationService } from '../shared/helpers/auth.service';
+import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
+import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { AuthGuard } from '../shared/helpers/auth.guard';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -96,11 +98,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     Camera,
     LocalNotifications,
     FilePath,
+    AndroidPermissions,
     UserService,
     LocationService,
     ContactService,
-    AndroidPermissions,
-    AuthGuard,
+    BudgetService,
+    TransactionService,
+    AuthenticationService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

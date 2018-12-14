@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
+import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { AlarmPage } from '../alarm/alarm';
 import { BankInfoPage } from '../bank-info/bank-info';
 import { BudgetsPage } from '../budgets/budgets';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
 import { GogowalletPage } from '../gogowallet/gogowallet';
 import { NotificationPage } from '../notification/notification';
@@ -10,8 +12,6 @@ import { OverviewPage } from '../overview/overview';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { TrackPage } from '../track/track';
-import { AuthGuard } from '../../shared/helpers/auth.guard';
-import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -23,13 +23,13 @@ export class TabsPage {
   tab4Root = NotificationPage;
   tab5Root = ProfilePage;
 
-  constructor(private navCtrl: NavController, public events: Events, private authGuard: AuthGuard) {
+  constructor(private navCtrl: NavController, public events: Events) {
+
     this.subscribeEvents();
   }
 
   subscribeEvents() {
     this.events.subscribe('user:signout', () => {
-      this.authGuard.signOut();
       this.navCtrl.popToRoot();
     });
     this.events.subscribe('navTo:settings', () => {

@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
 import { AuthenticationService } from '../helpers/auth.service';
-import Contact from '../models/contact.model';
+import Budget from '../models/budget.model';
 
 @Injectable()
-export class ContactService {
+export class BudgetService {
     private headers = new Headers({
         'Content-Type': 'application/json',
     });
 
     constructor(private http: Http) { }
 
-    getById(id: number): Observable<Contact> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })
+    getById(id: number): Observable<Budget> {
+        return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    getAll(): Observable<Contact[]> {
+    getAll(): Observable<Budget[]> {
         return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    create(contact: Contact): Observable<Contact> {
-        return this.http.post(ENV.BASE_URL + '/create', contact, { headers: this.headers })
+    create(budget: Budget): Observable<Budget> {
+        return this.http.post(ENV.BASE_URL + '/create', budget, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    update(contact: Contact): Observable<Contact> {
-        return this.http.put(ENV.BASE_URL + '/update', contact, { headers: this.headers })
+    update(budget: Budget): Observable<Budget> {
+        return this.http.put(ENV.BASE_URL + '/update', budget, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    delete(user_id: number, contact: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
+    delete(id: number): Observable<boolean> {
+        return this.http.delete(ENV.BASE_URL + '/delete?id=' + id, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 }
