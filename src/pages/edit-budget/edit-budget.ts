@@ -20,13 +20,11 @@ export class EditBudgetPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditBudgetPage');
   }
-  public event = {
-    monthStart: '1990-02-19',
-    timeStarts: '07:43',
-    timeEnds: '07:43',
-    monthEnds: '1990-02-20'
+
+  update(){
+    //Todo api call to update
+    this.navCtrl.pop();
   }
 
 }

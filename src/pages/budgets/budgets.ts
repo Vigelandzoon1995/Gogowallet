@@ -15,6 +15,7 @@ export class BudgetsPage {
   data:any
 
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController,public alertCtrl: AlertController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {
@@ -53,7 +54,7 @@ export class BudgetsPage {
 
   delete(item){
     const confirm = this.alertCtrl.create({
-      title: 'Delete budget',
+      title: 'Delete '+item.category,
       message: 'Do you agree to delete this budget?',
       buttons: [
         {
@@ -67,8 +68,9 @@ export class BudgetsPage {
           handler: () => {
             var index = this.data.indexOf(item);
             if(index != -1){
-                return this.data.splice(index,1);
-                //Todo add api call delete functionality
+              //Todo add api call delete functionality
+              return this.data.splice(index,1);
+                
             }
             else{
               return false;
@@ -88,7 +90,7 @@ export class BudgetsPage {
         enddate:"1994-02-19",
         starttime:"07:43",
         endtime: "07:43",
-        amount:"200",
+        amount: 200,
         alarm: true,
         limitlock:true
       },
@@ -98,9 +100,9 @@ export class BudgetsPage {
         enddate:"1990-02-19",
         starttime:"07:43",
         endtime: "07:43",
-        amount:"10",
+        amount: 10,
         alarm: true,
-        limitlock:true
+        limitlock:false
       },
       {
         category:"Groceries",
@@ -108,7 +110,7 @@ export class BudgetsPage {
         enddate:"1990-02-19",
         starttime:"07:43",
         endtime: "07:43",
-        amount:"130",
+        amount: 130,
         alarm: true,
         limitlock:true
       },
