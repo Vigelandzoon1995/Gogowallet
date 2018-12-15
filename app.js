@@ -35,13 +35,13 @@ global.db = db;
 var http = require('http');
 
 //If the command is ran using a jasmine instance, use the test port 4444
-//So It won't disturb the pm2 instance running on 80
+//So It won't disturb the pm2 instance running on 3333
 if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
   console.log("running jasmine test environment at port 4444");
 } else {
-  http.createServer(app).listen(80, "0.0.0.0");
-  console.log("running at port 80");
+  http.createServer(app).listen(3333, "0.0.0.0");
+  console.log("running at port 3333");
 }
 
 app.use(cors());
