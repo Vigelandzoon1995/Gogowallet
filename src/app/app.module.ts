@@ -37,6 +37,8 @@ import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
+import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { MyApp } from './app.component';
     NotificationPage,
     ProfilePage,
     PopoverComponent,
+    BudgetItemPopoverComponent,
     SettingsPage,
     BankInfoPage,
     GogowalletPage,
@@ -58,7 +61,8 @@ import { MyApp } from './app.component';
     ResetPasswordPage,
     EditProfilePage,
     EmergencyContactsPage,
-    AddContactPage
+    AddContactPage,
+    EditBudgetPage
   ],
   imports: [
     BrowserModule,
@@ -77,6 +81,7 @@ import { MyApp } from './app.component';
     NotificationPage,
     ProfilePage,
     PopoverComponent,
+    BudgetItemPopoverComponent,
     SettingsPage,
     BankInfoPage,
     GogowalletPage,
@@ -86,7 +91,8 @@ import { MyApp } from './app.component';
     ResetPasswordPage,
     EditProfilePage,
     EmergencyContactsPage,
-    AddContactPage
+    AddContactPage,
+    EditBudgetPage
   ],
   providers: [
     AuthenticationService,

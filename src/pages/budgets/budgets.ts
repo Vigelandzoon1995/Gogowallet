@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, AlertController } from 'ionic-angular';
 import { BudgetPage } from '../budget/budget';
+import { EditBudgetPage } from '../edit-budget/edit-budget';
+import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
 
-/**
- * Generated class for the BudgetsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,28 +14,75 @@ export class BudgetsPage {
 
   data:any
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController,public alertCtrl: AlertController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BudgetsPage');
-    this.createList();
+    this.getBudgetList();
   }
+
+  presentPopover(myEvent,item) {
+    let popover = this.popoverCtrl.create(BudgetItemPopoverComponent);
+    popover.present({
+      ev: myEvent
+    });
+
+    popover.onDidDismiss(popoverData => {
+      try {
+        if (popoverData.item.match("View")) {
+          this.openBudget(item);
+        }
+        else if (popoverData.item.match("Delete")) {
+         this.delete(item);
+        }
+      } catch (Nullpointerexception) {
+        //console.log(Nullpointerexception);
+      }
+
+    })
+  }
+
   navToBudget(){
     this.navCtrl.push(BudgetPage);
   }
   openBudget(item){
-    //Todo create new EditBugetPage
-    // this.navCtrl.push(BudgetPage,{
-    //   data: item
-    // });
+    this.navCtrl.push(EditBudgetPage,{
+      data: item
+    });
   }
 
   delete(item){
+    const confirm = this.alertCtrl.create({
+      title: 'Delete budget',
+      message: 'Do you agree to delete this budget?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            // do nothing
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            console.log('Agree clicked');
+            var index = this.data.indexOf(item);
+            if(index != -1){
+                return this.data.splice(index,1);
+            }
+            else{
+              return false;
+            }
+          }
+        }
+      ]
+    });
+    confirm.present();
     //Todo add delete function
   }
 
-  createList(){
+  getBudgetList(){
     this.data = [
       {
         category:"Outgoing",

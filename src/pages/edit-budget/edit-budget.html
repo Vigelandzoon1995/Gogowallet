@@ -1,13 +1,20 @@
+<!--
+  Generated template for the EditBudgetPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Budget</ion-title>
+    <ion-title>Edit budget</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content>
-   <ion-card>
+
+<ion-content padding>
+    <ion-card>
         <ion-card-header>Category</ion-card-header>
       <ion-item>
           <ion-label>Select category</ion-label>
@@ -25,7 +32,7 @@
   <ion-item>
       <ion-icon name="calendar" item-start></ion-icon>
     <ion-label>Start Date</ion-label>
-    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.monthStart"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.startdate"></ion-datetime>
   </ion-item>
   <hr>
   <ion-item>
@@ -74,11 +81,7 @@
 
 <ion-row>
     <ion-col>
-      <button ion-button class="save-btn" full round type="button" >Save</button>
+      <button ion-button class="save-btn" full round type="button" >Update</button>
     </ion-col>
 </ion-row>
 </ion-content>
-
-
- 
-

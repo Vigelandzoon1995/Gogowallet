@@ -9,14 +9,22 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
 <ion-list>
-  <ion-card *ngFor="let item of data" (click)="openBudget(item)">
+    <!-- <ion-item-sliding> -->
+  <ion-card  *ngFor="let item of data" >
     <ion-card-header>
       {{item.category}}
-          <button ion-button icon-only (click)="delete()">
+          <!-- <button id="delete-button" ion-button icon-only (click)="delete(item)">
             <ion-icon name="trash"></ion-icon>
           </button>
+          <button id="view-button" ion-button icon-only (click)="openBudget(item)">
+                <ion-icon name="eye"></ion-icon>
+            </button> -->
+                    <button ion-buttons icon-only (click)="presentPopover($event,item)">
+                      <ion-icon name="more"></ion-icon>
+                    </button>
+          
     </ion-card-header>
       <ion-card-content> 
           <ion-item>
@@ -35,5 +43,6 @@
           </ion-item>
       </ion-card-content>
   </ion-card>
+<!-- </ion-item-sliding> -->
       </ion-list>
 </ion-content>
