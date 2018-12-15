@@ -23,10 +23,10 @@ export class OverviewPage {
 
     popover.onDidDismiss(popoverData => {
       try {
-        if (popoverData.item.match("SIGNOUT")) {
+        if (popoverData.item.match("Sign Out")) {
           this.signout();
         }
-        else if (popoverData.item.match("SETTINGS")) {
+        else if (popoverData.item.match("Settings")) {
           this.goToSettingsPage()
         }
       } catch (Nullpointerexception) {

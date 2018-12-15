@@ -37,7 +37,6 @@ export class BudgetsPage {
          this.delete(item);
         }
       } catch (Nullpointerexception) {
-        //console.log(Nullpointerexception);
       }
 
     })
@@ -66,10 +65,10 @@ export class BudgetsPage {
         {
           text: 'Agree',
           handler: () => {
-            console.log('Agree clicked');
             var index = this.data.indexOf(item);
             if(index != -1){
                 return this.data.splice(index,1);
+                //Todo add api call delete functionality
             }
             else{
               return false;
@@ -79,7 +78,6 @@ export class BudgetsPage {
       ]
     });
     confirm.present();
-    //Todo add delete function
   }
 
   getBudgetList(){
