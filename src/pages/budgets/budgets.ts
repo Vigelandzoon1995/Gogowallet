@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, PopoverController, AlertController
 import { BudgetPage } from '../budget/budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
-
-
+import { Budget } from '../../interfaces/budget/budget.interface';
+import { BudgetsService2 } from '../../services/budgets/budgets';
 @IonicPage()
 @Component({
   selector: 'page-budgets',
@@ -13,8 +13,8 @@ import { BudgetItemPopoverComponent } from '../../components/budget-item-popover
 export class BudgetsPage {
 
   data:any
-
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController,public alertCtrl: AlertController, public navParams: NavParams) {
+  budgetCollection: {budgets: Budget[]}[];
+  constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,public alertCtrl: AlertController, public navParams: NavParams) {
 
   }
 
@@ -66,15 +66,7 @@ export class BudgetsPage {
         {
           text: 'Agree',
           handler: () => {
-            var index = this.data.indexOf(item);
-            if(index != -1){
-              //Todo add api call delete functionality
-              return this.data.splice(index,1);
-                
-            }
-            else{
-              return false;
-            }
+            this.budgetsService2.deleteBudget(item);
           }
         }
       ]
@@ -83,38 +75,8 @@ export class BudgetsPage {
   }
 
   getBudgetList(){
-    this.data = [
-      {
-        category:"Outgoing",
-        startdate:"1993-02-19",
-        enddate:"1994-02-19",
-        starttime:"07:43",
-        endtime: "07:43",
-        amount: 200,
-        alarm: true,
-        limitlock:true
-      },
-      {
-        category:"Groceries",
-        startdate:"1990-02-19",
-        enddate:"1990-02-19",
-        starttime:"07:43",
-        endtime: "07:43",
-        amount: 10,
-        alarm: true,
-        limitlock:false
-      },
-      {
-        category:"Groceries",
-        startdate:"1990-02-19",
-        enddate:"1990-02-19",
-        starttime:"07:43",
-        endtime: "07:43",
-        amount: 130,
-        alarm: true,
-        limitlock:true
-      },
-    ]
+    //Todo add GetAll() from services
+   this.budgetCollection = this.budgetsService2.getAll();
   }
 
 }

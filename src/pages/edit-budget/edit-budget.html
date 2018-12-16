@@ -23,25 +23,25 @@
   <ion-item>
       <ion-icon name="calendar" item-start></ion-icon>
     <ion-label>Start Date</ion-label>
-    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.startdate"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.start_date"></ion-datetime>
   </ion-item>
   <hr>
   <ion-item>
     <ion-icon name="clock" item-start></ion-icon>
     <ion-label>Start Time</ion-label>
-    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.starttime"></ion-datetime>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.start_time"></ion-datetime>
   </ion-item>
   <hr>
   <ion-item>
     <ion-icon name="calendar" item-start></ion-icon>
     <ion-label>Ends Date</ion-label>
-    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.enddate"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.end_date"></ion-datetime>
   </ion-item>
   <hr>
   <ion-item>
     <ion-icon name="clock" item-start></ion-icon>
     <ion-label>Ends Time</ion-label>
-    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.endtime"></ion-datetime>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.end_time"></ion-datetime>
   </ion-item>
 </ion-card>
 
@@ -66,7 +66,7 @@
   <ion-item>
       <ion-icon name="lock" item-start></ion-icon>
       <ion-label>Limit lock</ion-label>
-      <ion-toggle [(ngModel)]="budget.limitlock"></ion-toggle>
+      <ion-toggle [(ngModel)]="budget.limit_lock"></ion-toggle>
   </ion-item>
 </ion-card>
 

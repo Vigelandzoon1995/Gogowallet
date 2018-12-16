@@ -12,7 +12,7 @@
 <ion-content >
 <ion-list>
     <!-- <ion-item-sliding> -->
-  <ion-card  *ngFor="let item of data" >
+  <ion-card  *ngFor="let item of budgetCollection" >
     <ion-card-header>
       {{item.category}}
           <!-- <button id="delete-button" ion-button icon-only (click)="delete(item)">
@@ -34,12 +34,12 @@
           <hr>
           <ion-item>
               <ion-label>Start at</ion-label>
-              <ion-label end> <h6>{{item.startdate}} - {{item.starttime}}</h6></ion-label>
+              <ion-label end> <h6>{{item.start_date}} - {{item.start_time}}</h6></ion-label>
           </ion-item>
           <hr>
           <ion-item>
               <ion-label>Ends at</ion-label>
-              <ion-label end> <h6> {{item.enddate}} - {{item.endtime}}</h6></ion-label>
+              <ion-label end> <h6> {{item.end_date}} - {{item.end_time}}</h6></ion-label>
           </ion-item>
       </ion-card-content>
   </ion-card>

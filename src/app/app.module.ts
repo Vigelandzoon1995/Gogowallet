@@ -39,6 +39,8 @@ import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
 import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
+//Todo Delete BudgetsService2 when shareService is integrated
+import { BudgetsService2 } from '../services/budgets/budgets';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { BudgetItemPopoverComponent } from '../components/budget-item-popover/bu
     LocationService,
     ContactService,
     BudgetService,
+    BudgetsService2,
     TransactionService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

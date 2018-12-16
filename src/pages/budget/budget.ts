@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { min } from 'rxjs/operators';
-
-/**
- * Generated class for the BudgetPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Budget } from '../../interfaces/budget/budget.interface';
+import { BudgetsService2 } from '../../services/budgets/budgets';
 
 @IonicPage()
 @Component({
@@ -16,46 +11,47 @@ import { min } from 'rxjs/operators';
 })
 export class BudgetPage {
 
-  budget: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  budget: Budget;
+  constructor(private budgetsService2: BudgetsService2, public navCtrl: NavController, public navParams: NavParams) {
     this.setBudgetDefault();
   
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BudgetPage');
   }
 
   save(){
-    //Todo save budget
+    //Todo remove budgetsService2 when backend integrated
+    this.budgetsService2.addBudget(this.budget);
+    this.navCtrl.pop();
   }
 
   setBudgetDefault(){
-    console.log(this.getCurrentTime());
-    this.budget = {
-      category :"",
-      startdate : this.getCurrentDate(),
-      starttime : this.getCurrentTime(),
-      enddate : this.getCurrentDate(),
-      endtime : this.getCurrentTime(),
+      this.budget = {
+      id: null,
+      category : "",
+      start_date : this.getCurrentDate(),
+      start_time : this.getCurrentTime(),
+      end_date : this.getCurrentDate(),
+      end_time : this.getCurrentTime(),
       amount : 0,
       alarm : false,
-      limitlock : false
-    }
+      limit_lock : false,
+      last_checked_date : null
+      }
   }
   getCurrentDate(){
     var dateObj = new Date();
     var formatteddate;
     var year = dateObj.getFullYear().toString();
     var month = dateObj.getMonth().toString();
-    var day = dateObj.getDay().toString();
+    var day = dateObj.getUTCDate().toString();
     if(day.length == 1 || month.length == 1){
-      if(day.length == 1){ day = 0+day; }
-      else if(month.length == 1){month = 0+month;}
-      else if(day.length == 1 && month.length == 1){day = 0+day; month = 0+month;}
+      if(day.length == 1){ day = "0"+day; }
+      else if(month.length == 1){month = "0"+month;}
+      else if(day.length == 1 && month.length == 1){day = "0"+day; month = "0"+month;}
     } 
-    formatteddate = year+"-"+month+"-"+day; 
+    formatteddate = year+"-"+month+"-"+ day; 
     return formatteddate;
   }
   getCurrentTime(){
@@ -64,9 +60,9 @@ export class BudgetPage {
     var hours = dateObj.getHours().toString();
     var minutes = dateObj.getMinutes().toString();
     if(minutes.length == 1 || hours.length == 1){
-      if(minutes.length == 1){ minutes = 0+minutes; }
-      else if(hours.length == 1){hours = 0+hours;}
-      else if(minutes.length == 1 && hours.length == 1){minutes = 0+minutes; hours = 0+hours;}
+      if(minutes.length == 1){ minutes = "0"+minutes; }
+      else if(hours.length == 1){hours = "0"+hours;}
+      else if(minutes.length == 1 && hours.length == 1){minutes = "0"+minutes; hours = "0"+hours;}
     } 
     formattedtime = hours+":"+minutes; 
     return formattedtime;
