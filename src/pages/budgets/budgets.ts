@@ -31,7 +31,7 @@ export class BudgetsPage {
 
     popover.onDidDismiss(popoverData => {
       try {
-        if (popoverData.item.match("View")) {
+        if (popoverData.item.match("Edit")) {
           this.openBudget(item);
         }
         else if (popoverData.item.match("Delete")) {

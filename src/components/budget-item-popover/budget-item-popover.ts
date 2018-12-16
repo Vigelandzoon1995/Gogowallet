@@ -17,7 +17,7 @@ export class BudgetItemPopoverComponent {
 
   constructor(private viewCtrl: ViewController) {
     this.items = [
-      { item: "View" },
+      { item: "Edit" },
       { item: "Delete" }
     ];
   }

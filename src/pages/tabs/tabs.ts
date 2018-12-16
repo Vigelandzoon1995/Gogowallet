@@ -7,7 +7,6 @@ import { BudgetsPage } from '../budgets/budgets';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
 import { GogowalletPage } from '../gogowallet/gogowallet';
-import { NotificationPage } from '../notification/notification';
 import { OverviewPage } from '../overview/overview';
 import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
@@ -20,8 +19,7 @@ export class TabsPage {
   tab1Root = OverviewPage;
   tab2Root = TrackPage;
   tab3Root = AlarmPage;
-  tab4Root = NotificationPage;
-  tab5Root = ProfilePage;
+  tab4Root = ProfilePage;
 
   constructor(private navCtrl: NavController, public events: Events) {
 

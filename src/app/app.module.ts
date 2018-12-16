@@ -22,7 +22,6 @@ import { BudgetsPage } from '../pages/budgets/budgets';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
 import { GogowalletPage } from '../pages/gogowallet/gogowallet';
-import { NotificationPage } from '../pages/notification/notification';
 import { OverviewPage } from '../pages/overview/overview';
 import { ProfilePage } from '../pages/profile/profile';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -50,7 +49,6 @@ import { BudgetsService2 } from '../services/budgets/budgets';
     OverviewPage,
     TrackPage,
     AlarmPage,
-    NotificationPage,
     ProfilePage,
     PopoverComponent,
     BudgetItemPopoverComponent,
@@ -80,7 +78,6 @@ import { BudgetsService2 } from '../services/budgets/budgets';
     OverviewPage,
     TrackPage,
     AlarmPage,
-    NotificationPage,
     ProfilePage,
     PopoverComponent,
     BudgetItemPopoverComponent,
