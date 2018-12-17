@@ -45,22 +45,22 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row class="text-center">
       <ion-col>
-        <button ion-button class="login-btn" full round type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
-        <!-- <button ion-button class="login-btn" full round type="button" (click)="signIn()">Login</button> -->
+        <!-- <button ion-button class="login-btn" full round type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button> -->
+        <button ion-button class="login-btn" full round type="button" (click)="signIn()">Login</button>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row class="text-center">
       <ion-col>
-        <button ion-button class="register-link" full type="button" (click)="navigateToRegister()" clear>Register</button>
+        <button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row class="text-center">
       <ion-col>
-        <button ion-button class="reset-link" full type="button" (click)="navigateToReset()" clear>Forgot password?</button>
+        <button ion-button clear class="reset-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
       </ion-col>
     </ion-row>
 

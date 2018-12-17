@@ -5,11 +5,15 @@
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="profileForm">
-    <ion-row>
-      <ion-col class="text-center">
-        <img class="profile" [src]="DomSanitizer.bypassSecurityTrustUrl(user.profile_picture)" [hidden]="!user.profile_picture">
-        <h3>Anonymous User</h3>
+  <form novalidate [formGroup]="profileForm" *ngIf="user">
+    <ion-row class="text-center">
+      <ion-col>
+        <img class="profile" [src]="user.profile_picture" (click)="navigateToEditProfile()" *ngIf="user">
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="text-center">
+      <ion-col>
         <button (click)="uploadImage()" ion-button small>Upload</button>
       </ion-col>
     </ion-row>
@@ -34,7 +38,7 @@
 
           <ion-item>
             <ion-label floating>Current Password</ion-label>
-            <ion-input type="password" formControlName="password" [(ngModel)]="user.password" required></ion-input>
+            <ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
           </ion-item>
 
           <ion-item>

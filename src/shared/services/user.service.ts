@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
+import { AuthenticationService } from '../helpers/auth.service';
 import User from '../models/user.model';
 
 @Injectable()
@@ -11,7 +12,9 @@ export class UserService {
         'Content-Type': 'application/json',
     });
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthenticationService) {
+        this.headers.append('Authorization', 'Bearer ' + authService.getToken());
+    }
 
     getById(id: number): Observable<User> {
         return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })

@@ -12,7 +12,9 @@ export class ContactService {
         'Content-Type': 'application/json',
     });
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthenticationService) {
+        this.headers.append('Authorization', 'Bearer ' + authService.getToken());
+    }
 
     getById(id: number): Observable<Contact> {
         return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })

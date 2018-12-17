@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NavController, Platform } from 'ionic-angular';
 import { SigninPage } from '../pages/signin/signin';
+import { TabsPage } from '../pages/tabs/tabs';
 import { AuthenticationService } from '../shared/helpers/auth.service';
 
 @Component({
@@ -16,17 +17,20 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
     private localNotifications: LocalNotifications, private authService: AuthenticationService) {
+
+    //Subscribe to events of Authentication Service
     this.authService.logoutEvent.subscribe(
       res => {
         this.nav.popToRoot();
       }
     );
 
-    this.authService.logoutEvent.subscribe(
+    this.authService.loginEvent.subscribe(
       res => {
-        this.nav.push(SigninPage);
+        this.nav.push(TabsPage);
       }
     );
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -37,6 +41,8 @@ export class MyApp {
         this.checkPermissions();
       }
 
+      // Clear any leftover tokens and user variables
+      authService.clear();
     });
   }
 

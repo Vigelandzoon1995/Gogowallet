@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
@@ -17,11 +17,12 @@ import { UserService } from '../../shared/services/user.service';
 export class EditProfilePage {
   profileForm: FormGroup;
   user: User;
+  password: string;
   newPassword: string;
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private DomSanitizer: DomSanitizer, private userService: UserService, private authService: AuthenticationService) {
+    private userService: UserService, private authService: AuthenticationService, private storage: Storage) {
     this.createFormGroup();
     this.getUser();
   }
@@ -35,21 +36,27 @@ export class EditProfilePage {
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
       password: new FormControl('', [
-        Validators.required,
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ]),
       new_password: new FormControl('', [
-        Validators.required,
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ])
     });
   }
 
   getUser() {
-    this.user = new User();
+    this.storage.get('currentUser').then(
+      (response) => this.user = response
+    );
   }
 
   submit() {
+    if (!this.password && !this.newPassword) {
+      if (this.password != this.newPassword) {
+        this.user.password = this.newPassword;
+      }
+    }
+
     this.userService.update(this.user).subscribe(
       (response) => {
         this.authService.removeUser();

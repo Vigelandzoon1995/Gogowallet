@@ -1,9 +1,10 @@
 <ion-content padding>
   <ion-row>
     <ion-col class="text-center">
-      <img class="profile" *ngIf="!currentUser" [src]="DomSanitizer.bypassSecurityTrustUrl(currentUser.profile_picture)"
-        (click)="navigateToEditProfile()">
-      <h3>Anonymous User</h3>
+      <div *ngIf="currentUser">
+        <img class="profile" [src]="currentUser.profile_picture" (click)="navigateToEditProfile()">
+        <h3>{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
+      </div>
     </ion-col>
   </ion-row>
 

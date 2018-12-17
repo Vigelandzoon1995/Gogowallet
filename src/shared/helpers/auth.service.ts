@@ -25,8 +25,23 @@ export class AuthenticationService {
                     if (response) {
                         if (response.token != false) {
                             this.setToken(response);
-                            this.isLoggedIn = true;
                             this.loginEvent.next(true);
+                        } else {
+                            // Show error message
+                            const alert = this.alertCtrl.create({
+                                title: 'Sign In',
+                                subTitle: 'You have entered an invalid username or password.',
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        handler: data => {
+                                            //Redirect to login page
+                                            this.logoutEvent.next(true);
+                                        }
+                                    }
+                                ]
+                            });
+                            alert.present();
                         }
                     }
                 },
@@ -52,7 +67,7 @@ export class AuthenticationService {
 
     register(user: User): void {
         let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Content-Type', 'application/json');
 
         this.http.post(ENV.BASE_URL + '/register', user, { headers: headers })
             .map((result) => result.json())
@@ -99,15 +114,15 @@ export class AuthenticationService {
     }
 
     signOut() {
-        this.storage.remove('auth_token');
-        this.isLoggedIn = false;
+        this.clearToken();
+        this.removeUser();
 
         this.logoutEvent.next(true);
     }
 
     setToken(response: any) {
         this.storage.set('auth_token', response.token);
-        //this.saveUser(response.user);
+        this.saveUser(response.user);
     }
 
     getToken(): String {
@@ -121,11 +136,29 @@ export class AuthenticationService {
         this.storage.remove('auth_token');
     }
 
+    getUser(): User {
+        let user;
+        this.storage.get('currentUser').then(
+            (result) => user = result
+        );
+        return user;
+    }
+
     saveUser(user: User) {
+        if (user.profile_picture) {
+            user.profile_picture = 'data:image/png;base64,' + user.profile_picture;
+        }
         this.storage.set('currentUser', user);
+        this.isLoggedIn = true;
     }
 
     removeUser() {
         this.storage.remove('currentUser');
+        this.isLoggedIn = false;
+    }
+
+    clear() {
+        this.clearToken();
+        this.removeUser();
     }
 }
