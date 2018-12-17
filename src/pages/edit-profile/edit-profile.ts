@@ -61,6 +61,8 @@ export class EditProfilePage {
       (response) => {
         this.authService.removeUser();
         this.authService.saveUser(response);
+
+        this.navCtrl.pop();
       },
       (error) => { Observable.throw(error); }
     );
