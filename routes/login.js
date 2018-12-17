@@ -12,9 +12,16 @@ router.post('/', function (req, res) {
       if (results.length != 0 && results[0].password != null && results[0].user_id != null) {
         bcrypt.compare(req.body.password, results[0].password, function (err, result) {
           if (result) {
-            var token = jwt.sign({ id: results[0].ID }, "secretkey");
+            var token = jwt.sign({ id: results[0].user_id }, "secretkey");
             res.json({
-              token: token
+              token: token,
+              user: {
+                user_id: results[0].user_id,
+                first_name: results[0].first_name,
+                last_name: results[0].last_name,
+                email: results[0].email,
+                profile_picture: results[0].profile_picture
+              }
             })
           } else {
             res.json({
