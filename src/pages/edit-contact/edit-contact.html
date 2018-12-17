@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>Edit Emergency Contact</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="delete()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -26,7 +31,7 @@
 
           <ion-item>
             <ion-label>Type of Card</ion-label>
-            <ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail">
+            <ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail" required>
               <ion-option value="card">Bank</ion-option>
               <ion-option value="person">Identification</ion-option>
               <ion-option value="medkit">Health</ion-option>
