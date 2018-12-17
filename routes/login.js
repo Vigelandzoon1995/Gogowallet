@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
               token: token
             })
           } else {
-            res.status(404).json({
+            res.json({
               token: false
             })
           }
