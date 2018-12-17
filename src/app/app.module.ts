@@ -38,8 +38,11 @@ import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
 import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
-//Todo Delete BudgetsService2 when shareService is integrated
+//Todo Delete ../services/### BudgetsService2, EmergencyContactService when shareService is integrated
 import { BudgetsService2 } from '../services/budgets/budgets';
+import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
+import { EditContactPage } from '../pages/edit-contact/edit-contact';
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { BudgetsService2 } from '../services/budgets/budgets';
     EditProfilePage,
     EmergencyContactsPage,
     AddContactPage,
-    EditBudgetPage
+    EditBudgetPage,
+    EditContactPage
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,8 @@ import { BudgetsService2 } from '../services/budgets/budgets';
     EditProfilePage,
     EmergencyContactsPage,
     AddContactPage,
-    EditBudgetPage
+    EditBudgetPage,
+    EditContactPage
   ],
   providers: [
     AuthenticationService,
@@ -110,6 +115,7 @@ import { BudgetsService2 } from '../services/budgets/budgets';
     ContactService,
     BudgetService,
     BudgetsService2,
+    EmergencyContactService,
     TransactionService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

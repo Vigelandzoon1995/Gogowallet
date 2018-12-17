@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
+import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ export class AddContactPage {
   contactForm: FormGroup;
   contact: Contact = new Contact();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
     this.createFormGroup();
   }
 
@@ -31,10 +32,12 @@ export class AddContactPage {
   }
 
   submit() {
-    this.contactService.create(this.contact).subscribe(
-      (response) => this.navCtrl.pop(),
-      (error) => { Observable.throw(error); }
-    );
+    this.emergencyContactService.addContact(this.contact);
+    this.navCtrl.pop();
+    // this.contactService.create(this.contact).subscribe(
+    //   (response) =>  this.navCtrl.pop(),
+    //   (error) => { Observable.throw(error); }
+    // );
   }
 
 }
