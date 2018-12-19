@@ -40,7 +40,7 @@ if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
   console.log("running jasmine test environment at port 4444");
 } else {
-  http.createServer(app).listen(3333);
+  http.createServer(app).listen(3000, "0.0.0.0");
   console.log("running at port 3333");
 }
 
