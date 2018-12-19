@@ -2,47 +2,53 @@
   <ion-navbar color="primary">
     <ion-title>Budgets</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="navToBudget()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only (click)="navToBudget()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content >
-<ion-list>
+<ion-content>
+  <ion-list>
     <!-- <ion-item-sliding> -->
-  <ion-card  *ngFor="let item of budgetCollection" >
-    <ion-card-header>
-      {{item.category}}
-          <!-- <button id="delete-button" ion-button icon-only (click)="delete(item)">
+    <ion-card *ngFor="let item of budgetCollection">
+      <ion-card-header>
+        {{item.category}}
+        <!-- <button id="delete-button" ion-button icon-only (click)="delete(item)">
             <ion-icon name="trash"></ion-icon>
           </button>
           <button id="view-button" ion-button icon-only (click)="openBudget(item)">
                 <ion-icon name="eye"></ion-icon>
             </button> -->
-                    <button ion-buttons icon-only (click)="presentPopover($event,item)">
-                      <ion-icon name="more"></ion-icon>
-                    </button>
-          
-    </ion-card-header>
-      <ion-card-content> 
-          <ion-item>
-              <ion-label>Amount</ion-label>
-              <ion-label end><h6>{{item.amount}}</h6></ion-label>
-          </ion-item>
-          <hr>
-          <ion-item>
-              <ion-label>Start at</ion-label>
-              <ion-label end> <h6>{{item.start_date}} - {{item.start_time}}</h6></ion-label>
-          </ion-item>
-          <hr>
-          <ion-item>
-              <ion-label>Ends at</ion-label>
-              <ion-label end> <h6> {{item.end_date}} - {{item.end_time}}</h6></ion-label>
-          </ion-item>
+        <button ion-buttons icon-only (click)="presentPopover($event,item)">
+          <ion-icon name="more"></ion-icon>
+        </button>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Amount</ion-label>
+          <ion-label end>
+            <h6>{{item.amount}}</h6>
+          </ion-label>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label>Start at</ion-label>
+          <ion-label end>
+            <h6>{{item.start_date}} - {{item.start_time}}</h6>
+          </ion-label>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label>Ends at</ion-label>
+          <ion-label end>
+            <h6> {{item.end_date}} - {{item.end_time}}</h6>
+          </ion-label>
+        </ion-item>
       </ion-card-content>
-  </ion-card>
-<!-- </ion-item-sliding> -->
-      </ion-list>
+    </ion-card>
+    <!-- </ion-item-sliding> -->
+  </ion-list>
 </ion-content>

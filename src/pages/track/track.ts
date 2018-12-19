@@ -1,22 +1,6 @@
 import { Component } from '@angular/core';
+import { Environment, GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent, Marker } from '@ionic-native/google-maps';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  Environment
-} from '@ionic-native/google-maps';
-
-/**
- * Generated class for the TrackPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,15 +9,14 @@ import {
 })
 export class TrackPage {
   map: GoogleMap;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TrackPage');
     this.loadMap();
   }
   loadMap() {
-
     // This code is necessary for browser
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyCkJEZtkCK1urLuwBRsooqttYDNIzsOBf4',
@@ -42,13 +25,13 @@ export class TrackPage {
 
     let mapOptions: GoogleMapOptions = {
       camera: {
-         target: {
-           lat: 43.0741904,
-           lng: -89.3809802
-         },
-         zoom: 18,
-         tilt: 30
-       }
+        target: {
+          lat: 51.9171377,
+          lng: 4.4845714
+        },
+        zoom: 18,
+        tilt: 30
+      }
     };
 
     this.map = GoogleMaps.create('map_canvas', mapOptions);
@@ -63,7 +46,6 @@ export class TrackPage {
       }
     });
     marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      alert('clicked');
     });
   }
 

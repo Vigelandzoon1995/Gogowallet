@@ -3,10 +3,7 @@ import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
 import { AddContactPage } from '../add-contact/add-contact';
-import { ViewContactPage } from '../view-contact/view-contact';
-import { Observable } from 'rxjs';
 import { EditContactPage } from '../edit-contact/edit-contact';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 
 @IonicPage()
 @Component({
@@ -14,9 +11,9 @@ import { EmergencyContactService } from '../../services/emergency-contacts/emerg
   templateUrl: 'emergency-contacts.html',
 })
 export class EmergencyContactsPage {
-  contacts:  {contacts: Contact[]}[];;
+  contacts: Contact[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService) {
     this.getContacts();
   }
 
@@ -28,13 +25,27 @@ export class EmergencyContactsPage {
   }
 
   showDetails(contact) {
-   // this.navCtrl.push(ViewContactPage, id);
-    this.navCtrl.push(EditContactPage,{
+    this.navCtrl.push(EditContactPage, {
       data: contact
     });
   }
 
   getContacts() {
-    this.contacts = this.emergencyContactService.getAll();
+    this.contacts = [{
+      id: 1,
+      user_id: 1,
+      name: 'Rabobank',
+      phone: '088 722 67 67',
+      thumbnail: 'card',
+      notes: ''
+    },
+    {
+      id: 2,
+      user_id: 1,
+      name: 'ABN AMRO',
+      phone: '0900 0024',
+      thumbnail: 'card',
+      notes: ''
+    }];
   }
 }

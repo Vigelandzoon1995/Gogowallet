@@ -5,78 +5,74 @@
 </ion-header>
 
 <ion-content>
-   <ion-card>
-        <ion-card-header>Category</ion-card-header>
-      <ion-item>
-          <ion-label>Select category</ion-label>
-            <ion-select  [(ngModel)]="budget.category">
-                <ion-option value="Outgoing">Outgoing</ion-option>
-                <ion-option value="Groceries">Groceries</ion-option>
-            </ion-select>
-      </ion-item>
+  <ion-card>
+    <ion-card-header>Category</ion-card-header>
+    <ion-item>
+      <ion-label>Select category</ion-label>
+      <ion-select [(ngModel)]="budget.category">
+        <ion-option value="Outgoing">Outgoing</ion-option>
+        <ion-option value="Groceries">Groceries</ion-option>
+      </ion-select>
+    </ion-item>
   </ion-card>
 
- <ion-card>
+  <ion-card>
     <ion-card-header>
-       Dates
+      Dates
     </ion-card-header>
-  <ion-item>
+    <ion-item>
       <ion-icon name="calendar" item-start></ion-icon>
-    <ion-label>Start Date</ion-label>
-    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.start_date"></ion-datetime>
-  </ion-item>
-  <hr>
-  <ion-item>
-    <ion-icon name="clock" item-start></ion-icon>
-    <ion-label>Start Time</ion-label>
-    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.start_time"></ion-datetime>
-  </ion-item>
-  <hr>
-  <ion-item>
-    <ion-icon name="calendar" item-start></ion-icon>
-    <ion-label>Ends Date</ion-label>
-    <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.end_date"></ion-datetime>
-  </ion-item>
-  <hr>
-  <ion-item>
-    <ion-icon name="clock" item-start></ion-icon>
-    <ion-label>Ends Time</ion-label>
-    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.end_time"></ion-datetime>
-  </ion-item>
-</ion-card>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.start_date"></ion-datetime>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <ion-icon name="clock" item-start></ion-icon>
+      <ion-label>Start Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.start_time"></ion-datetime>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <ion-icon name="calendar" item-start></ion-icon>
+      <ion-label>Ends Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="budget.end_date"></ion-datetime>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <ion-icon name="clock" item-start></ion-icon>
+      <ion-label>Ends Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="budget.end_time"></ion-datetime>
+    </ion-item>
+  </ion-card>
 
-<ion-card>
+  <ion-card>
     <ion-card-header>Budget</ion-card-header>
-  <ion-item>
+    <ion-item>
       <ion-icon name="logo-euro" item-start></ion-icon>
       <ion-label>Amount</ion-label>
       <ion-input id="budget-input" type="number" placeholder="€" [(ngModel)]="budget.amount"></ion-input>
-  </ion-item>
-</ion-card>
+    </ion-item>
+  </ion-card>
 
-<ion-card>
+  <ion-card>
     <ion-card-header>Features</ion-card-header>
     <hr>
-  <ion-item>
+    <ion-item>
       <ion-icon name="alarm" item-start></ion-icon>
       <ion-label>Alarm</ion-label>
       <ion-toggle [(ngModel)]="budget.alarm"></ion-toggle>
-  </ion-item>
-  <hr>
-  <ion-item>
+    </ion-item>
+    <hr>
+    <ion-item>
       <ion-icon name="lock" item-start></ion-icon>
       <ion-label>Limit lock</ion-label>
       <ion-toggle [(ngModel)]="budget.limit_lock"></ion-toggle>
-  </ion-item>
-</ion-card>
+    </ion-item>
+  </ion-card>
 
-<ion-row>
+  <ion-row>
     <ion-col>
-      <button ion-button class="save-btn" full round type="button" (click)="save()" >Save</button>
+      <button ion-button class="save-btn" full round type="button" (click)="save()">Save</button>
     </ion-col>
-</ion-row>
+  </ion-row>
 </ion-content>
-
-
- 
-

@@ -10,4 +10,4 @@ import { GogowalletPage } from './gogowallet';
     IonicPageModule.forChild(GogowalletPage),
   ],
 })
-export class GogowalletPageModule {}
+export class GogowalletPageModule { }

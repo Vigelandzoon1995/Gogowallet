@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
-import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { AlarmPage } from '../alarm/alarm';
 import { BankInfoPage } from '../bank-info/bank-info';
 import { BudgetsPage } from '../budgets/budgets';
@@ -22,7 +21,6 @@ export class TabsPage {
   tab4Root = ProfilePage;
 
   constructor(private navCtrl: NavController, public events: Events) {
-
     this.subscribeEvents();
   }
 

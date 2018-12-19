@@ -15,6 +15,7 @@ export class OverviewPage {
 
   ionViewDidLoad() {
   }
+
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverComponent);
     popover.present({
@@ -30,9 +31,7 @@ export class OverviewPage {
           this.goToSettingsPage()
         }
       } catch (Nullpointerexception) {
-        //console.log(Nullpointerexception);
       }
-
     })
   }
 

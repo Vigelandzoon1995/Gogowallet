@@ -1,3 +1,3 @@
 export var environment = {
-    BASE_URL: 'http://145.24.222.187/api',
+    BASE_URL: 'http://145.24.222.187:80/api',
 }
