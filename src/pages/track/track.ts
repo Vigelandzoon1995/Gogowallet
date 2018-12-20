@@ -60,10 +60,9 @@ export class TrackPage {
           lat: 51.9171377,
           lng: 4.4845714
         },
-        zoom: 13,
+        zoom: 14,
         tilt: 30
       },
-      styles: mapStyle
     };
 
     this.map = GoogleMaps.create('map_canvas', mapOptions);
@@ -94,7 +93,7 @@ export class TrackPage {
 
     this.map.moveCamera({
       target: { lat: this.walletCoordinates.latitude, lng: this.walletCoordinates.longitude },
-      zoom: 13,
+      zoom: 14,
       tilt: 30
     });
   }
