@@ -6,6 +6,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { Geolocation } from '@ionic-native/geolocation';
 import { LocationService } from '@ionic-native/google-maps';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,12 +14,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 import { PopoverComponent } from '../components/popover/popover';
 import { AddContactPage } from '../pages/add-contact/add-contact';
 import { AlarmPage } from '../pages/alarm/alarm';
-import { BankInfoPage } from '../pages/bank-info/bank-info';
 import { BudgetPage } from '../pages/budget/budget';
 import { BudgetsPage } from '../pages/budgets/budgets';
+import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
+import { EditContactPage } from '../pages/edit-contact/edit-contact';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
 import { GogowalletPage } from '../pages/gogowallet/gogowallet';
@@ -30,19 +33,15 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
+//Todo Delete ../services/### BudgetsService2, EmergencyContactService when shareService is integrated
+import { BudgetsService2 } from '../services/budgets/budgets';
+import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
 import { AuthenticationService } from '../shared/helpers/auth.service';
 import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
-import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
-//Todo Delete ../services/### BudgetsService2, EmergencyContactService when shareService is integrated
-import { BudgetsService2 } from '../services/budgets/budgets';
-import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
-import { EditContactPage } from '../pages/edit-contact/edit-contact';
-
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
     PopoverComponent,
     BudgetItemPopoverComponent,
     SettingsPage,
-    BankInfoPage,
     GogowalletPage,
     BudgetsPage,
     BudgetPage,
@@ -86,7 +84,6 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
     PopoverComponent,
     BudgetItemPopoverComponent,
     SettingsPage,
-    BankInfoPage,
     GogowalletPage,
     BudgetsPage,
     BudgetPage,
@@ -117,6 +114,7 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
     BudgetsService2,
     EmergencyContactService,
     TransactionService,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

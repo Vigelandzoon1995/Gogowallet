@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { AlarmPage } from '../alarm/alarm';
-import { BankInfoPage } from '../bank-info/bank-info';
 import { BudgetsPage } from '../budgets/budgets';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
@@ -30,9 +29,6 @@ export class TabsPage {
     });
     this.events.subscribe('navTo:settings', () => {
       this.navCtrl.push(SettingsPage);
-    });
-    this.events.subscribe('navTo:bankinfo', () => {
-      this.navCtrl.push(BankInfoPage);
     });
     this.events.subscribe('navTo:gogowallet', () => {
       this.navCtrl.push(GogowalletPage);

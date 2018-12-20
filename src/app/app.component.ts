@@ -37,9 +37,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      if (platform.is('android')) {
-        this.checkPermissions();
-      }
+      this.askPermissions();
 
       // Clear any leftover tokens and user variables
       authService.clear();
@@ -51,12 +49,13 @@ export class MyApp {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.VIBRATE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+
 
     if (!this.localNotifications.hasPermission) hasPermissions = false;
-
-    if (!hasPermissions) {
-      this.askPermissions();
-    }
+    if (!hasPermissions) this.askPermissions();
   }
 
   askPermissions() {
@@ -65,6 +64,9 @@ export class MyApp {
         this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
         this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
         this.androidPermissions.PERMISSION.VIBRATE,
+        this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION,
+        this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION,
+        this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS
       ]);
     this.localNotifications.requestPermission();
   }
