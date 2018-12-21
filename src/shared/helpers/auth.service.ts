@@ -121,15 +121,15 @@ export class AuthenticationService {
     }
 
     setToken(response: any) {
-        this.storage.set('auth_token', response.token);
+        this.storage.set('auth_token', JSON.stringify(response.token));
         this.saveUser(response.user);
     }
 
-    getToken(): String {
-        let token = '';
-        this.storage.get('auth_token').then((response) => { token = response });
-
-        return token;
+    getToken() {
+        return this.storage.get('auth_token').then((response) => {
+            let token = JSON.parse(response);
+            return token;
+        });
     }
 
     clearToken() {

@@ -13,7 +13,9 @@ export class UserService {
     });
 
     constructor(private http: Http, private authService: AuthenticationService) {
-        this.headers.append('Authorization', 'Bearer ' + authService.getToken());
+        this.authService.getToken().then((token) =>
+            this.headers.append('Authorization', 'Bearer ' + token)
+        );
     }
 
     getById(id: number): Observable<User> {
@@ -37,7 +39,7 @@ export class UserService {
     }
 
     update(user: User): Observable<User> {
-        return this.http.put(ENV.BASE_URL + '/update', user, { headers: this.headers })
+        return this.http.put(ENV.BASE_URL + '/users', user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
