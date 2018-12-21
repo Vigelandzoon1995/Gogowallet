@@ -34,7 +34,7 @@ export class SigninPage {
 
   signIn() {
     this.navCtrl.push(TabsPage);
-   // this.authService.signIn(this.emailInput, this.passwordInput);
+    //this.authService.signIn(this.emailInput, this.passwordInput);
   }
 
   navigateToRegister() {

@@ -115,14 +115,14 @@ export class AuthenticationService {
 
     signOut() {
         this.clearToken();
-        this.removeUser();
+        this.removeUser(true);
 
         this.logoutEvent.next(true);
     }
 
     setToken(response: any) {
         this.storage.set('auth_token', JSON.stringify(response.token));
-        this.saveUser(response.user);
+        this.saveUser(response.user, true);
     }
 
     getToken() {
@@ -144,18 +144,22 @@ export class AuthenticationService {
         return user;
     }
 
-    saveUser(user: User) {
+    saveUser(user: User, login: boolean) {
         this.storage.set('currentUser', user);
-        this.isLoggedIn = true;
+        if (login) {
+            this.isLoggedIn = true;
+        }
     }
 
-    removeUser() {
+    removeUser(login: boolean) {
         this.storage.remove('currentUser');
-        this.isLoggedIn = false;
+        if (login) {
+            this.isLoggedIn = false;
+        }
     }
 
     clear() {
         this.clearToken();
-        this.removeUser();
+        this.removeUser(true);
     }
 }

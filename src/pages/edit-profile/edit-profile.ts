@@ -17,8 +17,8 @@ import { UserService } from '../../shared/services/user.service';
 export class EditProfilePage {
   profileForm: FormGroup;
   user: User;
-  password: string;
-  newPassword: string;
+  password: string = null;
+  newPassword: string = null;
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
@@ -52,16 +52,20 @@ export class EditProfilePage {
   }
 
   submit() {
-    if (!this.password && !this.newPassword) {
+    let newUser = this.user;
+
+    if (this.password && this.newPassword) {
       if (this.password != this.newPassword) {
-        this.user.password = this.newPassword;
+        newUser.password = this.newPassword;
+      } else {
+        newUser.password = null;
       }
     }
 
-    this.userService.update(this.user).subscribe(
+    this.userService.update(newUser).subscribe(
       (response) => {
-        this.authService.removeUser();
-        this.authService.saveUser(response);
+        this.authService.removeUser(false);
+        this.authService.saveUser(newUser, false);
 
         this.navCtrl.pop();
       },

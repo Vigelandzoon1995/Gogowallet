@@ -38,7 +38,7 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    update(user: User): Observable<User> {
+    update(user: User): Observable<boolean> {
         return this.http.put(ENV.BASE_URL + '/users', user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
