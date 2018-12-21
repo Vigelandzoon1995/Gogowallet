@@ -25,7 +25,7 @@ router.put('/', auth.verifyToken, function (req, res, next) {
 
   if (password.length == 0) {
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
-      if (results != null && results.affectedRows == 1) {
+      if (!error) {
         res.send(JSON.stringify({
           "status": 200, "error": null, "response": {
             user: {
@@ -46,10 +46,9 @@ router.put('/', auth.verifyToken, function (req, res, next) {
     });
   } else {
     db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
-      if (results != null && results.affectedRows == 1) {
-        res.send(JSON.stringify({
-          "status": 200, "error": null, "response": {
-            user: {
+      if (!error) {
+        res.json({
+          user: {
               user_id: results[0].user_id,
               first_name: results[0].first_name,
               last_name: results[0].last_name,
@@ -57,12 +56,11 @@ router.put('/', auth.verifyToken, function (req, res, next) {
               password: results[0].password,
               profile_picture: results[0].profile_picture
             }
-          }
-        }));
+        });
       } else {
-        res.send(JSON.stringify({
-          "status": 500, "error": "Unable to update user", "response": null
-        }));
+        res.json({
+          error: "Unable to update user"
+        });
       }
     });
   }
