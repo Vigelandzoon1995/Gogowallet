@@ -4,6 +4,9 @@ var express = require('express');
 var auth = require('../modules/auth');
 var router = express.Router();
 
+const bcrypt = require('bcrypt');
+const saltRounds = 14;
+
 router.get('/', auth.verifyToken, function (req, res, next) {
   db.query('SELECT * from users', function (error, results, fields) {
     res.send(results);
@@ -50,6 +53,13 @@ router.put('/', auth.verifyToken, function (req, res, next) {
     let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, password=? WHERE email=?';
     let paramsWithPass = [first_name, last_name, profile_pic, new_pass, email];
     
+    if(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(req.body.new_password)) {
+      continue;
+    } else {
+      res.status(404);
+      res.json({ response: "New password not conform requirements", error: error });
+    }
+    
     db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
       if (!error) {
         res.status(200);
@@ -72,5 +82,17 @@ router.put('/', auth.verifyToken, function (req, res, next) {
   }
 });
 
+async function hashPassword(password) {
+    const saltRounds = 14;
+
+    const hashedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, function (err, hash) {
+            if (err) reject(err)
+            resolve(hash)
+        });
+    })
+
+    return hashedPassword
+}
 
 module.exports = router;
