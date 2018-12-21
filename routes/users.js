@@ -22,8 +22,8 @@ router.put('/', auth.verifyToken, function (req, res, next) {
 
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
       if (!error) {
-        res.send(JSON.stringify({
-          "status": 200, "error": null, "response": {
+        res.status(200);
+        res.json({
             user: {
               user_id: results[0].user_id,
               first_name: results[0].first_name,
@@ -33,11 +33,10 @@ router.put('/', auth.verifyToken, function (req, res, next) {
               profile_picture: results[0].profile_picture
             }
           }
-        }));
+        );
       } else {
-        res.send(JSON.stringify({
-          "status": 500, "error": "Unable to update user", "response": null
-        }));
+        res.status(500);
+        res.json({ response: "Unable to update user" });
       }
     });
   } else {
@@ -53,8 +52,9 @@ router.put('/', auth.verifyToken, function (req, res, next) {
     
     db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
       if (!error) {
+        res.status(200);
         res.json({
-          user: {
+            user: {
               user_id: results[0].user_id,
               first_name: results[0].first_name,
               last_name: results[0].last_name,
@@ -62,11 +62,11 @@ router.put('/', auth.verifyToken, function (req, res, next) {
               password: results[0].password,
               profile_picture: results[0].profile_picture
             }
-        });
+          }
+        );
       } else {
-        res.send(JSON.stringify({
-          "status": 500, "error": "Unable to update user - password not null", "response": null
-        }));
+        res.status(500);
+        res.json({ response: "Unable to update user - password" });
       }
     });
   }
