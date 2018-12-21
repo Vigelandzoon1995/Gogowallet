@@ -35,6 +35,7 @@ export class EditProfilePage {
       email: new FormControl('', [Validators.required, Validators.email]),
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
+      bank_account: new FormControl('', []),
       password: new FormControl('', [
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ]),

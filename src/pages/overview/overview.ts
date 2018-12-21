@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Storage } from '@ionic/storage';
 import { Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
+import User from '../../shared/models/user.model';
+import { TransactionService } from '../../shared/services/transaction.service';
 
 @IonicPage()
 @Component({
@@ -9,8 +12,10 @@ import { PopoverComponent } from '../../components/popover/popover';
   templateUrl: 'overview.html',
 })
 export class OverviewPage {
+  currentUser: User = null;
 
-  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events, private localNotifications: LocalNotifications) {
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
+    private localNotifications: LocalNotifications, private transactionService: TransactionService, private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -50,6 +55,7 @@ export class OverviewPage {
   navigateToContacts() {
     this.events.publish('navTo:contacts');
   }
+
   notify() {
     this.localNotifications.schedule({
       text: 'Delayed ILocalNotification',
@@ -59,4 +65,18 @@ export class OverviewPage {
     });
   }
 
+  getCurrentUser() {
+    this.storage.get('currentUser').then(
+      (response) => this.currentUser = response
+    );
+  }
+
+  checkBalance() {
+    this.transactionService.getOfToday(this.currentUser.user_id).subscribe(
+      (response) => {
+
+      },
+      (error) => { }
+    );
+  }
 }

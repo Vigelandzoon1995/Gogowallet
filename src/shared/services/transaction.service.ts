@@ -26,8 +26,8 @@ export class TransactionService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    getAll(): Observable<Transaction[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
+    getOfToday(user: number): Observable<Transaction[]> {
+        return this.http.get(ENV.BASE_URL + '/getToday?id=' + user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
     }
 
