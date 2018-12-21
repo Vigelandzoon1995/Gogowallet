@@ -17,8 +17,8 @@ router.put('/', auth.verifyToken, function (req, res, next) {
     var last_name = req.body.last_name;
     var profile_pic = req.body.profile_picture;
 
-    let queryNoPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?';
-    let paramsNoPass = [first_name, last_name, profile_pic];
+    let queryNoPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=? WHERE email=?';
+    let paramsNoPass = [first_name, last_name, profile_pic, email];
 
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
       if (!error) {
@@ -47,8 +47,8 @@ router.put('/', auth.verifyToken, function (req, res, next) {
     var password = req.body.password;
     var new_pass = req.body.new_password;
 
-    let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, password=?';
-    let paramsWithPass = [first_name, last_name, profile_pic, new_pass];
+    let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, password=? WHERE email=?';
+    let paramsWithPass = [first_name, last_name, profile_pic, new_pass, email];
     
     db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
       if (!error) {
