@@ -145,9 +145,6 @@ export class AuthenticationService {
     }
 
     saveUser(user: User) {
-        if (user.profile_picture) {
-            user.profile_picture = 'data:image/png;base64,' + user.profile_picture;
-        }
         this.storage.set('currentUser', user);
         this.isLoggedIn = true;
     }
