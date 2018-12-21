@@ -14,7 +14,7 @@ router.get('/', auth.verifyToken, function (req, res, next) {
 });
 
 router.put('/', auth.verifyToken, async function (req, res) {
-  if (req.body.password == null) {
+  if (req.body.password == null && req.body.new_password == null) {
     let email = req.body.email;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
