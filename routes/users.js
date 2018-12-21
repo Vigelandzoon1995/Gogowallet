@@ -14,6 +14,7 @@ router.get('/', auth.verifyToken, function (req, res, next) {
 });
 
 router.put('/', auth.verifyToken, function (req, res) {
+  console.log(JSON.stringify(req.body));
   let email = req.body.email;
   let first_name = req.body.first_name;
   let last_name = req.body.last_name;
