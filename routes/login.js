@@ -19,6 +19,7 @@ router.post('/', function (req, res) {
                 user_id: results[0].user_id,
                 first_name: results[0].first_name,
                 last_name: results[0].last_name,
+                bank_account: results[0].bank_account,
                 email: results[0].email,
                 password: results[0].password,
                 profile_picture: results[0].profile_picture
