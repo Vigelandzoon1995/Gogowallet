@@ -1,12 +1,10 @@
-<ion-header>
-  <h1 class="title">Go Go Wallet</h1>
-</ion-header>
-
 <ion-content padding fullscreen="true">
   <video webkit-playsinline playsinline muted autoplay loop poster="../../assets/imgs/bg2.png">
     <source src="../../assets/video/vid1.mp4" type='video/mp4; codecs="h.264"'>
     <source src="../../assets/video/vid1.webm" type='video/webm; codecs="vp8,vorbis"'>
   </video>
+
+  <h1 class="title">Go Go Wallet</h1>
 
   <form novalidate [formGroup]="loginForm">
     <ion-row>
@@ -48,18 +46,15 @@
     <ion-row class="text-center">
       <ion-col>
         <button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
-        <!-- <button ion-button full round class="login-btn" type="button" (click)="signIn()">Login</button> -->
       </ion-col>
     </ion-row>
 
     <ion-row class="text-center">
       <ion-col>
         <button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
-      </ion-col>
-    </ion-row>
 
-    <ion-row class="text-center">
-      <ion-col>
+        <br />
+
         <button ion-button clear class="reset-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
       </ion-col>
     </ion-row>

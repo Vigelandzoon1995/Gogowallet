@@ -1,7 +1,11 @@
 page-signin {
+
     form {
-        background-color: rgba(0,0,0,0.25);
+        background-color: rgba(0,0,0,.4);
+        border-radius: 5px;
+        padding: .2rem .6rem .8rem .6rem;
     }
+
     video {
         position: fixed;
         top: 0%;
@@ -15,11 +19,13 @@ page-signin {
         object-fit: cover;
         transform: translateX(-75%);
     }
+
     ion-content,
     ion-toolbar,
     ion-header {
         background: transparent !important;
     }
+
     .title {
         background: transparent;
         text-align: center;
@@ -28,19 +34,31 @@ page-signin {
         font-family: 'Raleway', cursive;
         font-weight: 400;
         text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+        margin-bottom: 6rem;
     }
+
     .login-btn {
+        width: 85%;
+        margin: 0 auto;
+        margin-top: 1rem;
+        margin-bottom: 1.4rem;
         background-color: black;
         color: white;
         &:hover {
             background-color: #888 !important;
         }
     }
+
     .register-link, {
         color: white;
+        margin: 0;
+        padding: 0;
     }
+
     .reset-link {
         color: white;
         font-size: 1rem;
+        margin: 0;
+        padding: 0;
     }
 }

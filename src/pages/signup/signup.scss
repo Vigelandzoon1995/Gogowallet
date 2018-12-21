@@ -1,7 +1,9 @@
 page-signup {
 
     form {
-        background-color: rgba(0,0,0,0.25);
+        background-color: rgba(0,0,0,.4);
+        border-radius: 5px;
+        padding: .2rem .6rem 1.2rem .6rem;
     }
 
     ion-content{
@@ -17,6 +19,8 @@ page-signup {
     .register-btn{
         background-color: black;
         color: white;
+        width: 85%;
+        margin: 0 auto;
 
         &:hover{
             background-color: #888 !important;
