@@ -11,19 +11,15 @@ router.get('/', auth.verifyToken, function (req, res, next) {
 });
 
 router.put('/', auth.verifyToken, function (req, res, next) {
-  var email = req.body.email;
-  var first_name = req.body.first_name;
-  var last_name = req.body.last_name;
-  var profile_pic = req.body.profile_picture;
-  var password = req.body.password;
-  var new_pass = req.body.new_password;
+  if(req.body.password == null) {
+    var email = req.body.email;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var profile_pic = req.body.profile_picture;
 
-  let queryNoPass = 'UPDATE users SET email=?, first_name=?, last_name=?, profile_picture=?';
-  let queryWithPass = 'UPDATE users SET email=?, first_name=?, last_name=?, profile_picture=?, password=?';
-  let paramsNoPass = [email, first_name, last_name, profile_pic];
-  let paramsWithPass = [email, first_name, last_name, profile_pic, new_pass];
+    let queryNoPass = 'UPDATE users SET email=?, first_name=?, last_name=?, profile_picture=?';
+    let paramsNoPass = [email, first_name, last_name, profile_pic];
 
-  if (!req.body.password) {
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
       if (!error) {
         res.send(JSON.stringify({
@@ -45,6 +41,16 @@ router.put('/', auth.verifyToken, function (req, res, next) {
       }
     });
   } else {
+    var email = req.body.email;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var profile_pic = req.body.profile_picture;
+    var password = req.body.password;
+    var new_pass = req.body.new_password;
+
+    let queryWithPass = 'UPDATE users SET email=?, first_name=?, last_name=?, profile_picture=?, password=?';
+    let paramsWithPass = [email, first_name, last_name, profile_pic, new_pass];
+    
     db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
       if (!error) {
         res.json({
@@ -58,9 +64,9 @@ router.put('/', auth.verifyToken, function (req, res, next) {
             }
         });
       } else {
-        res.json({
-          error: "Unable to update user"
-        });
+        res.send(JSON.stringify({
+          "status": 500, "error": "Unable to update user - password not null", "response": null
+        }));
       }
     });
   }
