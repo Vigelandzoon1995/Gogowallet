@@ -26,6 +26,7 @@ router.put('/', auth.verifyToken, function (req, res) {
 
   db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
     if (!error) {
+      console.log(JSON.stringify(results));
       res.status(200);
       res.json({
         user: {
