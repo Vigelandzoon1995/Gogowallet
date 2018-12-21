@@ -36,7 +36,7 @@ router.put('/', auth.verifyToken, function (req, res, next) {
         );
       } else {
         res.status(500);
-        res.json({ response: "Unable to update user" });
+        res.json({ response: "Unable to update user", error: error });
       }
     });
   } else {
