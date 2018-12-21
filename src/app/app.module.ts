@@ -42,6 +42,8 @@ import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { FeedbackPage } from '../pages/feedback/feedback';
+import { AboutUsPage } from '../pages/about-us/about-us';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { MyApp } from './app.component';
     ProfilePage,
     PopoverComponent,
     BudgetItemPopoverComponent,
+    FeedbackPage,
     SettingsPage,
     GogowalletPage,
     BudgetsPage,
@@ -64,7 +67,8 @@ import { MyApp } from './app.component';
     EmergencyContactsPage,
     AddContactPage,
     EditBudgetPage,
-    EditContactPage
+    EditContactPage,
+    AboutUsPage
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,9 @@ import { MyApp } from './app.component';
     EmergencyContactsPage,
     AddContactPage,
     EditBudgetPage,
-    EditContactPage
+    EditContactPage,
+    FeedbackPage,
+    AboutUsPage
   ],
   providers: [
     AuthenticationService,
