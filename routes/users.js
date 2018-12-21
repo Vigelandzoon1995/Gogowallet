@@ -13,7 +13,7 @@ router.get('/', auth.verifyToken, function (req, res, next) {
   });
 });
 
-router.put('/', auth.verifyToken, function (req, res, next) {
+router.put('/', auth.verifyToken, async function (req, res) {
   if (req.body.password == null) {
     let email = req.body.email;
     let first_name = req.body.first_name;
@@ -35,8 +35,7 @@ router.put('/', auth.verifyToken, function (req, res, next) {
             password: results[0].password,
             profile_picture: results[0].profile_picture
           }
-        }
-        );
+        });
       } else {
         res.status(500);
         res.json({ response: "Unable to update user", error: error });
@@ -67,8 +66,7 @@ router.put('/', auth.verifyToken, function (req, res, next) {
               password: results[0].password,
               profile_picture: results[0].profile_picture
             }
-          }
-          );
+          });
         } else {
           res.status(500);
           res.json({ response: "Unable to update user", error: error });
@@ -76,20 +74,22 @@ router.put('/', auth.verifyToken, function (req, res, next) {
       });
     } else {
       res.status(404);
-      res.json({ response: "New password not conform requirements", error: error });
+      res.json({ response: "New password not conform requirements" });
     }
   }
 });
 
-function hashPassword(password) {
+async function hashPassword(password) {
   const saltRounds = 14;
 
-  const hashedPassword = new Promise((resolve, reject) => {
+  const hashedPassword = await new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, function (err, hash) {
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+      }
       resolve(hash);
     });
-  });
+  })
 
   return hashedPassword;
 }
