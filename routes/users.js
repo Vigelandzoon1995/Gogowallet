@@ -13,7 +13,7 @@ router.get('/', auth.verifyToken, function (req, res, next) {
   });
 });
 
-router.put('/', auth.verifyToken, async function (req, res) {
+router.put('/', auth.verifyToken, function (req, res) {
   if (req.body.password == null) {
     let email = req.body.email;
     let first_name = req.body.first_name;
@@ -49,7 +49,7 @@ router.put('/', auth.verifyToken, async function (req, res) {
     let profile_pic = req.body.profile_picture;
     let password = req.body.password;
     let new_pass = req.body.new_password;
-    let hash = await hashPassword(req.body.password)
+    let hash = hashPassword(req.body.password);
 
     let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, password=? WHERE email=?';
     let paramsWithPass = [first_name, last_name, profile_pic, hash, email];
@@ -81,10 +81,10 @@ router.put('/', auth.verifyToken, async function (req, res) {
   }
 });
 
-async function hashPassword(password) {
+function hashPassword(password) {
   const saltRounds = 14;
 
-  const hashedPassword = await new Promise((resolve, reject) => {
+  const hashedPassword = new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, function (err, hash) {
       if (err) reject(err);
       resolve(hash);
