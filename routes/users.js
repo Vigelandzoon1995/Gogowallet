@@ -23,7 +23,7 @@ router.put('/', auth.verifyToken, function (req, res, next) {
   let paramsNoPass = [email, first_name, last_name, profile_pic];
   let paramsWithPass = [email, first_name, last_name, profile_pic, new_pass];
 
-  if (password.length == 0) {
+  if (password) {
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
       if (!error) {
         res.send(JSON.stringify({
