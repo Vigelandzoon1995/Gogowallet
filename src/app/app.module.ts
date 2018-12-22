@@ -39,6 +39,7 @@ import { TrackPage } from '../pages/track/track';
 import { BudgetsService2 } from '../services/budgets/budgets';
 import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
 import { AuthenticationService } from '../shared/helpers/auth.service';
+import { LoadingService } from '../shared/helpers/loading.service';
 import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
@@ -121,6 +122,7 @@ import { MyApp } from './app.component';
     EmergencyContactService,
     TransactionService,
     Geolocation,
+    LoadingService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

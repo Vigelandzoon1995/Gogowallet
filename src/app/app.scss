@@ -64,3 +64,14 @@
     height: 180px;
     width: 180px;
 }
+
+ion-loading.transparent-spinner {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+    
+    .spinner-crescent circle, .spinner-circles {
+      zoom: 3;
+    }
+  }
+}

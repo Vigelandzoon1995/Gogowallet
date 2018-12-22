@@ -6,6 +6,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
+import { LoadingService } from '../../shared/helpers/loading.service';
 import User from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
 
@@ -22,7 +23,7 @@ export class EditProfilePage {
   base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-    private userService: UserService, private authService: AuthenticationService, private storage: Storage) {
+    private userService: UserService, private authService: AuthenticationService, private storage: Storage, private loadingService: LoadingService) {
     this.createFormGroup();
     this.getUser();
   }
@@ -52,6 +53,9 @@ export class EditProfilePage {
   }
 
   submit() {
+    // Show spinner
+    this.loadingService.show();
+
     let newUser = this.user;
 
     if (this.password && this.newPassword) {
@@ -67,9 +71,16 @@ export class EditProfilePage {
         this.authService.removeUser(false);
         this.authService.saveUser(newUser, false);
 
+        // Hide spinner
+        this.loadingService.hide();
+
         this.navCtrl.pop();
       },
-      (error) => { Observable.throw(error); }
+      (error) => {
+        // Hide spinner
+        this.loadingService.hide();
+        Observable.throw(error);
+      }
     );
   }
 
@@ -84,8 +95,8 @@ export class EditProfilePage {
     this.camera.getPicture(options).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
       this.user.profile_picture = this.base64Image;
-    }, (err) => {
-      console.log(err);
+    }, (error) => {
+      Observable.throw(error);
     });
   }
 }
