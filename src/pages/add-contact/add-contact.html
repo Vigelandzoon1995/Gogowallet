@@ -15,9 +15,6 @@
           </ion-item>
 
           <ion-item>
-            <p>{{ contactForm.get('name').hasError('pattern') }}</p>
-          </ion-item>
-          <ion-item>
             <ion-label floating>Phone Number</ion-label>
             <ion-input type="tel" formControlName="phone" [(ngModel)]="contact.phone" required></ion-input>
           </ion-item>
