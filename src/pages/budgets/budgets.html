@@ -11,20 +11,12 @@
 
 <ion-content>
   <ion-list>
-    <!-- <ion-item-sliding> -->
     <ion-card *ngFor="let item of budgetCollection">
       <ion-card-header>
         {{item.category}}
-        <!-- <button id="delete-button" ion-button icon-only (click)="delete(item)">
-            <ion-icon name="trash"></ion-icon>
-          </button>
-          <button id="view-button" ion-button icon-only (click)="openBudget(item)">
-                <ion-icon name="eye"></ion-icon>
-            </button> -->
         <button ion-buttons icon-only (click)="presentPopover($event,item)">
           <ion-icon name="more"></ion-icon>
         </button>
-
       </ion-card-header>
       <ion-card-content>
         <ion-item>
@@ -35,20 +27,19 @@
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>Start at</ion-label>
+          <ion-label>From</ion-label>
           <ion-label end>
-            <h6>{{item.start_date}} - {{item.start_time}}</h6>
+            <h6>{{ item.start_date | date: 'dd MMM yyyy HH:mm' }}</h6>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>Ends at</ion-label>
+          <ion-label>Till</ion-label>
           <ion-label end>
-            <h6> {{item.end_date}} - {{item.end_time}}</h6>
+            <h6>{{ item.end_date | date: 'dd MMM yyyy HH:mm' }}</h6>
           </ion-label>
         </ion-item>
       </ion-card-content>
     </ion-card>
-    <!-- </ion-item-sliding> -->
   </ion-list>
 </ion-content>
