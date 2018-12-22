@@ -29,8 +29,8 @@ export class BudgetsService2 {
         this.list = [
             ({
                 category: "Outgoing",
-                start_date: "1993-02-19 07:43",
-                end_date: "1994-02-19 07:43",
+                start_date: new Date(2018, 12, 24, 20, 0),
+                end_date: new Date(2018, 12, 25, 3, 0),
                 amount: 200,
                 alarm: true,
                 limit_lock: true,
@@ -38,8 +38,8 @@ export class BudgetsService2 {
             }),
             ({
                 category: "Groceries",
-                start_date: "1990-02-19 07:43",
-                end_date: "1990-02-19 07:43",
+                start_date: new Date(2018, 11, 30, 12, 0),
+                end_date: new Date(2018, 12, 28, 12, 0),
                 amount: 10,
                 alarm: true,
                 limit_lock: false,
@@ -47,8 +47,8 @@ export class BudgetsService2 {
             }),
             ({
                 category: "Groceries",
-                start_date: "1990-02-19 07:43",
-                end_date: "1990-02-19 07:43",
+                start_date: new Date(2018, 12, 28, 18, 0),
+                end_date: new Date(2019, 1, 25, 18, 0),
                 amount: 130,
                 alarm: true,
                 limit_lock: true,
