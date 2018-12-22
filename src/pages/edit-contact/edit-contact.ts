@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 
 @IonicPage()
 @Component({
@@ -19,7 +19,7 @@ export class EditContactPage {
   thumbnail: string;
 
 
-  constructor( private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService,private emergencyContactService: EmergencyContactService) {
+  constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
     this.prepareContactForm();
     this.createFormGroup();
   }
@@ -27,22 +27,22 @@ export class EditContactPage {
   ionViewDidLoad() {
   }
 
-  prepareContactForm(){
+  prepareContactForm() {
     this.contact = this.navParams.get('data');
   }
   createFormGroup() {
     this.contactForm = this.formBuilder.group({
-      name  : new FormControl('', [Validators.required]),
-      phone: new FormControl('', [ Validators.required]),
-      notes: new FormControl('', []),
-      thumbnail: new FormControl('', [ Validators.required]),
+      name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+      phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/')])),
+      notes: new FormControl('', Validators.compose([Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+      thumbnail: new FormControl('', [Validators.required]),
     });
   }
-  delete(){
+  delete() {
     this.emergencyContactService.deleteContact(this.contact);
     this.navCtrl.pop();
   }
-  update(){
+  update() {
     //do something
   }
 

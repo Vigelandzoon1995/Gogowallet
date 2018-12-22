@@ -32,10 +32,10 @@ export class EditProfilePage {
 
   createFormGroup() {
     this.profileForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      bank_account: new FormControl('', []),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+      first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+      last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+      bank_account: new FormControl('', Validators.compose([Validators.pattern('/[^A-Za-z0-9]+/')])),
       password: new FormControl('', [
         CustomValidators.patternValidator(/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/, { hasPassed: true }),
       ]),

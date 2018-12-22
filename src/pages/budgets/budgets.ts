@@ -3,7 +3,7 @@ import { AlertController, IonicPage, NavController, NavParams, PopoverController
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
 import { Budget } from '../../interfaces/budget/budget.interface';
 import { BudgetsService2 } from '../../services/budgets/budgets';
-import { BudgetPage } from '../budget/budget';
+import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
 
 @IonicPage()
@@ -12,10 +12,11 @@ import { EditBudgetPage } from '../edit-budget/edit-budget';
   templateUrl: 'budgets.html',
 })
 export class BudgetsPage {
-
   data: any
   budgetCollection: { budgets: Budget[] }[];
-  constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams) {
+
+  constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
+    public alertCtrl: AlertController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -43,7 +44,7 @@ export class BudgetsPage {
   }
 
   navToBudget() {
-    this.navCtrl.push(BudgetPage);
+    this.navCtrl.push(AddBudgetPage);
   }
   openBudget(item) {
     this.navCtrl.push(EditBudgetPage, {

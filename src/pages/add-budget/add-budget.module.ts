@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { BudgetPage } from './budget';
+import { AddBudgetPage } from './add-budget';
 
 @NgModule({
   declarations: [
-    BudgetPage,
+    AddBudgetPage,
   ],
   imports: [
-    IonicPageModule.forChild(BudgetPage),
+    IonicPageModule.forChild(AddBudgetPage),
   ],
 })
-export class BudgetPageModule {}
+export class AddBudgetPageModule { }

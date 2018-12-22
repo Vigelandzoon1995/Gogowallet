@@ -16,14 +16,16 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 import { PopoverComponent } from '../components/popover/popover';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { AddBudgetPage } from '../pages/add-budget/add-budget';
 import { AddContactPage } from '../pages/add-contact/add-contact';
 import { AlarmPage } from '../pages/alarm/alarm';
-import { BudgetPage } from '../pages/budget/budget';
 import { BudgetsPage } from '../pages/budgets/budgets';
 import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
 import { EditContactPage } from '../pages/edit-contact/edit-contact';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
+import { FeedbackPage } from '../pages/feedback/feedback';
 import { GogowalletPage } from '../pages/gogowallet/gogowallet';
 import { OverviewPage } from '../pages/overview/overview';
 import { ProfilePage } from '../pages/profile/profile';
@@ -42,8 +44,6 @@ import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { FeedbackPage } from '../pages/feedback/feedback';
-import { AboutUsPage } from '../pages/about-us/about-us';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
     SettingsPage,
     GogowalletPage,
     BudgetsPage,
-    BudgetPage,
+    AddBudgetPage,
     TabsPage,
     ResetPasswordPage,
     EditProfilePage,
@@ -90,7 +90,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
     SettingsPage,
     GogowalletPage,
     BudgetsPage,
-    BudgetPage,
+    AddBudgetPage,
     TabsPage,
     ResetPasswordPage,
     EditProfilePage,

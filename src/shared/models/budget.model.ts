@@ -3,8 +3,8 @@ export default class Budget {
     category: string = null;
     start_date: Date = null;
     end_date: Date = null;
-    amount: number = null;
-    alarm: boolean = null;
-    limit_lock: boolean = null;
+    amount: number = 0;
+    alarm: boolean = false;
+    limit_lock: boolean = false;
     last_checked: Date = null;
 }

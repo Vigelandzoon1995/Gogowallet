@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs';
+import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 
 @IonicPage()
 @Component({
@@ -24,9 +23,9 @@ export class AddContactPage {
 
   createFormGroup() {
     this.contactForm = this.formBuilder.group({
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
-      notes: new FormControl('', []),
+      name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+      phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')])),
+      notes: new FormControl('', Validators.compose([Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
       thumbnail: new FormControl('', [Validators.required]),
     });
   }
