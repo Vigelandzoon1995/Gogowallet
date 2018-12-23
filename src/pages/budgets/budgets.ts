@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
-import { Budget } from '../../interfaces/budget/budget.interface';
 import { BudgetsService2 } from '../../services/budgets/budgets';
+import Budget from '../../shared/models/budget.model';
+import Transaction from '../../shared/models/transaction.model';
+import User from '../../shared/models/user.model';
 import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
 
@@ -12,15 +15,26 @@ import { EditBudgetPage } from '../edit-budget/edit-budget';
   templateUrl: 'budgets.html',
 })
 export class BudgetsPage {
-  data: any
-  budgetCollection: { budgets: Budget[] }[];
+  currentUser: User = null;
+  budgets: Budget[];
+  today = new Date();
 
   constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
-    public alertCtrl: AlertController, public navParams: NavParams) {
+    public alertCtrl: AlertController, public navParams: NavParams, private storage: Storage) {
+    this.getBudgetList();
+    this.getUser();
   }
 
   ionViewDidLoad() {
-    this.getBudgetList();
+  }
+
+  getUser() {
+    this.storage.get('currentUser').then(
+      (response) => {
+        this.currentUser = response;
+        this.checkBudgetBalance();
+      }
+    );
   }
 
   presentPopover(myEvent, item) {
@@ -46,6 +60,7 @@ export class BudgetsPage {
   navToBudget() {
     this.navCtrl.push(AddBudgetPage);
   }
+
   openBudget(item) {
     this.navCtrl.push(EditBudgetPage, {
       data: item
@@ -55,16 +70,16 @@ export class BudgetsPage {
   delete(item) {
     const confirm = this.alertCtrl.create({
       title: 'Delete ' + item.category,
-      message: 'Do you agree to delete this budget?',
+      message: 'Are you sure you want to delete this profile?',
       buttons: [
         {
-          text: 'Disagree',
+          text: 'No',
           handler: () => {
             // do nothing
           }
         },
         {
-          text: 'Agree',
+          text: 'Yes',
           handler: () => {
             this.budgetsService2.deleteBudget(item);
           }
@@ -76,7 +91,24 @@ export class BudgetsPage {
 
   getBudgetList() {
     //Todo add GetAll() from services
-    this.budgetCollection = this.budgetsService2.getAll();
+    this.budgets = this.budgetsService2.getAll();
   }
 
+  checkBudgetBalance() {
+    let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
+    let transactions: Transaction[] = [
+      new Transaction(1, this.currentUser.user_id, 'Albert Heijn', 29.99, new Date('2018-12-24 15:55')),
+      new Transaction(2, this.currentUser.user_id, 'Bakker Bart', 8.50, new Date('2018-12-24 14:24')),
+      new Transaction(3, this.currentUser.user_id, 'McDonalds Beurs', 6.99, new Date('2018-12-24 16:12'))
+    ];
+
+    // Set budget
+    transactions.forEach((value) => {
+      if (groceriesWhiteList.some(element => value.name.includes(element.toString()))) {
+        // Subtract amount of transaction from groceries budget that is active
+        let groceries = this.budgets.filter(f => f.category == 'Groceries' && (this.today.getTime() >= f.start_date.getTime() && this.today.getTime() <= f.end_date.getTime()))[0];
+        groceries.amount = groceries.amount - value.amount;
+      }
+    });
+  }
 }

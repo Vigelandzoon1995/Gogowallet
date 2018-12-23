@@ -1,45 +1,45 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Budgets</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="navToBudget()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Budgets</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="navToBudget()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-card *ngFor="let item of budgetCollection">
-      <ion-card-header>
-        {{item.category}}
-        <button ion-buttons icon-only (click)="presentPopover($event,item)">
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>Amount</ion-label>
-          <ion-label end>
-            <h6>{{item.amount}}</h6>
-          </ion-label>
-        </ion-item>
-        <hr>
-        <ion-item>
-          <ion-label>From</ion-label>
-          <ion-label end>
-            <h6>{{ item.start_date | date: 'dd MMM yyyy HH:mm' }}</h6>
-          </ion-label>
-        </ion-item>
-        <hr>
-        <ion-item>
-          <ion-label>Till</ion-label>
-          <ion-label end>
-            <h6>{{ item.end_date | date: 'dd MMM yyyy HH:mm' }}</h6>
-          </ion-label>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+	<ion-list>
+		<ion-card *ngFor="let budget of budgets">
+			<ion-card-header>
+				{{ budget.category }}
+				<button ion-buttons icon-only (click)="presentPopover($event,budget)">
+					<ion-icon name="more"></ion-icon>
+				</button>
+			</ion-card-header>
+			<ion-card-content>
+				<ion-item>
+					<ion-label>Amount</ion-label>
+					<ion-label end>
+						<h6>&euro; {{ budget.amount | number : '1.2-2' }}</h6>
+					</ion-label>
+				</ion-item>
+				<hr>
+				<ion-item>
+					<ion-label>From</ion-label>
+					<ion-label end>
+						<h6>{{ budget.start_date | date: 'dd MMM yyyy HH:mm' }}</h6>
+					</ion-label>
+				</ion-item>
+				<hr>
+				<ion-item>
+					<ion-label>Till</ion-label>
+					<ion-label end>
+						<h6>{{ budget.end_date | date: 'dd MMM yyyy HH:mm' }}</h6>
+					</ion-label>
+				</ion-item>
+			</ion-card-content>
+		</ion-card>
+	</ion-list>
 </ion-content>

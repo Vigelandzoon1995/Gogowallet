@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
 import User from '../../shared/models/user.model';
-import { TransactionService } from '../../shared/services/transaction.service';
 
 @IonicPage()
 @Component({
@@ -12,10 +11,9 @@ import { TransactionService } from '../../shared/services/transaction.service';
   templateUrl: 'overview.html',
 })
 export class OverviewPage {
-  currentUser: User = null;
 
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
-    private localNotifications: LocalNotifications, private transactionService: TransactionService, private storage: Storage) {
+    private localNotifications: LocalNotifications, private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -63,20 +61,5 @@ export class OverviewPage {
       led: 'FF0000',
       sound: null
     });
-  }
-
-  getCurrentUser() {
-    this.storage.get('currentUser').then(
-      (response) => this.currentUser = response
-    );
-  }
-
-  checkBalance() {
-    this.transactionService.getOfToday(this.currentUser.user_id).subscribe(
-      (response) => {
-
-      },
-      (error) => { }
-    );
   }
 }
