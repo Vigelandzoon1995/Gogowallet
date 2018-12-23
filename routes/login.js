@@ -41,7 +41,7 @@ router.post('/', function (req, res) {
 
 router.post('/pin', function (req, res) {
   var email = req.body.email;
-  var pin = req.body.pin_code;
+  var pin = req.body.pin;
   db.query('SELECT * from users u INNER JOIN user_passwords p ON u.user_id = p.user_id where email = ? AND pin_code = ?;',
     [email, pin],
     function (error, results, fields) {
