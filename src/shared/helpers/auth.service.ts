@@ -75,6 +75,66 @@ export class AuthenticationService {
             );
     }
 
+    signInByPin(email: string, password: string, pin: string): void {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        // Show spinner
+        this.loadingService.show();
+
+        this.http.post(ENV.BASE_URL + '/login/pin', { email: email, password: password, pin: pin }, { headers: headers })
+            .map((result) => result.json())
+            .subscribe(
+                (response) => {
+                    // Hide spinner
+                    this.loadingService.hide();
+
+                    if (response) {
+                        if (response.token != false) {
+                            this.setToken(response);
+                            this.loginEvent.next(true);
+                        } else {
+                            // Show error message
+                            const alert = this.alertCtrl.create({
+                                title: 'Sign In',
+                                subTitle: 'You have entered an invalid username or pin code.',
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        handler: data => {
+                                            //Redirect to login page
+                                            this.logoutEvent.next(true);
+                                        }
+                                    }
+                                ]
+                            });
+                            alert.present();
+                        }
+                    }
+                },
+                (error) => {
+                    // Hide spinner
+                    this.loadingService.hide();
+
+                    // Show error message
+                    const alert = this.alertCtrl.create({
+                        title: 'Sign In',
+                        subTitle: 'You have entered an invalid username or pin code.',
+                        buttons: [
+                            {
+                                text: 'OK',
+                                handler: data => {
+                                    //Redirect to login page
+                                    this.logoutEvent.next(true);
+                                }
+                            }
+                        ]
+                    });
+                    alert.present();
+                }
+            );
+    }
+
     register(user: User): void {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -134,7 +194,8 @@ export class AuthenticationService {
 
     signOut() {
         this.clearToken();
-        this.removeUser(true);
+        //this.removeUser(true);
+        this.isLoggedIn = false;
 
         this.logoutEvent.next(true);
     }

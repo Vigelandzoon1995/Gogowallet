@@ -1,63 +1,86 @@
 <ion-content padding fullscreen="true">
-  <video webkit-playsinline playsinline muted autoplay loop poster="../../assets/imgs/bg2.png">
-    <source src="../../assets/video/vid1.mp4" type='video/mp4; codecs="h.264"'>
-    <source src="../../assets/video/vid1.webm" type='video/webm; codecs="vp8,vorbis"'>
-  </video>
+	<video webkit-playsinline playsinline muted autoplay loop poster="../../assets/imgs/bg2.png">
+		<source src="../../assets/video/vid1.mp4" type='video/mp4; codecs="h.264"'>
+		<source src="../../assets/video/vid1.webm" type='video/webm; codecs="vp8,vorbis"'>
+	</video>
 
-  <h1 class="title">Go Go Wallet</h1>
+	<h1 class="title">Go Go Wallet</h1>
 
-  <form novalidate [formGroup]="loginForm">
-    <ion-row>
-      <ion-col>
-        <ion-list inset>
-          <ion-item class="transparent-input">
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="emailInput" formControlName="email"></ion-input>
-          </ion-item>
+	<form novalidate [formGroup]="loginForm">
+		<ion-row>
+			<ion-col>
+				<ion-list inset *ngIf="!currentUser">
+					<ion-item class="transparent-input">
+						<ion-label floating>Email</ion-label>
+						<ion-input type="email" [(ngModel)]="emailInput" formControlName="email"></ion-input>
+					</ion-item>
 
-          <!-- Email error-->
-          <ion-item class="error" no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
-            <span *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-              E-mail is required.
-            </span>
-            <span *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-              Please enter a valid e-mail.
-            </span>
-          </ion-item>
+					<!-- Email error-->
+					<ion-item class="error" no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
+						<span *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
+							E-mail is required.
+						</span>
+						<span *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
+							Please enter a valid e-mail.
+						</span>
+					</ion-item>
 
-          <ion-item class="transparent-input">
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordInput" formControlName="password"></ion-input>
-          </ion-item>
+					<ion-item class="transparent-input">
+						<ion-label floating>Password</ion-label>
+						<ion-input type="password" [(ngModel)]="passwordInput" formControlName="password"></ion-input>
+					</ion-item>
 
-          <!-- Password error-->
-          <ion-item class="error" no-lines *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-            <div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-              Password is required.
-            </div>
-          </ion-item>
+					<!-- Password error-->
+					<ion-item class="error" no-lines *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+						<div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+							Password is required.
+						</div>
+					</ion-item>
 
-          <div hidden></div>
+					<div hidden></div>
+				</ion-list>
 
-        </ion-list>
-      </ion-col>
-    </ion-row>
+				<ion-list inset *ngIf="currentUser">
+					<ion-item class="transparent-input text-center" no-lines>
+						<img class="profile small" [src]="currentUser.profile_picture" (click)="navigateToEditProfile()">
+						<h2>Welcome back, {{ currentUser.first_name }}</h2>
+					</ion-item>
 
-    <ion-row class="text-center">
-      <ion-col>
-        <button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
-      </ion-col>
-    </ion-row>
+					<ion-item class="transparent-input">
+						<ion-label floating>Pin Code</ion-label>
+						<ion-input type="text" [(ngModel)]="pinCodeInput" formControlName="pin"></ion-input>
+					</ion-item>
 
-    <ion-row class="text-center">
-      <ion-col>
-        <button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
+					<!-- Pin code error-->
+					<ion-item class="error" no-lines *ngIf="(loginForm.get('pin').hasError('required')) && loginForm.get('pin').touched">
+						<span *ngIf="loginForm.get('pin').hasError('required') && loginForm.get('pin').touched">
+							Pin Code is required.
+						</span>
+					</ion-item>
 
-        <br />
+					<div hidden></div>
+				</ion-list>
+			</ion-col>
+		</ion-row>
 
-        <button ion-button clear class="reset-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
-      </ion-col>
-    </ion-row>
+		<ion-row class="text-center">
+			<ion-col>
+				<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()"
+				 *ngIf="!currentUser">Login</button>
+				<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signInByPin()"
+				 *ngIf="currentUser">Login</button>
+			</ion-col>
+		</ion-row>
 
-  </form>
+		<ion-row class="text-center">
+			<ion-col>
+				<button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
+
+				<br />
+
+				<button ion-button clear class="reset-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
+			</ion-col>
+		</ion-row>
+
+	</form>
 </ion-content>

@@ -19,7 +19,7 @@
 
 // Center Text
 .text-center {
-    text-align: center;
+	text-align: center;
 }
 
 
@@ -28,14 +28,16 @@
 
 // Transparent input
 .transparent-input {
-    background: transparent;
-    ion-label {
-        color: white !important;
-        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
-    }
-    input {
-        color: white;
-    }
+	background: transparent;
+
+	ion-label {
+		color: white !important;
+		text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+	}
+
+	input {
+		color: white;
+	}
 }
 
 
@@ -44,14 +46,14 @@
 
 // Error messages
 .error {
-    color: red;
-    -webkit-text-stroke: 0.15px rgba(255, 255, 255, 0.5);
-    background: transparent !important;
-    font-weight: 500;
-    font-size: 1.3rem;
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 15px !important;
+	color: red;
+	-webkit-text-stroke: 0.15px rgba(255, 255, 255, 0.5);
+	background: transparent !important;
+	font-weight: 500;
+	font-size: 1.3rem;
+	padding: 0 !important;
+	margin: 0 !important;
+	height: 15px !important;
 }
 
 // Profile
@@ -59,19 +61,25 @@
 
 // Profile picture
 .profile {
-    object-fit: cover;
-    border-radius: 50%;
-    height: 180px;
-    width: 180px;
+	object-fit: cover;
+	border-radius: 50%;
+	height: 170px;
+	width: 170px;
+}
+
+.profile.small {
+	height: 100px;
+	width: 100px;
 }
 
 ion-loading.transparent-spinner {
-  .loading-wrapper {
-    background: transparent;
-    box-shadow: none;
-    
-    .spinner-crescent circle, .spinner-circles {
-      zoom: 3;
-    }
-  }
+	.loading-wrapper {
+		background: transparent;
+		box-shadow: none;
+
+		.spinner-crescent circle,
+		.spinner-circles {
+			zoom: 3;
+		}
+	}
 }

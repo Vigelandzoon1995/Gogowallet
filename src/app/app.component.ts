@@ -17,11 +17,10 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
     private localNotifications: LocalNotifications, private authService: AuthenticationService) {
-
     //Subscribe to events of Authentication Service
     this.authService.logoutEvent.subscribe(
       res => {
-        this.nav.popToRoot();
+        this.nav.push(SigninPage);
       }
     );
 
@@ -35,12 +34,12 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+      this.splashScreen.hide();
+
+      // Clear all local storage
+      this.authService.clear();
 
       this.askPermissions();
-
-      // Clear any leftover tokens and user variables
-      authService.clear();
     });
   }
 
