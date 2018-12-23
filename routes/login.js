@@ -47,7 +47,7 @@ router.post('/pin', function (req, res) {
     function (error, results, fields) {
       if (results.length != 0 && results[0].password != null && results[0].pin_code != null && results[0].user_id != null) {
         if(req.body.password == results[0].password) {
-          if (result) {
+          if (results) {
             var token = jwt.sign({ id: results[0].user_id }, "secretkey");
             res.json({
               token: token,
