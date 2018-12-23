@@ -33,7 +33,7 @@ export class SigninPage {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      pin: new FormControl('', [Validators.required]),
+      pin: new FormControl('', []),
     });
   }
 
@@ -49,12 +49,15 @@ export class SigninPage {
   checkLocalUser() {
     this.storage.get('currentUser').then(
       (result) => {
-        if (result) {
+        if (result != null) {
           this.currentUser = result;
 
           // Remove email and password controls
           this.loginForm.removeControl('email');
           this.loginForm.removeControl('password');
+
+          // Change pin control to required
+          this.loginForm.controls['pin'].setValidators(Validators.required);
         }
       }
     );
