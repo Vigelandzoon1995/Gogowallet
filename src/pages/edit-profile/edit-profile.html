@@ -1,65 +1,70 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Edit Profile</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Edit Profile</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="profileForm" *ngIf="user">
-    <ion-row class="text-center">
-      <ion-col>
-        <img class="profile" [src]="user.profile_picture" (click)="navigateToEditProfile()" *ngIf="user">
-      </ion-col>
-    </ion-row>
+	<form novalidate [formGroup]="profileForm" *ngIf="user">
+		<ion-row class="text-center">
+			<ion-col>
+				<img class="profile" [src]="user.profile_picture" (click)="navigateToEditProfile()" *ngIf="user">
+			</ion-col>
+		</ion-row>
 
-    <ion-row class="text-center">
-      <ion-col>
-        <button (click)="uploadImage()" ion-button small>Upload</button>
-      </ion-col>
-    </ion-row>
+		<ion-row class="text-center">
+			<ion-col>
+				<button (click)="uploadImage()" ion-button small>Upload</button>
+			</ion-col>
+		</ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-list inset>
-          <ion-item>
-            <ion-label floating>First Name</ion-label>
-            <ion-input type="text" formControlName="first_name" [(ngModel)]="user.first_name" required></ion-input>
-          </ion-item>
+		<ion-row>
+			<ion-col>
+				<ion-list inset>
+					<ion-item>
+						<ion-label floating>First Name</ion-label>
+						<ion-input type="text" formControlName="first_name" [(ngModel)]="user.first_name" required></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Last Name</ion-label>
-            <ion-input type="text" formControlName="last_name" [(ngModel)]="user.last_name" required></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Last Name</ion-label>
+						<ion-input type="text" formControlName="last_name" [(ngModel)]="user.last_name" required></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Bank Account</ion-label>
-            <ion-input type="text" formControlName="bank_account" [(ngModel)]="user.bank_account"></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Bank Account</ion-label>
+						<ion-input type="text" formControlName="bank_account" [(ngModel)]="user.bank_account"></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email" formControlName="email" [(ngModel)]="user.email" required></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Email</ion-label>
+						<ion-input type="email" formControlName="email" [(ngModel)]="user.email" required></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Current Password</ion-label>
-            <ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Pin Code</ion-label>
+						<ion-input type="password" formControlName="pin" [(ngModel)]="user.pin_code"></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>New Password</ion-label>
-            <ion-input type="password" formControlName="new_password" [(ngModel)]="newPassword"></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Current Password</ion-label>
+						<ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
+					</ion-item>
 
-          <div hidden></div>
-        </ion-list>
-      </ion-col>
-    </ion-row>
+					<ion-item>
+						<ion-label floating>New Password</ion-label>
+						<ion-input type="password" formControlName="new_password" [(ngModel)]="newPassword"></ion-input>
+					</ion-item>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button full round type="button" [disabled]="!profileForm.valid" (click)="submit()">Save</button>
-      </ion-col>
-    </ion-row>
-  </form>
+					<div hidden></div>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<button ion-button full round type="button" [disabled]="!profileForm.valid" (click)="submit()">Save</button>
+			</ion-col>
+		</ion-row>
+	</form>
 </ion-content>
