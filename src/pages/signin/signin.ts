@@ -57,7 +57,7 @@ export class SigninPage {
           this.loginForm.removeControl('password');
 
           // Change pin control to required
-          this.loginForm.controls['pin'].setValidators([Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern(/^[0-9]{4,10}+$/)]);
+          this.loginForm.controls['pin'].setValidators([Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern(/^[0-9]*$/)]);
         }
       }
     );

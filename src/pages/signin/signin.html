@@ -60,23 +60,23 @@
 						</ion-item>
 
 						<ion-item class="transparent-input">
-							<ion-label floating>Pin Code</ion-label>
+							<ion-label floating>PIN</ion-label>
 							<ion-input type="password" [(ngModel)]="pinCodeInput" formControlName="pin"></ion-input>
 						</ion-item>
 
-						<!-- Pin code error-->
+						<!-- PIN error-->
 						<ion-item class="error" no-lines *ngIf="(loginForm.get('pin').hasError('required') || loginForm.get('pin').hasError('maxlength') || loginForm.get('pin').hasError('minlength') || loginForm.get('pin').hasError('pattern')) && loginForm.get('pin').touched">
 							<span *ngIf="loginForm.get('pin').hasError('required') && loginForm.get('pin').touched">
-								Pin code is required.
+								PIN is required.
 							</span>
 							<span *ngIf="loginForm.get('pin').hasError('minlength') && loginForm.get('pin').touched">
-								Pin code must contain at least 4 numbers.
+								PIN must contain at least 4 numbers.
 							</span>
 							<span *ngIf="loginForm.get('pin').hasError('maxlength') && loginForm.get('pin').touched">
-								Pin code cannot contain more than 10 numbers.
+								PIN cannot contain more than 10 numbers.
 							</span>
 							<span *ngIf="loginForm.get('pin').hasError('pattern') && loginForm.get('pin').touched">
-								Pin code can only exist out of numbers.
+								PIN can only exist out of numbers.
 							</span>
 						</ion-item>
 
