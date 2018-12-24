@@ -20,9 +20,10 @@ router.put('/', auth.verifyToken, async function (req, res) {
     let last_name = req.body.last_name;
     let bank_account = req.body.bank_account;
     let profile_pic = req.body.profile_picture;
+    let pin = req.body.pin_code;
 
-    let queryNoPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, bank_account=? WHERE email=?';
-    let paramsNoPass = [first_name, last_name, profile_pic, bank_account, email];
+    let queryNoPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, bank_account=?, pin_code=? WHERE email=?';
+    let paramsNoPass = [first_name, last_name, profile_pic, bank_account, pin, email];
 
     db.query(queryNoPass, paramsNoPass, function (error, results, fields) {
       if (!error) {
@@ -41,12 +42,13 @@ router.put('/', auth.verifyToken, async function (req, res) {
     let last_name = req.body.last_name;
     let bank_account = req.body.bank_account;
     let profile_pic = req.body.profile_picture;
+    let pin = req.body.pin_code;
     let password = req.body.password;
     let new_pass = req.body.new_password;
     let hash = await hashPassword(req.body.password);
 
-    let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, bank_account=?, password=? WHERE email=?';
-    let paramsWithPass = [first_name, last_name, profile_pic, bank_account, hash, email];
+    let queryWithPass = 'UPDATE users SET first_name=?, last_name=?, profile_picture=?, bank_account=?, pin_code=?, password=? WHERE email=?';
+    let paramsWithPass = [first_name, last_name, profile_pic, bank_account, pin, hash, email];
 
     if (/^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(password) && /^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(new_pass)) {
       db.query(queryWithPass, paramsWithPass, function (error, results, fields) {
