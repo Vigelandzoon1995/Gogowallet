@@ -38,8 +38,8 @@ export class SigninPage {
   }
 
   signIn() {
-    this.navCtrl.push(TabsPage);
-    //this.authService.signIn(this.emailInput, this.passwordInput);
+    //this.navCtrl.push(TabsPage);
+    this.authService.signIn(this.emailInput, this.passwordInput);
   }
 
   signInByPin() {

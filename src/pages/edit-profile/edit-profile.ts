@@ -18,9 +18,11 @@ import { UserService } from '../../shared/services/user.service';
 export class EditProfilePage {
   profileForm: FormGroup;
   user: User;
+  base64Image: string;
+
+  clearStorage: boolean = false;
   password: string = null;
   newPassword: string = null;
-  base64Image: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
     private userService: UserService, private authService: AuthenticationService, private storage: Storage, private loadingService: LoadingService) {
@@ -54,12 +56,13 @@ export class EditProfilePage {
   }
 
   submit() {
-    // Show spinner
-    this.loadingService.show();
-
     let newUser = this.user;
     newUser.password = null;
 
+    // Show spinner
+    this.loadingService.show();
+
+    // Check if password has changed
     if (this.password != null && this.newPassword != null) {
       if (this.password != this.newPassword) {
         newUser.password = this.newPassword;

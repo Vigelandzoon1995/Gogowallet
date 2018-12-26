@@ -40,6 +40,11 @@
 	}
 }
 
+// Pin code masking
+.pin-mask {
+	-webkit-text-security: disc;
+}
+
 
 // Error Handling
 //-----------------------------------------------------------------

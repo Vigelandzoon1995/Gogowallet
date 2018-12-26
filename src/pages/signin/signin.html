@@ -61,11 +61,12 @@
 
 						<ion-item class="transparent-input">
 							<ion-label floating>PIN</ion-label>
-							<ion-input type="password" [(ngModel)]="pinCodeInput" formControlName="pin"></ion-input>
+							<ion-input class="pin-mask" type="tel" [(ngModel)]="pinCodeInput" formControlName="pin" inputmode="numeric"></ion-input>
 						</ion-item>
 
 						<!-- PIN error-->
-						<ion-item class="error" no-lines *ngIf="(loginForm.get('pin').hasError('required') || loginForm.get('pin').hasError('maxlength') || loginForm.get('pin').hasError('minlength') || loginForm.get('pin').hasError('pattern')) && loginForm.get('pin').touched">
+						<ion-item class="
+							 error" no-lines *ngIf="(loginForm.get('pin').hasError('required') || loginForm.get('pin').hasError('maxlength') || loginForm.get('pin').hasError('minlength') || loginForm.get('pin').hasError('pattern')) && loginForm.get('pin').touched">
 							<span *ngIf="loginForm.get('pin').hasError('required') && loginForm.get('pin').touched">
 								PIN is required.
 							</span>
