@@ -21,6 +21,7 @@ router.post('/', function (req, res) {
                 last_name: results[0].last_name,
                 bank_account: results[0].bank_account,
                 email: results[0].email,
+                pin_code: results[0].pin_code,
                 password: results[0].password,
                 profile_picture: results[0].profile_picture
               }
