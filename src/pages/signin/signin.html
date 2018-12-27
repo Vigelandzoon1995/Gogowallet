@@ -7,7 +7,8 @@
 	<h1 class="title">Go Go Wallet</h1>
 
 	<form novalidate [formGroup]="loginForm">
-		<ng-container *ngIf="!currentUser">
+		<!-- Form when no user is locally saved -->
+		<ng-container *ngIf="!usePinForm">
 			<ion-row>
 				<ion-col>
 					<ion-list inset>
@@ -42,15 +43,10 @@
 					</ion-list>
 				</ion-col>
 			</ion-row>
-
-			<ion-row class="text-center">
-				<ion-col>
-					<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
-				</ion-col>
-			</ion-row>
 		</ng-container>
 
-		<ng-container *ngIf="currentUser">
+		<!-- Form when user is locally saved and wants to use pin to login -->
+		<ng-container *ngIf="usePinForm">
 			<ion-row>
 				<ion-col>
 					<ion-list inset>
@@ -60,24 +56,34 @@
 						</ion-item>
 
 						<ion-item class="transparent-input">
-							<ion-label floating>PIN</ion-label>
-							<ion-input class="pin-mask" type="tel" [(ngModel)]="pinCodeInput" formControlName="pin" inputmode="numeric"></ion-input>
+							<ion-label floating>{{ usePin == true ? 'PIN' : 'Password'}}</ion-label>
+							<ion-input class="pin-mask" [type]="usePin ? 'tel' : 'password'" [(ngModel)]="pinCodeInput" formControlName="pinpass"></ion-input>
 						</ion-item>
 
-						<!-- PIN error-->
+						<!-- PIN/Password error-->
 						<ion-item class="
-							 error" no-lines *ngIf="(loginForm.get('pin').hasError('required') || loginForm.get('pin').hasError('maxlength') || loginForm.get('pin').hasError('minlength') || loginForm.get('pin').hasError('pattern')) && loginForm.get('pin').touched">
-							<span *ngIf="loginForm.get('pin').hasError('required') && loginForm.get('pin').touched">
+							 error" no-lines *ngIf="(loginForm.get('pinpass').hasError('required') || loginForm.get('pinpass').hasError('maxlength') || loginForm.get('pinpass').hasError('minlength') || loginForm.get('pinpass').hasError('pattern')) && loginForm.get('pinpass').touched">
+							<span *ngIf="loginForm.get('pinpass').hasError('required') && loginForm.get('pinpass').touched">
 								PIN is required.
 							</span>
-							<span *ngIf="loginForm.get('pin').hasError('minlength') && loginForm.get('pin').touched">
+							<span *ngIf="loginForm.get('pinpass').hasError('minlength') && loginForm.get('pinpass').touched && usePin">
 								PIN must contain at least 4 numbers.
 							</span>
-							<span *ngIf="loginForm.get('pin').hasError('maxlength') && loginForm.get('pin').touched">
+							<span *ngIf="loginForm.get('pinpass').hasError('maxlength') && loginForm.get('pinpass').touched && usePin">
 								PIN cannot contain more than 10 numbers.
 							</span>
-							<span *ngIf="loginForm.get('pin').hasError('pattern') && loginForm.get('pin').touched">
+							<span *ngIf="loginForm.get('pinpass').hasError('pattern') && loginForm.get('pinpass').touched && usePin">
 								PIN can only exist out of numbers.
+							</span>
+							<span *ngIf="loginForm.get('pinpass').hasError('required') && loginForm.get('pinpass').touched && !usePin">
+								Password is required.
+							</span>
+							<span *ngIf="loginForm.get('pinpass').hasError('hasPassed') && loginForm.get('pinpass').touched && !usePin">
+								A password must contain at least:
+								<br />10 characters
+								<br />2 numbers
+								<br />1 uppercase and lowercase characters
+								<br />1 special character
 							</span>
 						</ion-item>
 
@@ -85,21 +91,23 @@
 					</ion-list>
 				</ion-col>
 			</ion-row>
-
-			<ion-row class="text-center">
-				<ion-col>
-					<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signInByPin()">Login</button>
-				</ion-col>
-			</ion-row>
 		</ng-container>
 
 		<ion-row class="text-center">
 			<ion-col>
+				<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="text-center">
+			<ion-col *ngIf="usePinForm">
+				<button ion-button clear class="register-link" type="button" (click)="usePassword()" *ngIf="usePin">Use password</button>
+				<button ion-button clear class="register-link" type="button" (click)="usePin()" *ngIf="!usePin">Use PIN</button>
+				<button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
+			</ion-col>
+			<ion-col *ngIf="!usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
-
-				<br />
-
-				<button ion-button clear class="reset-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
+				<button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
 			</ion-col>
 		</ion-row>
 	</form>
