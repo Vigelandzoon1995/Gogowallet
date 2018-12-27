@@ -29,6 +29,7 @@
 // Transparent input
 .transparent-input {
 	background: transparent;
+	margin: .8rem auto;
 
 	ion-label {
 		color: white !important;
@@ -41,8 +42,9 @@
 }
 
 // Pin code masking
-.pin-mask {
-	-webkit-text-security: disc;
+.pin-mask,
+.prompt-alert #pin {
+	-webkit-text-security: disc !important;
 }
 
 

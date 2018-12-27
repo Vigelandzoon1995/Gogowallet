@@ -64,7 +64,7 @@ export class SigninPage {
   checkLocalUser() {
     this.storage.get('currentUser').then(
       (result) => {
-        if (result != null) {
+        if (result != null && result.pin_code != null) {
           this.currentUser = result;
           this.usePIN();
         }
