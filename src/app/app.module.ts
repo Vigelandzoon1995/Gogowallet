@@ -74,7 +74,11 @@ import { MyApp } from './app.component';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      scrollAssist: false,
+      autoFocusAssist: false,
+      scrollPadding: false
+    }),
     IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],

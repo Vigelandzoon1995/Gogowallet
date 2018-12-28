@@ -9,15 +9,15 @@ page-signin {
 	video {
 		position: fixed;
 		top: 0%;
-		bottom: 0;
 		left: 75%;
 		min-width: 100vw;
 		min-height: 100vh;
-		max-width: 100vw;
-		max-height: 100vh;
+		width: auto;
+		height: 100vh;
 		z-index: -100;
 		object-fit: cover;
-		transform: translateX(-75%);
+		background-size: cover;
+		transform: translateX(-75%) translateY(0%);
 	}
 
 	ion-content,
