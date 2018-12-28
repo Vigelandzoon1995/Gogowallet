@@ -31,7 +31,7 @@ export class AuthenticationService {
 
                     if (response) {
                         if (response.token != false) {
-                            this.setToken(response);
+                            this.setToken(response, password);
                             this.loginEvent.next(true);
                         } else {
                             // Show error message
@@ -91,7 +91,7 @@ export class AuthenticationService {
 
                     if (response) {
                         if (response.token != false) {
-                            this.setToken(response);
+                            this.setToken(response, password);
                             this.loginEvent.next(true);
                         } else {
                             // Show error message
@@ -200,8 +200,9 @@ export class AuthenticationService {
         this.logoutEvent.next(true);
     }
 
-    setToken(response: any) {
+    setToken(response: any, password: string) {
         this.storage.set('auth_token', JSON.stringify(response.token));
+        this.storage.set('pass', password);
         this.saveUser(response.user, true);
     }
 
@@ -233,6 +234,7 @@ export class AuthenticationService {
 
     removeUser(login: boolean) {
         this.storage.remove('currentUser');
+        this.storage.remove('pass');
         if (login) {
             this.isLoggedIn = false;
         }

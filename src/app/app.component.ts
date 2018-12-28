@@ -37,7 +37,7 @@ export class MyApp {
       this.splashScreen.hide();
 
       // Clear all local storage
-      //this.authService.clear();
+      this.authService.clear();
 
       this.askPermissions();
     });

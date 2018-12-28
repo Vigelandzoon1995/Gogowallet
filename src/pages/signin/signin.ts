@@ -16,9 +16,12 @@ import { CustomValidators } from '../../shared/helpers/custom-validators';
 })
 export class SigninPage {
   currentUser: User = null;
+  savedPassword: string = null;
   loginForm: FormGroup;
+
   usePinForm: boolean = false;
   usePin: boolean = false;
+
   emailInput: string;
   passwordInput: string;
   pinCodeInput: string;
@@ -36,6 +39,7 @@ export class SigninPage {
 
   init() {
     this.createFormGroup();
+    this.checkSavedPassword();
     this.checkLocalUser();
   }
 
@@ -48,17 +52,17 @@ export class SigninPage {
   }
 
   signIn() {
-    //this.navCtrl.push(TabsPage);
+    this.navCtrl.push(TabsPage);
 
-    if (this.usePinForm == true) {
-      if (this.usePin == true) {
-        this.authService.signInByPin(this.currentUser.email, this.currentUser.password, this.pinCodeInput);
-      } else {
-        this.authService.signIn(this.currentUser.email, this.pinCodeInput);
-      }
-    } else {
-      this.authService.signIn(this.emailInput, this.passwordInput);
-    }
+    // if (this.usePinForm == true) {
+    //   if (this.usePin == true) {
+    //     this.authService.signInByPin(this.currentUser.email, this.savedPassword, this.pinCodeInput);
+    //   } else {
+    //     this.authService.signIn(this.currentUser.email, this.pinCodeInput);
+    //   }
+    // } else {
+    //   this.authService.signIn(this.emailInput, this.passwordInput);
+    // }
   }
 
   checkLocalUser() {
@@ -66,6 +70,17 @@ export class SigninPage {
       (result) => {
         if (result != null && result.pin_code != null) {
           this.currentUser = result;
+          this.checkSavedPassword();
+        }
+      }
+    );
+  }
+
+  checkSavedPassword() {
+    this.storage.get('pass').then(
+      (result) => {
+        if (result != null) {
+          this.savedPassword = result;
           this.usePIN();
         }
       }
