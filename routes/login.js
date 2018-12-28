@@ -22,7 +22,6 @@ router.post('/', function (req, res) {
                 bank_account: results[0].bank_account,
                 email: results[0].email,
                 pin_code: results[0].pin_code,
-                password: results[0].password,
                 profile_picture: results[0].profile_picture
               }
             })
@@ -47,8 +46,8 @@ router.post('/pin', function (req, res) {
     [email, pin],
     function (error, results, fields) {
       if (results.length != 0 && results[0].password != null && results[0].pin_code != null && results[0].user_id != null) {
-        if(req.body.password == results[0].password) {
-          if (results) {
+        bcrypt.compare(req.body.password, results[0].password, function (err, result) {
+          if (result) {
             var token = jwt.sign({ id: results[0].user_id }, "secretkey");
             res.json({
               token: token,
@@ -59,7 +58,6 @@ router.post('/pin', function (req, res) {
                 bank_account: results[0].bank_account,
                 email: results[0].email,
                 pin_code: results[0].pin_code,
-                password: results[0].password,
                 profile_picture: results[0].profile_picture
               }
             })
@@ -68,7 +66,7 @@ router.post('/pin', function (req, res) {
               token: false
             })
           }
-        }
+        });
       } else {
         res.json({
           token: false
