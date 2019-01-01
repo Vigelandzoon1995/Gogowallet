@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var cors = require('cors')
+var cors = require('cors');
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var userRouter = require('./routes/user')
+var gpsRouter = require('./routes/gps');
 
 
 var app = express();
@@ -39,13 +40,13 @@ var http = require('http');
 //So It won't disturb the pm2 instance running on 3333
 if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
-  console.log("running jasmine test environment at port 4444")
+  console.log("running jasmine test environment at port 4444");
 } else {
-  http.createServer(app).listen(3333, "0.0.0.0");
-  console.log("running at port 3333")
+  http.createServer(app).listen(3333, "::");
+  console.log("running at port 3333");
 }
 
-app.use(cors())
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -65,6 +66,7 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/gps', gpsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
