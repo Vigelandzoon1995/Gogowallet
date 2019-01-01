@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 const bcrypt = require('bcrypt');
-const saltRounds = 14;
 
 router.post('/', async function (req, res) {
     if (req.body.password != null &&

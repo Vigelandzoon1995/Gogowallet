@@ -12,10 +12,6 @@ describe("registration", () => {
         register.saltRounds = "";
     });
     describe("Test regex", () => {
-        var data = {};
-        beforeAll((done) => {
-            done();
-        });
         it("To succeed", async () => {
             await register.stack[0].route.stack[0].handle({ body: { email: "test@test.nl", password: "sdjalfkjdfsdfslkfjlksf##dDD33" } }, { json: function (response) { expect(response.success).toBe(true) } })
         });
