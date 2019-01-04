@@ -1,26 +1,35 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Distance Alarm</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Distance Alarm</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
+	<p padding>By using "Distance Alarm", you will be notified once your are about to leave without your wallet.</p>
 
-  <ion-item>
-    <ion-label>Distance alarm</ion-label>
-    <ion-toggle></ion-toggle>
-  </ion-item>
+	<ion-item>
+		<ion-icon name="power" item-start></ion-icon>
+		<ion-label>Enable Distance Alarm</ion-label>
+		<ion-toggle item-end></ion-toggle>
+	</ion-item>
 
-  <ion-item>
-    <ion-label>Distance lock protection</ion-label>
-    <ion-toggle></ion-toggle>
-  </ion-item>
+	<ion-item>
+		<ion-icon name="lock" item-start></ion-icon>
+		<ion-label>
+			Enable Lock Protection
+			<p text-wrap>
+				<small>This will lock your wallet once it loses connection with your device.</small>
+			</p>
+		</ion-label>
+		<ion-toggle item-end></ion-toggle>
+	</ion-item>
 
-  <ion-item>
-    <ion-label>Distance in meters</ion-label>
-    <ion-select [(ngModel)]="Distance">
-      <ion-option value="5" checked>5</ion-option>
-      <ion-option value="10">10</ion-option>
-    </ion-select>
-  </ion-item>
+	<ion-item>
+		<ion-icon name="link" item-start></ion-icon>
+		<ion-label style="color: #000;" item-end>Maximum Distance</ion-label>
+		<ion-select [(ngModel)]="Distance">
+			<ion-option value="5" checked>5</ion-option>
+			<ion-option value="10">10</ion-option>
+		</ion-select>
+	</ion-item>
 </ion-content>
