@@ -194,7 +194,6 @@ export class AuthenticationService {
 
     signOut() {
         this.clearToken();
-        //this.removeUser(true);
         this.isLoggedIn = false;
 
         this.logoutEvent.next(true);

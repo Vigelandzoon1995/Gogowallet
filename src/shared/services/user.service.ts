@@ -33,11 +33,6 @@ export class UserService {
             .pipe(catchError(error => Observable.throw(error)));
     }
 
-    checkCredentialsByPin(email: string, pin: string): Observable<User> {
-        return this.http.post(ENV.BASE_URL + '/loginByPin', { email: email, pin: pin })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
-
     update(user: User): Observable<boolean> {
         return this.http.put(ENV.BASE_URL + '/users', user, { headers: this.headers })
             .pipe(catchError(error => Observable.throw(error)));
