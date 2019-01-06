@@ -11,6 +11,7 @@ function verifyToken(req, res, next) {
         res.sendStatus(403);
       } else {
         req.token = bearerToken;
+        res.locals.user_id = data.id
         next();
       }
     });

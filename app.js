@@ -13,7 +13,9 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var userRouter = require('./routes/user')
-var gpsRouter = require('./routes/gps');
+var gpsRouter = require('./routes/coordinate');
+var contactRouter = require('./routes/contact')
+var budgetRouter = require('./routes/budget')
 
 
 var app = express();
@@ -67,6 +69,8 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
 app.use('/gps', gpsRouter);
+app.use('/contact', contactRouter)
+app.use('/budget', budgetRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

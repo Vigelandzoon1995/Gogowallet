@@ -1,7 +1,66 @@
 const proxyquire = require('proxyquire');
 const fs = require('fs');
 var mockdata = JSON.parse(fs.readFileSync('../users.json', 'utf8'));
+var otherdata = JSON.parse(fs.readFileSync('../users2.json', 'utf8'));
 var user;
+require('../modules/compareObjects')
+var Request = require("request");
+
+
+describe("user HTTP test", () => {
+    var server;
+    beforeAll(() => {
+        server = require("../app");
+    });
+    describe("GET User/GetById", () => {
+        var data = {};
+        it("Status 403: Forbidden", () => {
+            Request.get("http://localhost:4444/user/GetById?id=1", (error, response, body) => {
+                expect(response.statusCode).toBe(403);
+            });
+
+        });
+    });
+    describe("GET User/GetByEmail", () => {
+        var data = {};
+        it("Status 403: Forbidden", () => {
+            Request.get("http://localhost:4444/user/GetByEmail?id=verhagen.frank@gmail.com", (error, response, body) => {
+                expect(response.statusCode).toBe(403);
+            });
+
+        });
+    });
+    describe("GET User/GetAll", () => {
+        var data = {};
+        it("Status 403: Forbidden", () => {
+            Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
+                expect(response.statusCode).toBe(403);
+            });
+
+        });
+    });
+    describe("POST User/Update", () => {
+        var data = {};
+        it("Status 403: Forbidden", () => {
+            Request.post({
+                url: 'http://localhost:4444/user/Update',
+                form: { key: 'value' }
+            },
+                function (err, response, body) {
+                    expect(response.statusCode).toBe(403);
+                })
+        });
+    });
+    describe("GET User/GetAll", () => {
+        var data = {};
+        it("Status 403: Forbidden", () => {
+            Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
+                expect(response.statusCode).toBe(403);
+            });
+
+        });
+    });
+});
 
 describe("user", () => {
     beforeAll(() => {
@@ -77,9 +136,8 @@ describe("user", () => {
     describe("GetAll", () => {
         beforeAll(() => {
             global.db = {
-                query: function (query, variables, succeed) {
-                    console.log(succeed)
-                    //succeed("", mockdata)
+                query: function (query, succeed) {
+                    succeed("", mockdata)
                 }
             };
         });
@@ -89,6 +147,15 @@ describe("user", () => {
                     , {
                         send: function (response) {
                             expect(response).toEqual(mockdata)
+                        }
+                    })
+        });
+        it("To fail", () => {
+            user.stack[2].route.stack[1]
+                .handle({}
+                    , {
+                        send: function (response) {
+                            expect(Object.equals(mockdata, otherdata)).toBe(false)
                         }
                     })
         });
