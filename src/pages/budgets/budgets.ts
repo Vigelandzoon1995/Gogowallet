@@ -6,109 +6,118 @@ import { BudgetsService2 } from '../../services/budgets/budgets';
 import Budget from '../../shared/models/budget.model';
 import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
+import { TransactionService } from '../../shared/services/transaction.service';
 import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
 
 @IonicPage()
 @Component({
-  selector: 'page-budgets',
-  templateUrl: 'budgets.html',
+	selector: 'page-budgets',
+	templateUrl: 'budgets.html',
 })
 export class BudgetsPage {
-  currentUser: User = null;
-  budgets: Budget[];
-  today = new Date();
+	currentUser: User = null;
+	budgets: Budget[];
+	transactions: Transaction[];
+	today = new Date();
 
-  constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
-    public alertCtrl: AlertController, public navParams: NavParams, private storage: Storage) {
-    this.getBudgetList();
-    this.getUser();
-  }
+	constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
+		public alertCtrl: AlertController, public navParams: NavParams, private transactionService: TransactionService, private storage: Storage) {
+		this.getBudgetList();
+		this.getUser();
+	}
 
-  ionViewDidLoad() {
-  }
+	ionViewDidLoad() {
+	}
 
-  getUser() {
-    this.storage.get('currentUser').then(
-      (response) => {
-        this.currentUser = response;
-        this.checkBudgetBalance();
-      }
-    );
-  }
+	getUser() {
+		this.storage.get('currentUser').then(
+			(response) => {
+				this.currentUser = response;
+				this.checkBudgetBalance();
+			}
+		);
+	}
 
-  presentPopover(myEvent, item) {
-    let popover = this.popoverCtrl.create(BudgetItemPopoverComponent);
-    popover.present({
-      ev: myEvent
-    });
+	presentPopover(myEvent, item) {
+		let popover = this.popoverCtrl.create(BudgetItemPopoverComponent);
+		popover.present({
+			ev: myEvent
+		});
 
-    popover.onDidDismiss(popoverData => {
-      try {
-        if (popoverData.item.match("Edit")) {
-          this.openBudget(item);
-        }
-        else if (popoverData.item.match("Delete")) {
-          this.delete(item);
-        }
-      } catch (Nullpointerexception) {
-      }
+		popover.onDidDismiss(popoverData => {
+			try {
+				if (popoverData.item.match("Edit")) {
+					this.openBudget(item);
+				}
+				else if (popoverData.item.match("Delete")) {
+					this.delete(item);
+				}
+			} catch (Nullpointerexception) {
+			}
 
-    })
-  }
+		})
+	}
 
-  navToBudget() {
-    this.navCtrl.push(AddBudgetPage);
-  }
+	navToBudget() {
+		this.navCtrl.push(AddBudgetPage);
+	}
 
-  openBudget(item) {
-    this.navCtrl.push(EditBudgetPage, {
-      data: item
-    });
-  }
+	openBudget(item) {
+		this.navCtrl.push(EditBudgetPage, {
+			data: item
+		});
+	}
 
-  delete(item) {
-    const confirm = this.alertCtrl.create({
-      title: 'Delete ' + item.category,
-      message: 'Are you sure you want to delete this profile?',
-      buttons: [
-        {
-          text: 'No',
-          handler: () => {
-            // do nothing
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            this.budgetsService2.deleteBudget(item);
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }
+	delete(item) {
+		const confirm = this.alertCtrl.create({
+			title: 'Delete ' + item.category,
+			message: 'Are you sure you want to delete this profile?',
+			buttons: [
+				{
+					text: 'No',
+					handler: () => {
+						// do nothing
+					}
+				},
+				{
+					text: 'Yes',
+					handler: () => {
+						this.budgetsService2.deleteBudget(item);
+					}
+				}
+			]
+		});
+		confirm.present();
+	}
 
-  getBudgetList() {
-    //Todo add GetAll() from services
-    this.budgets = this.budgetsService2.getAll();
-  }
+	getBudgetList() {
+		//Todo add GetAll() from services
+		this.budgets = this.budgetsService2.getAll();
+	}
 
-  checkBudgetBalance() {
-    let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
-    let transactions: Transaction[] = [
-      new Transaction(1, this.currentUser.user_id, 'Albert Heijn', 29.99, new Date('2018-12-24 15:55')),
-      new Transaction(2, this.currentUser.user_id, 'Bakker Bart', 8.50, new Date('2018-12-24 14:24')),
-      new Transaction(3, this.currentUser.user_id, 'McDonalds Beurs', 6.99, new Date('2018-12-24 16:12'))
-    ];
+	checkBudgetBalance() {
+		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
+		let entertainmentWhiteList: String[] = ['Pathe', 'Bioscoop', 'Bowl', 'Kart', 'Laser'];
 
-    // Set budget
-    transactions.forEach((value) => {
-      if (groceriesWhiteList.some(element => value.name.includes(element.toString()))) {
-        // Subtract amount of transaction from groceries budget that is active
-        let groceries = this.budgets.filter(f => f.category == 'Groceries' && (this.today.getTime() >= f.start_date.getTime() && this.today.getTime() <= f.end_date.getTime()))[0];
-        groceries.amount = groceries.amount - value.amount;
-      }
-    });
-  }
+		this.budgets.forEach(budget => {
+			let transactions: Transaction[];
+			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
+				(response) => transactions = response
+			);
+
+			transactions.forEach(transaction => {
+				if (groceriesWhiteList.some(element => transaction.name.includes(element.toString()))) {
+					if (budget.category == 'Groceries') {
+						budget.current_amount = budget.amount - transaction.amount;
+					}
+				}
+				if (entertainmentWhiteList.some(element => transaction.name.includes(element.toString()))) {
+					if (budget.category == 'Entertainment') {
+						budget.current_amount = budget.amount - transaction.amount;
+					}
+				}
+			});
+		});
+	}
 }
