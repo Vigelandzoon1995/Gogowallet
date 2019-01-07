@@ -96,11 +96,11 @@ export class BudgetsPage {
 
 	checkBudgetBalance() {
 		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
-		let entertainmentWhiteList: String[] = ['Pathe', 'Bioscoop', 'Bowl', 'Kart', 'Laser'];
+		let entertainmentWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser'];
 
 		this.budgets.forEach(budget => {
 			let transactions: Transaction[] = [
-				new Transaction(1, 'NL01BANK123456', 'Albert Heijn', 19.99, new Date('2019-01-07 14:33')),
+				new Transaction(1, 'NL01BANK123456', 'Albert Heijn', 19.99, new Date('2019-01-07 13:23')),
 				new Transaction(2, 'NL01BANK123456', 'Spar', 6.77, new Date('2019-01-08 12:23')),
 				new Transaction(3, 'NL01BANK123456', 'McDonalds', 7.99, new Date('2019-01-08 16:56')),
 				new Transaction(4, 'NL01BANK123456', 'Bowlingcentrum Atoll', 15.00, new Date('2019-01-09 16:00')),
@@ -112,14 +112,20 @@ export class BudgetsPage {
 			// );
 
 			transactions.forEach(transaction => {
-				if (groceriesWhiteList.some(element => transaction.name.includes(element.toString()))) {
+				if (groceriesWhiteList.includes(transaction.name)) {
 					if (budget.category == 'Groceries') {
-						budget.current_amount = budget.amount - transaction.amount;
+						if (budget.current_amount == null) {
+							budget.current_amount = budget.amount;
+						}
+						budget.current_amount = budget.current_amount - transaction.amount;
 					}
 				}
-				if (entertainmentWhiteList.some(element => transaction.name.includes(element.toString()))) {
+				if (entertainmentWhiteList.includes(transaction.name)) {
 					if (budget.category == 'Entertainment') {
-						budget.current_amount = budget.amount - transaction.amount;
+						if (budget.current_amount == null) {
+							budget.current_amount = budget.amount;
+						}
+						budget.current_amount = budget.current_amount - transaction.amount;
 					}
 				}
 			});
