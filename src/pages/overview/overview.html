@@ -1,52 +1,52 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Overview</ion-title>
-    <ion-buttons end>
-      <button icon-only (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Overview</ion-title>
+		<ion-buttons end>
+			<button icon-only (click)="presentPopover($event)">
+				<ion-icon name="more"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-border>
-    <ion-list-header>
-      Spendings
-    </ion-list-header>
+	<ion-list no-border>
+		<ion-list-header>
+			Spendings
+		</ion-list-header>
 
-    <ion-item>
-      <ion-icon name='logo-euro' item-start></ion-icon>
-      Balance
-      <ion-note item-end>
-        1000
-      </ion-note>
-    </ion-item>
-  </ion-list>
+		<ion-item>
+			<ion-icon name='logo-euro' item-start></ion-icon>
+			Balance
+			<ion-note item-end *ngIf="currentUser">
+				{{ currentUser != null ? currentUser.balance : '-' }}
+			</ion-note>
+		</ion-item>
+	</ion-list>
 
-  <ion-list>
-    <ion-list-header>
-      Features
-    </ion-list-header>
+	<ion-list>
+		<ion-list-header>
+			Features
+		</ion-list-header>
 
-    <ion-item type="button" (click)="navigateToBudgets()">
-      <ion-label>Budgets</ion-label>
-      <ion-icon name='logo-euro' item-start></ion-icon>
-      <ion-note item-end>Manage</ion-note>
-    </ion-item>
+		<ion-item type="button" (click)="navigateToBudgets()">
+			<ion-label>Budgets</ion-label>
+			<ion-icon name='logo-euro' item-start></ion-icon>
+			<ion-note item-end>Manage</ion-note>
+		</ion-item>
 
-    <ion-item>
-      <ion-icon name='bluetooth' item-start></ion-icon>
-      Go go wallet
-      <ion-note item-end>Connect</ion-note>
-    </ion-item>
+		<ion-item>
+			<ion-icon name='bluetooth' item-start></ion-icon>
+			GoGo Wallet
+			<ion-note item-end>Connect</ion-note>
+		</ion-item>
 
-    <ion-item type="button" (click)="navigateToContacts()">
-      <ion-label>Emergency contacts</ion-label>
-      <ion-icon name='card' item-start></ion-icon>
-      <ion-note item-end>Manage</ion-note>
-    </ion-item>
-  </ion-list>
+		<ion-item type="button" (click)="navigateToContacts()">
+			<ion-label>Emergency Contacts</ion-label>
+			<ion-icon name='card' item-start></ion-icon>
+			<ion-note item-end>Manage</ion-note>
+		</ion-item>
+	</ion-list>
 
-  <button ion-button (click)="notify()">Notify</button>
+	<button ion-button (click)="notify()">Notify</button>
 </ion-content>

@@ -18,7 +18,6 @@ import { EditBudgetPage } from '../edit-budget/edit-budget';
 export class BudgetsPage {
 	currentUser: User = null;
 	budgets: Budget[];
-	transactions: Transaction[];
 	today = new Date();
 
 	constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
@@ -34,7 +33,9 @@ export class BudgetsPage {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
-				this.checkBudgetBalance();
+				if (this.currentUser.bank_account) {
+					this.checkBudgetBalance();
+				}
 			}
 		);
 	}
@@ -75,10 +76,7 @@ export class BudgetsPage {
 			message: 'Are you sure you want to delete this profile?',
 			buttons: [
 				{
-					text: 'No',
-					handler: () => {
-						// do nothing
-					}
+					text: 'No'
 				},
 				{
 					text: 'Yes',
@@ -101,10 +99,17 @@ export class BudgetsPage {
 		let entertainmentWhiteList: String[] = ['Pathe', 'Bioscoop', 'Bowl', 'Kart', 'Laser'];
 
 		this.budgets.forEach(budget => {
-			let transactions: Transaction[];
-			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
-				(response) => transactions = response
-			);
+			let transactions: Transaction[] = [
+				new Transaction(1, 'NL01BANK123456', 'Albert Heijn', 19.99, new Date('2019-01-07 14:33')),
+				new Transaction(2, 'NL01BANK123456', 'Spar', 6.77, new Date('2019-01-08 12:23')),
+				new Transaction(3, 'NL01BANK123456', 'McDonalds', 7.99, new Date('2019-01-08 16:56')),
+				new Transaction(4, 'NL01BANK123456', 'Bowlingcentrum Atoll', 15.00, new Date('2019-01-09 16:00')),
+				new Transaction(5, 'NL01BANK123456', 'Pathe', 22.34, new Date('2019-01-09 19:24')),
+			];
+
+			// this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
+			// 	(response) => transactions = response
+			// );
 
 			transactions.forEach(transaction => {
 				if (groceriesWhiteList.some(element => transaction.name.includes(element.toString()))) {
