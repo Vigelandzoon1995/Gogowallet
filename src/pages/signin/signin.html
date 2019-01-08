@@ -46,7 +46,7 @@
 		</ng-container>
 
 		<!-- Form when user is locally saved and wants to use pin to login -->
-		<ng-container *ngIf="usePinForm">
+		<ng-container *ngIf="usePinForm && currentUser">
 			<ion-row>
 				<ion-col>
 					<ion-list inset>

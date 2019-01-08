@@ -15,7 +15,7 @@ export default class Budget {
 		this.category = category;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.amount = amount == null ? 0 : amount;
+		this.amount = amount;
 		this.alarm = alarm == null ? false : alarm;
 		this.limit_lock = limit_lock == null ? false : limit_lock;
 		this.last_checked = last_checked;

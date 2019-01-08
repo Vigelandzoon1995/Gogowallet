@@ -1,13 +1,12 @@
 page-budget {
 
-    ion-card.card ion-card-header {
-        background-color: map-get($colors, primary);
-        color: white;
-      
-    }
+	ion-card.card ion-card-header {
+		background-color: map-get($colors, primary);
+		color: white;
+	}
 
-    hr{
-        margin: 0;
-    }      
+	hr {
+		margin: 0;
+	}
 
 }
