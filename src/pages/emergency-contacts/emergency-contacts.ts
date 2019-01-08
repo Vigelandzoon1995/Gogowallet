@@ -5,6 +5,7 @@ import { ContactService } from '../../shared/services/contact.service';
 import { AddContactPage } from '../add-contact/add-contact';
 import { EditContactPage } from '../edit-contact/edit-contact';
 import { ViewContactPage } from '../view-contact/view-contact';
+import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ import { ViewContactPage } from '../view-contact/view-contact';
 export class EmergencyContactsPage {
 	contacts: Contact[] = [];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService) {
+	constructor(private emergencyContactService: EmergencyContactService, public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService) {
 		this.getContacts();
 	}
 
@@ -32,21 +33,22 @@ export class EmergencyContactsPage {
 	}
 
 	getContacts() {
-		this.contacts = [{
-			id: 1,
-			user_id: 1,
-			name: 'Rabobank',
-			phone: '088 722 67 67',
-			thumbnail: 'card',
-			notes: ''
-		},
-		{
-			id: 2,
-			user_id: 1,
-			name: 'ABN AMRO',
-			phone: '0900 0024',
-			thumbnail: 'card',
-			notes: ''
-		}];
+		this.contacts = this.emergencyContactService.getAll();
+		// this.contacts = [{
+		// 	id: 1,
+		// 	user_id: 1,
+		// 	name: 'Rabobank',
+		// 	phone: '088 722 67 67',
+		// 	thumbnail: 'card',
+		// 	notes: ''
+		// },
+		// {
+		// 	id: 2,
+		// 	user_id: 1,
+		// 	name: 'ABN AMRO',
+		// 	phone: '0900 0024',
+		// 	thumbnail: 'card',
+		// 	notes: ''
+		// }];
 	}
 }
