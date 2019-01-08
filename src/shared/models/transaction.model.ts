@@ -1,9 +1,9 @@
 export default class Transaction {
-	id: number = null;
-	bank_account: string = null;
-	name: string = null;
-	amount: number = null;
-	date: Date = null;
+	id: number;
+	bank_account: string;
+	name: string;
+	amount: number;
+	date: Date;
 
 	constructor(id?: number, bank_account?: string, name?: string, amount?: number, date?: Date) {
 		this.bank_account = bank_account;
