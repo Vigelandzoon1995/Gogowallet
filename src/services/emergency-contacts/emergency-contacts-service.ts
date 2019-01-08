@@ -1,7 +1,7 @@
 import Contact from "../../shared/models/contact.model";
 
 export class EmergencyContactService {
-    private contactsList: {contacts: Contact[]}[];
+    private contactsList: Contact[];
     list:any;
     addContact(contact){
         this.contactsList.push(contact);

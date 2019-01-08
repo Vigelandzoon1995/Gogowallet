@@ -32,7 +32,7 @@ export class ViewContactPage {
 	}
 
 	editContact() {
-		this.navCtrl.push(EditContactPage, this.contact);
+		this.navCtrl.push(EditContactPage, { data: this.contact});
 	}
 
 }

@@ -41,7 +41,9 @@ export class EditContactPage {
 
 	delete() {
 		this.emergencyContactService.deleteContact(this.contact);
-		this.navCtrl.pop();
+		//Remove al pages till emergencies contact page
+		this.navCtrl.popTo( this.navCtrl.getByIndex(2));
+		
 	}
 
 	update() {
