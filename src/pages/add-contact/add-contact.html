@@ -1,49 +1,83 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Create Emergency Contact</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Create Emergency Contact</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="contactForm">
-    <ion-row>
-      <ion-col>
-        <ion-list>
-          <ion-item>
-            <ion-label floating>Name Organization</ion-label>
-            <ion-input type="text" formControlName="name" [(ngModel)]="contact.name" required></ion-input>
-          </ion-item>
+	<form novalidate [formGroup]="contactForm">
+		<ion-row>
+			<ion-col>
+				<ion-list>
+					<ion-item>
+						<ion-label floating>Name Organization</ion-label>
+						<ion-input type="text" formControlName="name" [(ngModel)]="contact.name" required></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Phone Number</ion-label>
-            <ion-input type="tel" formControlName="phone" [(ngModel)]="contact.phone" required></ion-input>
-          </ion-item>
+					<!-- Name error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(contactForm.get('name').hasError('required') || contactForm.get('name').hasError('pattern')) && contactForm.get('name').touched">
+						<span *ngIf="contactForm.get('name').hasError('required') && contactForm.get('name').touched">
+							* Name is required.
+						</span>
+						<span *ngIf="contactForm.get('name').hasError('pattern') && contactForm.get('name').touched">
+							* Only letters, numbers, hyphens and dots are allowed.
+						</span>
+					</ion-item>
 
-          <ion-item>
-            <ion-label floating>Notes</ion-label>
-            <ion-input type="text" formControlName="notes" [(ngModel)]="contact.notes"></ion-input>
-          </ion-item>
+					<ion-item>
+						<ion-label floating>Phone Number</ion-label>
+						<ion-input type="tel" formControlName="phone" [(ngModel)]="contact.phone" required></ion-input>
+					</ion-item>
 
-          <ion-item>
-            <ion-label>Type of Card</ion-label>
-            <ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail">
-              <ion-option value="card">Bank</ion-option>
-              <ion-option value="person">Identification</ion-option>
-              <ion-option value="medkit">Health</ion-option>
-              <ion-option value="bus">Transport</ion-option>
-            </ion-select>
-          </ion-item>
+					<!-- Phone error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(contactForm.get('phone').hasError('required') || contactForm.get('phone').hasError('pattern')) && contactForm.get('phone').touched">
+						<span *ngIf="contactForm.get('phone').hasError('required') && contactForm.get('phone').touched">
+							* Phone is required.
+						</span>
+						<span *ngIf="contactForm.get('phone').hasError('pattern') && contactForm.get('phone').touched">
+							* Only numbers, hyphens and dots are allowed.
+						</span>
+					</ion-item>
 
-          <div hidden></div>
+					<ion-item>
+						<ion-label floating>Notes</ion-label>
+						<ion-input type="text" formControlName="notes" [(ngModel)]="contact.notes"></ion-input>
+					</ion-item>
 
-        </ion-list>
-      </ion-col>
-    </ion-row>
+					<!-- Notes error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="contactForm.get('notes').hasError('pattern') && contactForm.get('notes').touched">
+						<span *ngIf="contactForm.get('notes').hasError('pattern') && contactForm.get('notes').touched">
+							* Only letters, numbers, hyphens and dots are allowed.
+						</span>
+					</ion-item>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button full round type="button" [disabled]="!contactForm.valid" (click)="submit()">Save</button>
-      </ion-col>
-    </ion-row>
-  </form>
+					<ion-item>
+						<ion-label>Type of Card</ion-label>
+						<ion-select formControlName="thumbnail" [(ngModel)]="contact.thumbnail">
+							<ion-option value="card">Bank</ion-option>
+							<ion-option value="person">Identification</ion-option>
+							<ion-option value="medkit">Health</ion-option>
+							<ion-option value="bus">Transport</ion-option>
+						</ion-select>
+					</ion-item>
+
+					<!-- Card Type error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="contactForm.get('thumbnail').hasError('required') && contactForm.get('thumbnail').touched">
+						<span *ngIf="contactForm.get('thumbnail').hasError('required') && contactForm.get('thumbnail').touched">
+							* Card type is required.
+						</span>
+					</ion-item>
+
+					<div hidden></div>
+
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<button ion-button full round type="button" [disabled]="!contactForm.valid" (click)="submit()">Save</button>
+			</ion-col>
+		</ion-row>
+	</form>
 </ion-content>

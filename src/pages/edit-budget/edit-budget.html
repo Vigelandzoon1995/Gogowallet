@@ -8,6 +8,7 @@
 	<form novalidate [formGroup]="budgetForm">
 		<ion-card>
 			<ion-card-header>Category</ion-card-header>
+
 			<ion-item>
 				<ion-label>Select category</ion-label>
 				<ion-select [(ngModel)]="budget.category" formControlName="category">
@@ -15,47 +16,81 @@
 					<ion-option value="Groceries">Groceries</ion-option>
 				</ion-select>
 			</ion-item>
+
+			<!-- Category error-->
+			<ion-item no-lines no-padding class="error error-padding" *ngIf="budgetForm.get('category').hasError('required') && budgetForm.get('category').touched">
+				<span *ngIf="budgetForm.get('category').hasError('required') && budgetForm.get('category').touched">
+					* Category is required.
+				</span>
+			</ion-item>
 		</ion-card>
 
 		<ion-card>
-			<ion-card-header>
-				Dates
-			</ion-card-header>
+			<ion-card-header>Dates</ion-card-header>
+
 			<ion-item>
 				<ion-icon name="calendar" item-start></ion-icon>
 				<ion-label>From</ion-label>
 				<ion-datetime displayFormat="MMM DD YYYY HH:mm" [(ngModel)]="start" formControlName="start_date" [min]="minDate"></ion-datetime>
 			</ion-item>
-			<hr>
+
 			<ion-item>
 				<ion-icon name="calendar" item-start></ion-icon>
 				<ion-label>Till</ion-label>
 				<ion-datetime displayFormat="MMM DD YYYY HH:mm" [(ngModel)]="end" formControlName="end_date" [min]="minDate"></ion-datetime>
 			</ion-item>
+
+			<!-- Dates error-->
+			<ion-item no-padding no-lines class="error error-padding" *ngIf="(budgetForm.get('start_date').hasError('required') && budgetForm.get('start_date').touched) || budgetForm.get('end_date').hasError('required') && budgetForm.get('end_date').touched">
+				<span *ngIf="budgetForm.get('start_date').hasError('required') && budgetForm.get('start_date').touched">
+					* From Date is required.
+				</span>
+				<span *ngIf="budgetForm.get('end_date').hasError('required') && budgetForm.get('end').touched">
+					* Till Date is required.
+				</span>
+			</ion-item>
 		</ion-card>
 
 		<ion-card>
 			<ion-card-header>Budget</ion-card-header>
+
 			<ion-item>
 				<ion-icon name="logo-euro" item-start></ion-icon>
 				<ion-label>Amount</ion-label>
 				<ion-input type="number" min="0" [(ngModel)]="budget.amount" formControlName="amount" text-right item-end></ion-input>
 			</ion-item>
+
+			<!-- Amount error-->
+			<ion-item no-padding no-lines class="error error-padding" *ngIf="budgetForm.get('amount').hasError('required') && budgetForm.get('amount').touched">
+				<span *ngIf="budgetForm.get('amount').hasError('required') && budgetForm.get('amount').touched">
+					* Amount is required.
+				</span>
+			</ion-item>
 		</ion-card>
 
 		<ion-card>
 			<ion-card-header>Features</ion-card-header>
-			<hr>
+
 			<ion-item>
 				<ion-icon name="alarm" item-start></ion-icon>
 				<ion-label>Alarm</ion-label>
 				<ion-toggle [(ngModel)]="budget.alarm" formControlName="alarm"></ion-toggle>
 			</ion-item>
-			<hr>
+
 			<ion-item>
 				<ion-icon name="lock" item-start></ion-icon>
 				<ion-label>Limit lock</ion-label>
 				<ion-toggle [(ngModel)]="budget.limit_lock" formControlName="limit_lock"></ion-toggle>
+			</ion-item>
+
+			<!-- Alarm and lock error-->
+			<ion-item no-padding no-lines class="error error-padding" *ngIf="(budgetForm.get('alarm').hasError('required') && budgetForm.get('alarm').touched) || (budgetForm.get('limit_lock').hasError('required') && budgetForm.get('limit_lock').touched)">
+				<span *ngIf="budgetForm.get('alarm').hasError('required') && budgetForm.get('alarm').touched">
+					* Alarm is required.
+				</span>
+				<span *ngIf="budgetForm.get('limit_lock').hasError('required') && budgetForm.get('limit_lock').touched">
+					* Limit lock is required.
+				</span>
 			</ion-item>
 		</ion-card>
 

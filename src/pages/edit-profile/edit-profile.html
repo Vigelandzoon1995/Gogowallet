@@ -26,9 +26,29 @@
 						<ion-input type="text" formControlName="first_name" [(ngModel)]="user.first_name" required></ion-input>
 					</ion-item>
 
+					<!-- First name error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('first_name').hasError('required') || profileForm.get('first_name').hasError('pattern')) && contactForm.get('first_name').touched">
+						<span *ngIf="profileForm.get('first_name').hasError('required') && profileForm.get('first_name').touched">
+							* First name is required.
+						</span>
+						<span *ngIf="profileForm.get('first_name').hasError('pattern') && profileForm.get('first_name').touched">
+							* Only letters, numbers, hyphens and dots are allowed.
+						</span>
+					</ion-item>
+
 					<ion-item>
 						<ion-label floating>Last Name</ion-label>
 						<ion-input type="text" formControlName="last_name" [(ngModel)]="user.last_name" required></ion-input>
+					</ion-item>
+
+					<!-- Last name error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('last_name').hasError('required') || profileForm.get('last_name').hasError('pattern')) && contactForm.get('last_name').touched">
+						<span *ngIf="profileForm.get('last_name').hasError('required') && profileForm.get('last_name').touched">
+							* Last name is required.
+						</span>
+						<span *ngIf="profileForm.get('last_name').hasError('pattern') && profileForm.get('last_name').touched">
+							* Only letters, numbers, hyphens and dots are allowed.
+						</span>
 					</ion-item>
 
 					<ion-item>
@@ -36,9 +56,29 @@
 						<ion-input type="text" formControlName="bank_account" [(ngModel)]="user.bank_account"></ion-input>
 					</ion-item>
 
+					<!-- Bank account error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('bank_account').hasError('required') || profileForm.get('bank_account').hasError('pattern')) && contactForm.get('bank_account').touched">
+						<span *ngIf="profileForm.get('bank_account').hasError('required') && profileForm.get('bank_account').touched">
+							* Bank account is required.
+						</span>
+						<span *ngIf="profileForm.get('bank_account').hasError('pattern') && profileForm.get('bank_account').touched">
+							* Only letters and numbers are allowed.
+						</span>
+					</ion-item>
+
 					<ion-item>
 						<ion-label floating>Email</ion-label>
 						<ion-input type="email" formControlName="email" [(ngModel)]="user.email" required></ion-input>
+					</ion-item>
+
+					<!-- Email error-->
+					<ion-item class="error" no-lines *ngIf="(profileForm.get('email').hasError('required') || profileForm.get('email').hasError('email')) && profileForm.get('email').touched">
+						<span *ngIf="profileForm.get('email').hasError('required') && profileForm.get('email').hasError('email') && profileForm.get('email').touched">
+							* E-mail is required.
+						</span>
+						<span *ngIf="!profileForm.get('email').hasError('required') && profileForm.get('email').hasError('email') && profileForm.get('email').touched">
+							* Please enter a valid e-mail.
+						</span>
 					</ion-item>
 
 					<ion-item>
@@ -46,14 +86,49 @@
 						<ion-input class="pin-mask" type="tel" formControlName="pin" [(ngModel)]="user.pin_code" inputmode="numeric"></ion-input>
 					</ion-item>
 
+					<!-- PIN error-->
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="profileForm.get('pin').hasError('pattern') && contactForm.get('pin').touched">
+						<span *ngIf="profileForm.get('pin').hasError('pattern') && profileForm.get('pin').touched">
+							* Only numbers are allowed.
+						</span>
+					</ion-item>
+
 					<ion-item>
 						<ion-label floating>Current Password</ion-label>
 						<ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
 					</ion-item>
 
+					<!-- Password error-->
+					<ion-item class="error" no-lines *ngIf="(profileForm.get('password').hasError('required') || profileForm.get('password').hasError('hasPassed')) && profileForm.get('password').touched">
+						<span *ngIf="profileForm.get('password').hasError('required') && profileForm.get('password').touched">
+							* Password is required.
+						</span>
+						<span *ngIf="profileForm.get('password').hasError('hasPassed') && profileForm.get('password').touched">
+							* A password must contain at least:
+							<br />10 characters
+							<br />2 numbers
+							<br />1 uppercase and lowercase characters
+							<br />1 special character
+						</span>
+					</ion-item>
+
 					<ion-item>
 						<ion-label floating>New Password</ion-label>
 						<ion-input type="password" formControlName="new_password" [(ngModel)]="newPassword"></ion-input>
+					</ion-item>
+
+					<!-- Password error-->
+					<ion-item class="error" no-lines *ngIf="(profileForm.get('new_password').hasError('required') || profileForm.get('new_password').hasError('hasPassed')) && profileForm.get('new_password').touched">
+						<span *ngIf="profileForm.get('new_password').hasError('required') && profileForm.get('new_password').touched">
+							* Password is required.
+						</span>
+						<span *ngIf="profileForm.get('new_password').hasError('hasPassed') && profileForm.get('new_password').touched">
+							* A password must contain at least:
+							<br />10 characters
+							<br />2 numbers
+							<br />1 uppercase and lowercase characters
+							<br />1 special character
+						</span>
 					</ion-item>
 
 					<div hidden></div>

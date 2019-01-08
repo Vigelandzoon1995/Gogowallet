@@ -60,7 +60,14 @@
 	font-size: 1.3rem;
 	padding: 0 !important;
 	margin: 0 !important;
-	height: 15px !important;
+
+	ion-label {
+		margin: 4px 8px 4px 0 !important;
+	}
+}
+
+.error-padding {
+	padding-left: 1.5rem !important;
 }
 
 // Profile

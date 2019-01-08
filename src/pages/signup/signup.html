@@ -1,98 +1,97 @@
 <ion-header>
-  <ion-navbar color="darktransparent">
-    <ion-title>Register</ion-title>
-  </ion-navbar>
+	<ion-navbar color="darktransparent">
+		<ion-title>Register</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="registerForm">
-    <ion-row>
-      <ion-col>
-        <ion-list inset>
-          <ion-item class="transparent-input">
-            <ion-label floating>First Name</ion-label>
-            <ion-input type="text" [(ngModel)]="user.first_name" formControlName="first_name" required></ion-input>
-          </ion-item>
+	<form novalidate [formGroup]="registerForm">
+		<ion-row>
+			<ion-col>
+				<ion-list inset>
+					<ion-item class="transparent-input">
+						<ion-label floating>First Name</ion-label>
+						<ion-input type="text" [(ngModel)]="user.first_name" formControlName="first_name" required></ion-input>
+					</ion-item>
 
-          <!-- First name error-->
-          <ion-item class="error" no-lines *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
-            <span *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
-              First name is required.
-            </span>
-          </ion-item>
+					<!-- First name error-->
+					<ion-item class="error" no-lines *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
+						<span *ngIf="registerForm.get('first_name').hasError('required') && registerForm.get('first_name').touched">
+							* First name is required.
+						</span>
+					</ion-item>
 
-          <ion-item class="transparent-input">
-            <ion-label floating>Last Name</ion-label>
-            <ion-input type="text" [(ngModel)]="user.last_name" formControlName="last_name" required></ion-input>
-          </ion-item>
+					<ion-item class="transparent-input">
+						<ion-label floating>Last Name</ion-label>
+						<ion-input type="text" [(ngModel)]="user.last_name" formControlName="last_name" required></ion-input>
+					</ion-item>
 
-          <!-- Last name error-->
-          <ion-item class="error" no-lines *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
-            <span *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
-              Last name is required.
-            </span>
-          </ion-item>
+					<!-- Last name error-->
+					<ion-item class="error" no-lines *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
+						<span *ngIf="registerForm.get('last_name').hasError('required') && registerForm.get('last_name').touched">
+							* Last name is required.
+						</span>
+					</ion-item>
 
-          <ion-item class="transparent-input">
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="user.email" formControlName="email" required></ion-input>
-          </ion-item>
+					<ion-item class="transparent-input">
+						<ion-label floating>Email</ion-label>
+						<ion-input type="email" [(ngModel)]="user.email" formControlName="email" required></ion-input>
+					</ion-item>
 
-          <!-- Email error-->
-          <ion-item class="error" no-lines *ngIf="(registerForm.get('email').hasError('required') || registerForm.get('email').hasError('email')) && registerForm.get('email').touched">
-            <span *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
-              E-mail is required.
-            </span>
-            <span *ngIf="!registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
-              Please enter a valid e-mail.
-            </span>
-          </ion-item>
+					<!-- Email error-->
+					<ion-item class="error" no-lines *ngIf="(registerForm.get('email').hasError('required') || registerForm.get('email').hasError('email')) && registerForm.get('email').touched">
+						<span *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+							* E-mail is required.
+						</span>
+						<span *ngIf="!registerForm.get('email').hasError('required') && registerForm.get('email').hasError('email') && registerForm.get('email').touched">
+							* Please enter a valid e-mail.
+						</span>
+					</ion-item>
 
-          <ion-item class="transparent-input">
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" [(ngModel)]="user.password" formControlName="password" required></ion-input>
-          </ion-item>
+					<ion-item class="transparent-input">
+						<ion-label floating>Password</ion-label>
+						<ion-input type="password" [(ngModel)]="user.password" formControlName="password" required></ion-input>
+					</ion-item>
 
-          <!-- Password error-->
-          <ion-item class="error" no-lines *ngIf="(registerForm.get('password').hasError('required') || registerForm.get('password').hasError('hasPassed')) && registerForm.get('password').touched">
-            <span *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
-              Password is required.
-            </span>
-            <span *ngIf="registerForm.get('password').hasError('hasPassed') && registerForm.get('password').touched">
-              A password must contain at least:
-              <br />10 characters
-              <br />2 numbers
-              <br />1 uppercase and lowercase characters
-              <br />1 special character
-            </span>
-          </ion-item>
+					<!-- Password error-->
+					<ion-item class="error" no-lines *ngIf="(registerForm.get('password').hasError('required') || registerForm.get('password').hasError('hasPassed')) && registerForm.get('password').touched">
+						<span *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">
+							* Password is required.
+						</span>
+						<span *ngIf="registerForm.get('password').hasError('hasPassed') && registerForm.get('password').touched">
+							* A password must contain at least:
+							<br />10 characters
+							<br />2 numbers
+							<br />1 uppercase and lowercase characters
+							<br />1 special character
+						</span>
+					</ion-item>
 
-          <ion-item class="transparent-input">
-            <ion-label floating>Confirm Password</ion-label>
-            <ion-input type="password" [(ngModel)]="password_confirm" formControlName="confirm_password" required></ion-input>
-          </ion-item>
+					<ion-item class="transparent-input">
+						<ion-label floating>Confirm Password</ion-label>
+						<ion-input type="password" [(ngModel)]="password_confirm" formControlName="confirm_password" required></ion-input>
+					</ion-item>
 
-          <!-- Confirm Password error-->
-          <ion-item class="error" no-lines *ngIf="(registerForm.get('confirm_password').hasError('required') || registerForm.get('confirm_password').hasError('NoPassswordMatch')) && registerForm.get('confirm_password').touched">
-            <span *ngIf="registerForm.get('confirm_password').hasError('required') && registerForm.get('confirm_password').touched">
-              Password is required.
-            </span>
-            <span *ngIf="registerForm.get('confirm_password').hasError('NoPassswordMatch') && registerForm.get('confirm_password').touched">
-              Passwords do not match.
-            </span>
-          </ion-item>
+					<!-- Confirm Password error-->
+					<ion-item class="error" no-lines *ngIf="(registerForm.get('confirm_password').hasError('required') || registerForm.get('confirm_password').hasError('NoPassswordMatch')) && registerForm.get('confirm_password').touched">
+						<span *ngIf="registerForm.get('confirm_password').hasError('required') && registerForm.get('confirm_password').touched">
+							* Password is required.
+						</span>
+						<span *ngIf="registerForm.get('confirm_password').hasError('NoPassswordMatch') && registerForm.get('confirm_password').touched">
+							* Passwords do not match.
+						</span>
+					</ion-item>
 
-          <div hidden></div>
+					<div hidden></div>
+				</ion-list>
+			</ion-col>
+		</ion-row>
 
-        </ion-list>
-      </ion-col>
-    </ion-row>
+		<ion-row>
+			<ion-col>
+				<button ion-button class="register-btn" full round type="button" [disabled]="!registerForm.valid" (click)="submit()">Register</button>
+			</ion-col>
+		</ion-row>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button class="register-btn" full round type="button" [disabled]="!registerForm.valid" (click)="submit()">Register</button>
-      </ion-col>
-    </ion-row>
-
-  </form>
+	</form>
 </ion-content>
