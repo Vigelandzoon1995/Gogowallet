@@ -18,12 +18,12 @@
 						</ion-item>
 
 						<!-- Email error-->
-						<ion-item class="error" no-lines *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
+						<ion-item no-lines no-padding class="error error-padding" *ngIf="(loginForm.get('email').hasError('required') || loginForm.get('email').hasError('email')) && loginForm.get('email').touched">
 							<span *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-								E-mail is required.
+								* E-mail is required.
 							</span>
 							<span *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-								Please enter a valid e-mail.
+								* Please enter a valid e-mail.
 							</span>
 						</ion-item>
 
@@ -33,10 +33,10 @@
 						</ion-item>
 
 						<!-- Password error-->
-						<ion-item class="error" no-lines *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-							<div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-								Password is required.
-							</div>
+						<ion-item no-lines no-padding class="error error-padding" *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+							<span *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+								* Password is required.
+							</span>
 						</ion-item>
 
 						<div hidden></div>
