@@ -1,16 +1,25 @@
 <ion-content padding>
-  <ion-row>
-    <ion-col class="text-center">
-      <div *ngIf="currentUser">
-        <img class="profile" [src]="currentUser.profile_picture" (click)="navigateToEditProfile()">
-        <h3>{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
-      </div>
-    </ion-col>
-  </ion-row>
+	<ion-row>
+		<ion-col class="text-center">
+			<div *ngIf="currentUser">
+				<img class="profile" [src]="currentUser.profile_picture" (click)="navigateToEditProfile()">
+				<h3>{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
 
-  <ion-row>
-    <ion-col>
+				<ion-list>
+					<ion-item>
+						{{ currentUser.email }}
+					</ion-item>
+					<ion-item>
+						{{ currentUser.bank_account }}
+					</ion-item>
+				</ion-list>
+			</div>
+		</ion-col>
+	</ion-row>
 
-    </ion-col>
-  </ion-row>
+	<ion-row>
+		<ion-col>
+
+		</ion-col>
+	</ion-row>
 </ion-content>
