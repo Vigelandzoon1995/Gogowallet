@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt');
 router.post('/', async function (req, res) {
     if (req.body.password != null &&
         req.body.password.length >= 8 &&
-        /^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(req.body.password)) {
+        /^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(req.body.password) &&
+        /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(req.body.email)) {
         var hash = await hashPassword(req.body.password)
         var email = req.body.email;
         var first_name = req.body.first_name;

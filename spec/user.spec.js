@@ -3,8 +3,8 @@ const fs = require('fs');
 var mockdata = JSON.parse(fs.readFileSync('../users.json', 'utf8'));
 var otherdata = JSON.parse(fs.readFileSync('../users2.json', 'utf8'));
 var user;
-require('../modules/compareObjects')
 var Request = require("request");
+require('../modules/compareObjects')
 
 
 describe("user HTTP test", () => {
@@ -13,7 +13,6 @@ describe("user HTTP test", () => {
         server = require("../app");
     });
     describe("GET User/GetById", () => {
-        var data = {};
         it("Status 403: Forbidden", () => {
             Request.get("http://localhost:4444/user/GetById?id=1", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
@@ -22,7 +21,6 @@ describe("user HTTP test", () => {
         });
     });
     describe("GET User/GetByEmail", () => {
-        var data = {};
         it("Status 403: Forbidden", () => {
             Request.get("http://localhost:4444/user/GetByEmail?id=verhagen.frank@gmail.com", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
@@ -31,7 +29,6 @@ describe("user HTTP test", () => {
         });
     });
     describe("GET User/GetAll", () => {
-        var data = {};
         it("Status 403: Forbidden", () => {
             Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
@@ -40,7 +37,6 @@ describe("user HTTP test", () => {
         });
     });
     describe("POST User/Update", () => {
-        var data = {};
         it("Status 403: Forbidden", () => {
             Request.post({
                 url: 'http://localhost:4444/user/Update',
@@ -52,7 +48,6 @@ describe("user HTTP test", () => {
         });
     });
     describe("GET User/GetAll", () => {
-        var data = {};
         it("Status 403: Forbidden", () => {
             Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
