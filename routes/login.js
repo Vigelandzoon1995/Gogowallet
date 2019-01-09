@@ -22,6 +22,7 @@ router.post('/', function (req, res) {
                 bank_account: results[0].bank_account,
                 email: results[0].email,
                 pin_code: results[0].pin_code,
+                balance: results[0].balance,
                 profile_picture: results[0].profile_picture
               }
             })
@@ -58,6 +59,7 @@ router.post('/pin', function (req, res) {
                 bank_account: results[0].bank_account,
                 email: results[0].email,
                 pin_code: results[0].pin_code,
+                balance: results[0].balance,
                 profile_picture: results[0].profile_picture
               }
             })
