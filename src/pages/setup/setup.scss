@@ -1,3 +1,28 @@
 page-setup {
 
+	ion-slide ion-icon {
+		font-size: 4.5rem;
+	}
+
+	.slide-content {
+		font-size: 1.5rem;
+	}
+
+	.slide-zoom {
+		height: 100%;
+	}
+
+	.slide-title {
+		margin-top: 2.8rem;
+	}
+
+	.slide-title:first-child {
+		margin-top: 5rem;
+	}
+
+	.slide-image {
+		max-height: 50%;
+		max-width: 60%;
+		margin: 18px 0;
+	}
 }
