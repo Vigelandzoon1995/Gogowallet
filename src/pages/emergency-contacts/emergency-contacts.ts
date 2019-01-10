@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
+import { Events, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
+import User from '../../shared/models/user.model';
 import { ContactService } from '../../shared/services/contact.service';
 import { AddContactPage } from '../add-contact/add-contact';
 import { ViewContactPage } from '../view-contact/view-contact';
@@ -12,13 +12,24 @@ import { ViewContactPage } from '../view-contact/view-contact';
 	templateUrl: 'emergency-contacts.html',
 })
 export class EmergencyContactsPage {
+	currentUser: User = null;
 	contacts: Contact[] = [];
 
-	constructor(private emergencyContactService: EmergencyContactService, public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService) {
-		this.getContacts();
+	constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService, private storage: Storage,
+		private alertCtrl: AlertController) {
+		this.getCurrentUser();
 	}
 
 	ionViewDidLoad() {
+	}
+
+	getCurrentUser() {
+		this.storage.get('currentUser').then(
+			(response) => {
+				this.currentUser = response;
+				this.getContacts();
+			}
+		);
 	}
 
 	addContact() {
@@ -32,6 +43,21 @@ export class EmergencyContactsPage {
 	}
 
 	getContacts() {
-		this.contacts = this.emergencyContactService.getAll();
+		this.contactService.getAll(this.currentUser.user_id).subscribe(
+			(response) => this.contacts = response,
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while retrieving contacts. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 }

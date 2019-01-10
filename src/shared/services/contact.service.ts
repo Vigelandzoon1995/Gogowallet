@@ -23,8 +23,8 @@ export class ContactService {
 			.pipe(catchError(error => Observable.throw(error)));
 	}
 
-	getAll(): Observable<Contact[]> {
-		return this.http.get(this.apiURL + '/getAll', { headers: this.headers })
+	getAll(user: number): Observable<Contact[]> {
+		return this.http.get(this.apiURL + '/getAll?user=' + user, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)));
 	}
 
@@ -38,7 +38,7 @@ export class ContactService {
 			.pipe(catchError(error => Observable.throw(error)));
 	}
 
-	delete(user_id: number, contact: string): Observable<boolean> {
+	delete(user_id: number, contact: number): Observable<boolean> {
 		return this.http.get(this.apiURL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)));
 	}

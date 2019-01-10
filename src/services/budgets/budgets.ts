@@ -26,7 +26,7 @@ export class BudgetsService2 {
 
 	mockupData() {
 		this.budgets = [
-			new Budget(1, 'Entertainment', new Date('2019-01-01 00:00'), new Date('2019-02-01 03:00'), 150, true, true, null),
+			new Budget(1, 'Leisure', new Date('2019-01-01 00:00'), new Date('2019-02-01 03:00'), 150, true, true, null),
 			new Budget(2, 'Groceries', new Date('2019-01-01 12:00'), new Date('2019-02-01 12:00'), 300, true, false, null),
 		];
 	}

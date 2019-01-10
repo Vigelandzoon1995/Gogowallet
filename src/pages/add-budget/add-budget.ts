@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import * as moment from 'moment';
-import { BudgetsService2 } from '../../services/budgets/budgets';
 import Budget from '../../shared/models/budget.model';
+import { BudgetService } from '../../shared/services/budget.service';
+import { Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class AddBudgetPage {
 	start: string = new Date().toJSON();
 	end: string = new Date().toJSON();
 
-	constructor(private budgetsService2: BudgetsService2, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private budgetService: BudgetService, private alertCtrl: AlertController) {
 		this.createFormGroup();
 	}
 
@@ -39,8 +40,21 @@ export class AddBudgetPage {
 		this.budget.start_date = moment.utc(this.start).toDate();
 		this.budget.end_date = moment.utc(this.end).toDate();
 
-		//Todo remove budgetsService2 when backend integrated
-		this.budgetsService2.addBudget(this.budget);
-		this.navCtrl.pop();
+		this.budgetService.create(this.budget).subscribe(
+			(response) => this.navCtrl.pop(),
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while saving. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 }

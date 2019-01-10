@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
 
@@ -18,7 +17,7 @@ export class EditContactPage {
 	notes: string;
 	thumbnail: string;
 
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService, private alertCtrl: AlertController) {
 		this.prepareContactForm();
 		this.createFormGroup();
 	}
@@ -39,14 +38,28 @@ export class EditContactPage {
 	}
 
 	delete() {
-		this.emergencyContactService.deleteContact(this.contact);
-		//Remove al pages till emergencies contact page
-		this.navCtrl.popTo(this.navCtrl.getByIndex(2));
+		this.contactService.delete(this.contact.user_id, this.contact.id).subscribe(
+			(response) => this.navCtrl.popTo(this.navCtrl.getByIndex(2)),
 
+		);
 	}
 
-	update() {
-		//do something
+	submit() {
+		this.contactService.update(this.contact).subscribe(
+			(response) => this.navCtrl.pop(),
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while updating. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
-
 }

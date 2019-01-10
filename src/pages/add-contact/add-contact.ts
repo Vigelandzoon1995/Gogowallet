@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { EmergencyContactService } from '../../services/emergency-contacts/emergency-contacts-service';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
 
@@ -14,7 +13,7 @@ export class AddContactPage {
 	contactForm: FormGroup;
 	contact: Contact = new Contact();
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService, private alertCtrl: AlertController) {
 		this.createFormGroup();
 	}
 
@@ -31,12 +30,22 @@ export class AddContactPage {
 	}
 
 	submit() {
-		this.emergencyContactService.addContact(this.contact);
-		this.navCtrl.pop();
-		// this.contactService.create(this.contact).subscribe(
-		//   (response) =>  this.navCtrl.pop(),
-		//   (error) => { Observable.throw(error); }
-		// );
+		this.contactService.create(this.contact).subscribe(
+			(response) => this.navCtrl.pop(),
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while saving. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 
 }

@@ -96,7 +96,7 @@ export class BudgetsPage {
 
 	checkBudgetBalance() {
 		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
-		let entertainmentWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser'];
+		let leisureWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser'];
 
 		this.budgets.forEach(budget => {
 			let transactions: Transaction[] = [
@@ -120,8 +120,8 @@ export class BudgetsPage {
 						budget.current_amount = budget.current_amount - transaction.amount;
 					}
 				}
-				if (entertainmentWhiteList.includes(transaction.name)) {
-					if (budget.category == 'Entertainment') {
+				if (leisureWhiteList.includes(transaction.name)) {
+					if (budget.category == 'Leisure') {
 						if (budget.current_amount == null) {
 							budget.current_amount = budget.amount;
 						}
