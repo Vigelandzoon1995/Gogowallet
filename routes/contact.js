@@ -12,7 +12,9 @@ router.get('/getById', auth.verifyToken, function (req, res, next) {
 });
 
 router.get('/getAll', auth.verifyToken, function (req, res, next) {
-    db.query('SELECT id, user_id, name, phone, notes, thumbnail FROM emergency_contacts',
+    var user = req.query.user
+    db.query('SELECT id, user_id, name, phone, notes, thumbnail FROM emergency_contacts WHERE user_id=?',
+        [user],
         function (error, results, fields) {
             res.send(results);
         });
