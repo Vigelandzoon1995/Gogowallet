@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Events, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AlertController, Events, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import User from '../../shared/models/user.model';
 import { ContactService } from '../../shared/services/contact.service';
@@ -44,7 +45,9 @@ export class EmergencyContactsPage {
 
 	getContacts() {
 		this.contactService.getAll(this.currentUser.user_id).subscribe(
-			(response) => this.contacts = response,
+			(response) => {
+				this.contacts = response;
+			},
 			(error) => {
 				// Show error message
 				const alert = this.alertCtrl.create({

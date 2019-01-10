@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
 import { AuthenticationService } from '../helpers/auth.service';
+import { LoadingService } from '../helpers/loading.service';
 import User from '../models/user.model';
 
 @Injectable()
@@ -14,34 +15,64 @@ export class UserService {
 		'Content-Type': 'application/json',
 	});
 
-	constructor(private http: Http, private authService: AuthenticationService) {
+	constructor(private http: Http, private authService: AuthenticationService, private loadingService: LoadingService) {
 		this.authService.getToken().then((token) =>
 			this.headers.append('Authorization', 'Bearer ' + token)
 		);
 	}
 
 	getById(id: number): Observable<User> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + '/getById?id=' + id, { headers: this.headers })
-			.pipe(catchError(error => Observable.throw(error)));
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			._finally(() => {
+				this.loadingService.hide()
+			});
 	}
 
 	getByEmail(email: string): Observable<User> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + '/getByEmail?email=' + email, { headers: this.headers })
-			.pipe(catchError(error => Observable.throw(error)));
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			._finally(() => {
+				this.loadingService.hide()
+			});
 	}
 
 	getAll(): Observable<User[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + '/getAll', { headers: this.headers })
-			.pipe(catchError(error => Observable.throw(error)));
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			._finally(() => {
+				this.loadingService.hide()
+			});
 	}
 
 	update(user: User): Observable<boolean> {
+		this.loadingService.show();
+
 		return this.http.put(this.apiURL + '/update', user, { headers: this.headers })
-			.pipe(catchError(error => Observable.throw(error)));
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			._finally(() => {
+				this.loadingService.hide()
+			});
 	}
 
 	resetPassword(email: string): Observable<any> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + '/resetPassword?email=' + email)
-			.pipe(catchError(error => Observable.throw(error)));
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			._finally(() => {
+				this.loadingService.hide()
+			});
 	}
 }
