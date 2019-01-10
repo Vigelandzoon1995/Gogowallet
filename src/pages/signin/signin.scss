@@ -10,14 +10,13 @@ page-signin {
 		position: fixed;
 		top: 0%;
 		left: 75%;
+		transform: translateX(-75%) translateY(0%);
 		min-width: 100vw;
 		min-height: 100vh;
-		width: auto;
+		width: 100vw;
 		height: 100vh;
 		z-index: -100;
 		object-fit: cover;
-		background-size: cover;
-		transform: translateX(-75%) translateY(0%);
 	}
 
 	ion-content,
