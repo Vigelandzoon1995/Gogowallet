@@ -18,7 +18,6 @@ export class EditContactPage {
 	notes: string;
 	thumbnail: string;
 
-
 	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService, private emergencyContactService: EmergencyContactService) {
 		this.prepareContactForm();
 		this.createFormGroup();
@@ -42,8 +41,8 @@ export class EditContactPage {
 	delete() {
 		this.emergencyContactService.deleteContact(this.contact);
 		//Remove al pages till emergencies contact page
-		this.navCtrl.popTo( this.navCtrl.getByIndex(2));
-		
+		this.navCtrl.popTo(this.navCtrl.getByIndex(2));
+
 	}
 
 	update() {

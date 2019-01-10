@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import { ContactService } from '../../shared/services/contact.service';
 import { EditContactPage } from '../edit-contact/edit-contact';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -32,7 +32,6 @@ export class ViewContactPage {
 	}
 
 	editContact() {
-		this.navCtrl.push(EditContactPage, { data: this.contact});
+		this.navCtrl.push(EditContactPage, { data: this.contact });
 	}
-
 }

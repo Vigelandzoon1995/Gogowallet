@@ -93,13 +93,13 @@
 			</ion-row>
 		</ng-container>
 
-		<ion-row class="text-center">
+		<ion-row text-center>
 			<ion-col>
 				<button ion-button full round class="login-btn" type="button" [disabled]="!loginForm.valid" (click)="signIn()">Login</button>
 			</ion-col>
 		</ion-row>
 
-		<ion-row class="text-center">
+		<ion-row text-center>
 			<ion-col *ngIf="usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="usePassword()" *ngIf="usePin">Use password</button>
 				<button ion-button clear class="register-link" type="button" (click)="usePIN()" *ngIf="!usePin">Use PIN</button>

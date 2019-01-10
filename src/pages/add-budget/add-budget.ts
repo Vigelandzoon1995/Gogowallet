@@ -7,40 +7,40 @@ import Budget from '../../shared/models/budget.model';
 
 @IonicPage()
 @Component({
-  selector: 'page-budget',
-  templateUrl: 'add-budget.html',
+	selector: 'page-budget',
+	templateUrl: 'add-budget.html',
 })
 export class AddBudgetPage {
-  budgetForm: FormGroup;
-  budget: Budget = new Budget();
-  minDate: string = new Date().toJSON().split('T')[0];
-  start: string = new Date().toJSON();
-  end: string = new Date().toJSON();
+	budgetForm: FormGroup;
+	budget: Budget = new Budget();
+	minDate: string = new Date().toJSON().split('T')[0];
+	start: string = new Date().toJSON();
+	end: string = new Date().toJSON();
 
-  constructor(private budgetsService2: BudgetsService2, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
-    this.createFormGroup();
-  }
+	constructor(private budgetsService2: BudgetsService2, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+		this.createFormGroup();
+	}
 
-  ionViewDidLoad() {
-  }
+	ionViewDidLoad() {
+	}
 
-  createFormGroup() {
-    this.budgetForm = this.formBuilder.group({
-      category: new FormControl('', Validators.compose([Validators.required])),
-      start_date: new FormControl('', Validators.compose([Validators.required])),
-      end_date: new FormControl('', Validators.compose([Validators.required])),
-      amount: new FormControl('', Validators.compose([Validators.required])),
-      limit_lock: new FormControl('', Validators.compose([Validators.required])),
-      alarm: new FormControl('', Validators.compose([Validators.required])),
-    });
-  }
+	createFormGroup() {
+		this.budgetForm = this.formBuilder.group({
+			category: new FormControl('', Validators.compose([Validators.required])),
+			start_date: new FormControl('', Validators.compose([Validators.required])),
+			end_date: new FormControl('', Validators.compose([Validators.required])),
+			amount: new FormControl('', Validators.compose([Validators.required])),
+			limit_lock: new FormControl('', Validators.compose([Validators.required])),
+			alarm: new FormControl('', Validators.compose([Validators.required])),
+		});
+	}
 
-  save() {
-    this.budget.start_date = moment.utc(this.start).toDate();
-    this.budget.end_date = moment.utc(this.end).toDate();
+	save() {
+		this.budget.start_date = moment.utc(this.start).toDate();
+		this.budget.end_date = moment.utc(this.end).toDate();
 
-    //Todo remove budgetsService2 when backend integrated
-    this.budgetsService2.addBudget(this.budget);
-    this.navCtrl.pop();
-  }
+		//Todo remove budgetsService2 when backend integrated
+		this.budgetsService2.addBudget(this.budget);
+		this.navCtrl.pop();
+	}
 }

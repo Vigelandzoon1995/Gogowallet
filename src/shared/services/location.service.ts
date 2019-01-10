@@ -8,26 +8,23 @@ import Location from '../models/location.model';
 
 @Injectable()
 export class LocationService {
-    private headers = new Headers({
-        'Content-Type': 'application/json',
-    });
+	private apiURL = ENV.BASE_URL + '/gps';
 
-    constructor(private http: Http, private authService: AuthenticationService) {
-        this.headers.append('Authorization', 'Bearer ' + authService.getToken());
-    }
+	private headers = new Headers({
+		'Content-Type': 'application/json',
+	});
 
-    getAll(): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	constructor(private http: Http, private authService: AuthenticationService) {
+		this.headers.append('Authorization', 'Bearer ' + authService.getToken());
+	}
 
-    getSince(start: Date): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + '/getSince?start=' + start, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getAll(): Observable<Location[]> {
+		return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    getBetweenDates(start: Date, end: Date): Observable<Location[]> {
-        return this.http.get(ENV.BASE_URL + '/getBetweenDates?start=' + start + '&end=' + end, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getBetweenDates(start: Date, end: Date): Observable<Location[]> {
+		return this.http.get(ENV.BASE_URL + '/getBetweenDates?start=' + start + '&end=' + end, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 }

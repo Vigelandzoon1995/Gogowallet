@@ -26,15 +26,16 @@ import { EditContactPage } from '../pages/edit-contact/edit-contact';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
 import { FeedbackPage } from '../pages/feedback/feedback';
-import { GogowalletPage } from '../pages/gogowallet/gogowallet';
 import { OverviewPage } from '../pages/overview/overview';
 import { ProfilePage } from '../pages/profile/profile';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SettingsPage } from '../pages/settings/settings';
+import { SetupPage } from '../pages/setup/setup';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
+import { ViewContactPage } from '../pages/view-contact/view-contact';
 //Todo Delete ../services/### BudgetsService2, EmergencyContactService when shareService is integrated
 import { BudgetsService2 } from '../services/budgets/budgets';
 import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
@@ -45,7 +46,6 @@ import { ContactService } from '../shared/services/contact.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { ViewContactPage } from '../pages/view-contact/view-contact';
 
 @NgModule({
 	declarations: [
@@ -60,7 +60,6 @@ import { ViewContactPage } from '../pages/view-contact/view-contact';
 		BudgetItemPopoverComponent,
 		FeedbackPage,
 		SettingsPage,
-		GogowalletPage,
 		BudgetsPage,
 		AddBudgetPage,
 		TabsPage,
@@ -71,7 +70,8 @@ import { ViewContactPage } from '../pages/view-contact/view-contact';
 		EditBudgetPage,
 		EditContactPage,
 		AboutUsPage,
-		ViewContactPage
+		ViewContactPage,
+		SetupPage
 	],
 	imports: [
 		BrowserModule,
@@ -95,7 +95,6 @@ import { ViewContactPage } from '../pages/view-contact/view-contact';
 		PopoverComponent,
 		BudgetItemPopoverComponent,
 		SettingsPage,
-		GogowalletPage,
 		BudgetsPage,
 		AddBudgetPage,
 		TabsPage,
@@ -107,7 +106,8 @@ import { ViewContactPage } from '../pages/view-contact/view-contact';
 		EditContactPage,
 		FeedbackPage,
 		AboutUsPage,
-		ViewContactPage
+		ViewContactPage,
+		SetupPage
 	],
 	providers: [
 		AuthenticationService,

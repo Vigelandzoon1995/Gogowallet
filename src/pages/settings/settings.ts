@@ -5,23 +5,23 @@ import { AboutUsPage } from '../about-us/about-us';
 
 @IonicPage()
 @Component({
-  selector: 'page-settings',
-  templateUrl: 'settings.html',
+	selector: 'page-settings',
+	templateUrl: 'settings.html',
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+	constructor(public navCtrl: NavController, public navParams: NavParams) {
+	}
 
-  ionViewDidLoad() {
-  }
+	ionViewDidLoad() {
+	}
 
-  navtoFeedback(){
-    this.navCtrl.push(FeedbackPage); 
-  }
+	navtoFeedback() {
+		this.navCtrl.push(FeedbackPage);
+	}
 
-  navtoAboutus(){
-    this.navCtrl.push(AboutUsPage); 
-  }
+	navtoAboutus() {
+		this.navCtrl.push(AboutUsPage);
+	}
 
 }

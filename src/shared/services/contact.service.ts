@@ -8,36 +8,38 @@ import Contact from '../models/contact.model';
 
 @Injectable()
 export class ContactService {
-    private headers = new Headers({
-        'Content-Type': 'application/json',
-    });
+	private apiURL = ENV.BASE_URL + '/contact';
 
-    constructor(private http: Http, private authService: AuthenticationService) {
-        this.headers.append('Authorization', 'Bearer ' + authService.getToken());
-    }
+	private headers = new Headers({
+		'Content-Type': 'application/json',
+	});
 
-    getById(id: number): Observable<Contact> {
-        return this.http.get(ENV.BASE_URL + `/getById?id=${id}`, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	constructor(private http: Http, private authService: AuthenticationService) {
+		this.headers.append('Authorization', 'Bearer ' + authService.getToken());
+	}
 
-    getAll(): Observable<Contact[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getById(id: number): Observable<Contact> {
+		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    create(contact: Contact): Observable<Contact> {
-        return this.http.post(ENV.BASE_URL + '/create', contact, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getAll(): Observable<Contact[]> {
+		return this.http.get(this.apiURL + '/getAll', { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    update(contact: Contact): Observable<Contact> {
-        return this.http.put(ENV.BASE_URL + '/update', contact, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	create(contact: Contact): Observable<Contact> {
+		return this.http.post(this.apiURL + '/create', contact, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    delete(user_id: number, contact: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	update(contact: Contact): Observable<Contact> {
+		return this.http.post(this.apiURL + '/update', contact, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
+
+	delete(user_id: number, contact: string): Observable<boolean> {
+		return this.http.get(this.apiURL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 }

@@ -4,12 +4,12 @@ import { IonicPageModule } from 'ionic-angular';
 import { SigninPage } from './signin';
 
 @NgModule({
-  declarations: [
-    SigninPage,
-  ],
-  imports: [
-    FormsModule,
-    IonicPageModule.forChild(SigninPage),
-  ],
+	declarations: [
+		SigninPage,
+	],
+	imports: [
+		FormsModule,
+		IonicPageModule.forChild(SigninPage),
+	],
 })
 export class SigninPageModule { }

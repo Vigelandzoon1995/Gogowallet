@@ -1,3 +1,24 @@
 page-profile {
+	.profile-bg {
+		background: map-get($colors, primary);
+		color: #fff;
+		padding: 1rem 3rem 2rem 3rem;
+		margin-bottom: 1rem;
+	}
 
+	.item {
+		border-bottom: 1px solid #dedede;
+
+		ion-icon[item-start]+.item-inner {
+			margin-left: 10px;
+		}
+	}
+
+	.list .item-block .item-inner {
+		border: none;
+	}
+
+	ion-icon[item-start] {
+		margin-right: 0;
+	}
 }

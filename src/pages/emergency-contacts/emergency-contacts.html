@@ -1,22 +1,22 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Emergency Contacts</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addContact()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>Emergency Contacts</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="addContact()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let contact of contacts">
-      <ion-thumbnail item-start>
-        <ion-icon name="{{contact.thumbnail}}"></ion-icon>
-      </ion-thumbnail>
-      <h2>{{ contact.name }}</h2>
-      <button ion-button clear item-end (click)="showDetails(contact)">View</button>
-    </ion-item>
-  </ion-list>
+	<ion-list>
+		<ion-item *ngFor="let contact of contacts">
+			<ion-thumbnail item-start>
+				<ion-icon name="{{contact.thumbnail}}"></ion-icon>
+			</ion-thumbnail>
+			<h2>{{ contact.name }}</h2>
+			<button ion-button clear item-end (click)="showDetails(contact)">View</button>
+		</ion-item>
+	</ion-list>
 </ion-content>

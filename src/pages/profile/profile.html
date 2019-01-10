@@ -1,25 +1,48 @@
-<ion-content padding>
-	<ion-row>
-		<ion-col class="text-center">
-			<div *ngIf="currentUser">
+<ion-content *ngIf="currentUser">
+	<ion-row class="profile-bg">
+		<ion-col text-center>
+			<div>
 				<img class="profile" [src]="currentUser.profile_picture" (click)="navigateToEditProfile()">
-				<h3>{{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
-
-				<ion-list>
-					<ion-item>
-						{{ currentUser.email }}
-					</ion-item>
-					<ion-item>
-						{{ currentUser.bank_account }}
-					</ion-item>
-				</ion-list>
+				<h2>{{ currentUser.first_name }} {{ currentUser.last_name }}</h2>
 			</div>
 		</ion-col>
 	</ion-row>
 
-	<ion-row>
+	<ion-row text-center>
 		<ion-col>
+			<ion-list>
+				<ion-item>
+					<ion-icon item-start name="contact"></ion-icon>
+					<ion-label>Email</ion-label>
+					<ion-input text-right item-end type="text" [value]="currentUser.email" readonly></ion-input>
+				</ion-item>
 
+				<ion-item>
+					<ion-icon item-start name="card"></ion-icon>
+					<ion-label>Bank Account</ion-label>
+					<ion-input text-right item-end type="text" [value]="currentUser.bank_account" readonly></ion-input>
+				</ion-item>
+
+				<ion-item no-lines></ion-item>
+
+				<ion-item>
+					<ion-icon item-start name="people"></ion-icon>
+					<ion-label>Emergency Contacts</ion-label>
+					<ion-note item-end type="button" (click)="navigateToContacts()">View</ion-note>
+				</ion-item>
+
+				<ion-item>
+					<ion-icon item-start name="bluetooth"></ion-icon>
+					<ion-label>GoGo Wallet</ion-label>
+					<ion-note item-end type="button" (click)="navigateToSetup()">View</ion-note>
+				</ion-item>
+
+				<ion-item>
+					<ion-icon name='bluetooth' item-start></ion-icon>
+					Setup GoGo Wallet
+					<ion-note item-end>Connect</ion-note>
+				</ion-item>
+			</ion-list>
 		</ion-col>
 	</ion-row>
 </ion-content>

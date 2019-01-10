@@ -1,44 +1,45 @@
 page-emergency-contacts {
-    ion-card {
-    position: relative;
-    text-align: center;
-  }
 
-  ion-card > img {
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-  }
+	ion-card {
+		position: relative;
+		text-align: center;
+	}
 
-  ion-list ion-thumbnail {
-    margin: 0 auto;
-  }
+	ion-card>img {
+		-webkit-filter: blur(3px);
+		filter: blur(3px);
+	}
 
-  ion-list ion-thumbnail ion-icon {
-    position: fixed;
-    top: 50%;
-    font-size: 3rem;
-    background-color: #0080ff;
-    color: #fff;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    margin-left: 1rem;
-    padding: 14px 16px;
-  }
+	ion-list ion-thumbnail {
+		margin: 0 auto;
+	}
 
-  .card-title {
-    position: absolute;
-    top: 36%;
-    font-size: 2.0em;
-    width: 100%;
-    font-weight: bold;
-    color: #fff;
-  }
+	ion-list ion-thumbnail ion-icon {
+		position: fixed;
+		top: 50%;
+		font-size: 3rem;
+		background-color: #0080ff;
+		color: #fff;
+		border-radius: 50%;
+		transform: translateY(-50%);
+		margin-left: 1rem;
+		padding: 14px 16px;
+	}
 
-  .card-subtitle {
-    font-size: 1.0em;
-    position: absolute;
-    top: 52%;
-    width: 100%;
-    color: #fff;
-  }
+	.card-title {
+		position: absolute;
+		top: 36%;
+		font-size: 2.0em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+	}
+
+	.card-subtitle {
+		font-size: 1.0em;
+		position: absolute;
+		top: 52%;
+		width: 100%;
+		color: #fff;
+	}
 }

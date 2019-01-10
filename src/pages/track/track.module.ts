@@ -3,11 +3,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { TrackPage } from './track';
 
 @NgModule({
-  declarations: [
-    TrackPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(TrackPage),
-  ],
+	declarations: [
+		TrackPage,
+	],
+	imports: [
+		IonicPageModule.forChild(TrackPage),
+	],
 })
-export class TrackPageModule {}
+export class TrackPageModule { }

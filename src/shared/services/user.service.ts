@@ -8,43 +8,40 @@ import User from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    private headers = new Headers({
-        'Content-Type': 'application/json',
-    });
+	private apiURL = ENV.BASE_URL + '/user';
 
-    constructor(private http: Http, private authService: AuthenticationService) {
-        this.authService.getToken().then((token) =>
-            this.headers.append('Authorization', 'Bearer ' + token)
-        );
-    }
+	private headers = new Headers({
+		'Content-Type': 'application/json',
+	});
 
-    getById(id: number): Observable<User> {
-        return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	constructor(private http: Http, private authService: AuthenticationService) {
+		this.authService.getToken().then((token) =>
+			this.headers.append('Authorization', 'Bearer ' + token)
+		);
+	}
 
-    getByEmail(email: string): Observable<User> {
-        return this.http.get(ENV.BASE_URL + '/getByEmail?email=' + email, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getById(id: number): Observable<User> {
+		return this.http.get(this.apiURL + '/getById?id=' + id, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    getAll(): Observable<User[]> {
-        return this.http.get(ENV.BASE_URL + '/getAll', { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getByEmail(email: string): Observable<User> {
+		return this.http.get(this.apiURL + '/getByEmail?email=' + email, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    update(user: User): Observable<boolean> {
-        return this.http.put(ENV.BASE_URL + '/users', user, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	getAll(): Observable<User[]> {
+		return this.http.get(this.apiURL + '/getAll', { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    delete(email: string): Observable<boolean> {
-        return this.http.delete(ENV.BASE_URL + '/delete?email=' + email, { headers: this.headers })
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	update(user: User): Observable<boolean> {
+		return this.http.put(this.apiURL + '/update', user, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 
-    resetPassword(email: string): Observable<any> {
-        return this.http.get(ENV.BASE_URL + '/resetPassword?email=' + email)
-            .pipe(catchError(error => Observable.throw(error)));
-    }
+	resetPassword(email: string): Observable<any> {
+		return this.http.get(this.apiURL + '/resetPassword?email=' + email)
+			.pipe(catchError(error => Observable.throw(error)));
+	}
 }

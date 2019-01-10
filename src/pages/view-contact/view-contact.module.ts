@@ -3,11 +3,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { ViewContactPage } from './view-contact';
 
 @NgModule({
-  declarations: [
-    ViewContactPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(ViewContactPage),
-  ],
+	declarations: [
+		ViewContactPage,
+	],
+	imports: [
+		IonicPageModule.forChild(ViewContactPage),
+	],
 })
-export class ViewContactPageModule {}
+export class ViewContactPageModule { }

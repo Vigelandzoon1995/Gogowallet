@@ -3,11 +3,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { EditBudgetPage } from './edit-budget';
 
 @NgModule({
-  declarations: [
-    EditBudgetPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(EditBudgetPage),
-  ],
+	declarations: [
+		EditBudgetPage,
+	],
+	imports: [
+		IonicPageModule.forChild(EditBudgetPage),
+	],
 })
-export class EditBudgetPageModule {}
+export class EditBudgetPageModule { }

@@ -3,11 +3,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { EmergencyContactsPage } from './emergency-contacts';
 
 @NgModule({
-  declarations: [
-    EmergencyContactsPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(EmergencyContactsPage),
-  ],
+	declarations: [
+		EmergencyContactsPage,
+	],
+	imports: [
+		IonicPageModule.forChild(EmergencyContactsPage),
+	],
 })
-export class EmergencyContactsPageModule {}
+export class EmergencyContactsPageModule { }

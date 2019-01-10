@@ -1,26 +1,26 @@
 page-budgets {
-    
-    ion-card.card ion-card-header {
-        background-color: map-get($colors, primary);
-        color: white;
-        position: relative;
 
-        button{
-            position: absolute;
-            top: 35%;
-            right: 0%;
-            background-color: transparent;
-            box-shadow: none;
-            color: white;
-        }  
-        
-    }
+	ion-card.card ion-card-header {
+		background-color: map-get($colors, primary);
+		color: white;
+		position: relative;
 
-    ion-card ion-card-content.card-content {
-     padding: 0;
-    }
+		button {
+			position: absolute;
+			top: 35%;
+			right: 0%;
+			background-color: transparent;
+			box-shadow: none;
+			color: white;
+		}
 
-    hr{
-        margin: 0;
-    }     
+	}
+
+	ion-card ion-card-content.card-content {
+		padding: 0;
+	}
+
+	hr {
+		margin: 0;
+	}
 }
