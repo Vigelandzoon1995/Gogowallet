@@ -4,9 +4,8 @@ var router = express.Router();
 
 router.get('/getById', auth.verifyToken, function (req, res, next) {
     var id = req.query.id
-    var user_id = res.locals.user_id
-    db.query('SELECT id, user_id, name, phone, notes, thumbnail from emergency_contacts WHERE id=? AND user_id=?',
-        [id, user_id],
+    db.query('SELECT id, user_id, name, phone, notes, thumbnail from emergency_contacts WHERE id=?',
+        [id],
         function (error, results, fields) {
             res.send(results);
         });
