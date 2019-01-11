@@ -37,7 +37,6 @@ export class BudgetsPage {
 				this.currentUser = response;
 				if (this.currentUser.bank_account) {
 					this.getBudgetList();
-					this.checkBudgetBalance();
 				}
 			}
 		);
@@ -92,7 +91,10 @@ export class BudgetsPage {
 
 	getBudgetList() {
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
-			(response) => this.budgets = response,
+			(response) => {
+				this.budgets = response;
+				this.checkBudgetBalance();
+			},
 			(error) => {
 				// Show error message
 				const alert = this.alertCtrl.create({
@@ -134,27 +136,28 @@ export class BudgetsPage {
 
 		this.budgets.forEach(budget => {
 			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
-				(response) => this.transactions = response
+				(response) => {
+					response.forEach(transaction => {
+						if (groceriesWhiteList.some((v: string) => { return transaction.name.indexOf(v) >= 0; })) {
+							if (budget.category == 'Groceries') {
+								if (budget.current_amount == null) {
+									budget.current_amount = budget.amount;
+								}
+								budget.current_amount = budget.current_amount - transaction.amount;
+							}
+						}
+						if (leisureWhiteList.some((v: string) => { return transaction.name.indexOf(v) >= 0; })) {
+							console.log('Leisure');
+							if (budget.category == 'Leisure') {
+								if (budget.current_amount == null) {
+									budget.current_amount = budget.amount;
+								}
+								budget.current_amount = budget.current_amount - transaction.amount;
+							}
+						}
+					});
+				}
 			);
-
-			this.transactions.forEach(transaction => {
-				if (groceriesWhiteList.includes(transaction.name)) {
-					if (budget.category == 'Groceries') {
-						if (budget.current_amount == null) {
-							budget.current_amount = budget.amount;
-						}
-						budget.current_amount = budget.current_amount - transaction.amount;
-					}
-				}
-				if (leisureWhiteList.includes(transaction.name)) {
-					if (budget.category == 'Leisure') {
-						if (budget.current_amount == null) {
-							budget.current_amount = budget.amount;
-						}
-						budget.current_amount = budget.current_amount - transaction.amount;
-					}
-				}
-			});
 		});
 	}
 }
