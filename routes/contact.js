@@ -4,15 +4,18 @@ var router = express.Router();
 
 router.get('/getById', auth.verifyToken, function (req, res, next) {
     var id = req.query.id
-    db.query('SELECT id, user_id, name, phone, notes, thumbnail from emergency_contacts WHERE id=?',
-        [id],
+    var user_id = res.locals.user_id
+    db.query('SELECT id, user_id, name, phone, notes, thumbnail from emergency_contacts WHERE id=? AND user_id=?',
+        [id, user_id],
         function (error, results, fields) {
             res.send(results);
         });
 });
 
 router.get('/getAll', auth.verifyToken, function (req, res, next) {
-    db.query('SELECT id, user_id, name, phone, notes, thumbnail FROM emergency_contacts',
+    var user_id = res.locals.user_id
+    db.query('SELECT id, user_id, name, phone, notes, thumbnail FROM emergency_contacts WHERE user_id=?',
+        [user_id],
         function (error, results, fields) {
             res.send(results);
         });
