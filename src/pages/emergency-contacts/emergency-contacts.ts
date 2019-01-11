@@ -18,11 +18,13 @@ export class EmergencyContactsPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events, private contactService: ContactService, private storage: Storage,
 		private alertCtrl: AlertController) {
+	}
+
+	ionViewCanEnter() {
 		this.getCurrentUser();
 	}
 
-	ionViewDidLoad() {
-	}
+	ionViewDidLoad() { }
 
 	getCurrentUser() {
 		this.storage.get('currentUser').then(

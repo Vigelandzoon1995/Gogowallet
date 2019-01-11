@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 import Budget from '../../shared/models/budget.model';
+import { BudgetService } from '../../shared/services/budget.service';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class EditBudgetPage {
 	start: string;
 	end: string;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private alertCtrl: AlertController, private budgetService: BudgetService) {
 		this.budget = navParams.get('data');
 		this.createFormGroup();
 
@@ -42,7 +43,21 @@ export class EditBudgetPage {
 		this.budget.start_date = moment.utc(this.start).toDate();
 		this.budget.end_date = moment.utc(this.end).toDate();
 
-		//Todo api call to update
-		this.navCtrl.pop();
+		this.budgetService.update(this.budget).subscribe(
+			(response) => this.navCtrl.pop(),
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while updating. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 }

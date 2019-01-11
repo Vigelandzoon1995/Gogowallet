@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
-import { BudgetsService2 } from '../../services/budgets/budgets';
 import Budget from '../../shared/models/budget.model';
 import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
+import { BudgetService } from '../../shared/services/budget.service';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
@@ -17,16 +17,19 @@ import { EditBudgetPage } from '../edit-budget/edit-budget';
 })
 export class BudgetsPage {
 	currentUser: User = null;
-	budgets: Budget[];
+	budgets: Budget[] = [];
+	transactions: Transaction[] = [];
 	today = new Date();
 
-	constructor(private budgetsService2: BudgetsService2, public popoverCtrl: PopoverController, public navCtrl: NavController,
-		public alertCtrl: AlertController, public navParams: NavParams, private transactionService: TransactionService, private storage: Storage) {
-		this.getBudgetList();
-		this.getUser();
+	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams,
+		private transactionService: TransactionService, private budgetService: BudgetService, private storage: Storage) {
 	}
 
-	ionViewDidLoad() {
+	ionViewDidLoad() { }
+
+	ionViewCanEnter() {
+		this.getBudgetList();
+		this.getUser();
 	}
 
 	getUser() {
@@ -54,9 +57,7 @@ export class BudgetsPage {
 				else if (popoverData.item.match("Delete")) {
 					this.delete(item);
 				}
-			} catch (Nullpointerexception) {
-			}
-
+			} catch (Nullpointerexception) { }
 		})
 	}
 
@@ -81,7 +82,7 @@ export class BudgetsPage {
 				{
 					text: 'Yes',
 					handler: () => {
-						this.budgetsService2.deleteBudget(item);
+						this.deleteBudget(item);
 					}
 				}
 			]
@@ -90,8 +91,41 @@ export class BudgetsPage {
 	}
 
 	getBudgetList() {
-		//Todo add GetAll() from services
-		this.budgets = this.budgetsService2.getAll();
+		this.budgetService.getAll(this.currentUser.user_id).subscribe(
+			(response) => this.budgets = response,
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while retrieving budgets. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
+	}
+
+	deleteBudget(budget: Budget) {
+		this.budgetService.delete(budget.id).subscribe(
+			(response) => { },
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while deleting. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 
 	checkBudgetBalance() {
@@ -99,19 +133,11 @@ export class BudgetsPage {
 		let leisureWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser'];
 
 		this.budgets.forEach(budget => {
-			let transactions: Transaction[] = [
-				new Transaction(1, 'NL01BANK123456', 'Albert Heijn', 19.99, new Date('2019-01-07 13:23')),
-				new Transaction(2, 'NL01BANK123456', 'Spar', 6.77, new Date('2019-01-08 12:23')),
-				new Transaction(3, 'NL01BANK123456', 'McDonalds', 7.99, new Date('2019-01-08 16:56')),
-				new Transaction(4, 'NL01BANK123456', 'Bowlingcentrum Atoll', 15.00, new Date('2019-01-09 16:00')),
-				new Transaction(5, 'NL01BANK123456', 'Pathe', 22.34, new Date('2019-01-09 19:24')),
-			];
+			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
+				(response) => this.transactions = response
+			);
 
-			// this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
-			// 	(response) => transactions = response
-			// );
-
-			transactions.forEach(transaction => {
+			this.transactions.forEach(transaction => {
 				if (groceriesWhiteList.includes(transaction.name)) {
 					if (budget.category == 'Groceries') {
 						if (budget.current_amount == null) {

@@ -35,7 +35,7 @@ export class ContactService {
 	getAll(user: number): Observable<Contact[]> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/getAll?user=' + user, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getAll?user=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {

@@ -24,7 +24,7 @@ export class BudgetService {
 	getById(id: number): Observable<Budget> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/getById?id=' + id, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -32,10 +32,10 @@ export class BudgetService {
 			});
 	}
 
-	getAll(): Observable<Budget[]> {
+	getAll(user: number): Observable<Budget[]> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/getAll', { headers: this.headers })
+		return this.http.get(this.apiURL + `/getAll?user_id=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -57,7 +57,7 @@ export class BudgetService {
 	update(budget: Budget): Observable<Budget> {
 		this.loadingService.show();
 
-		return this.http.put(this.apiURL + '/update', budget, { headers: this.headers })
+		return this.http.post(this.apiURL + '/update', budget, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -68,7 +68,7 @@ export class BudgetService {
 	delete(id: number): Observable<boolean> {
 		this.loadingService.show();
 
-		return this.http.delete(this.apiURL + '/delete?id=' + id, { headers: this.headers })
+		return this.http.get(this.apiURL + `/delete?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {

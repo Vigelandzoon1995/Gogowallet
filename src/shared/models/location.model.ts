@@ -1,17 +1,15 @@
-import Coordinate from "./coordinate";
-
 export default class Location {
 	id: number;
-	user_id: number;
 	device_id: number;
-	timestamp: Date;
-	coordinates: Coordinate;
+	time: string;
+	latitude: string;
+	longitude: string;
 
-	constructor(id?: number, user_id?: number, device_id?: number, timestamp?: Date, coordinate?: Coordinate) {
-		this.user_id = user_id;
+	constructor(id?: number, device_id?: number, time?: string, latitude?: string, longitude?: string) {
 		this.id = id;
 		this.device_id = device_id;
-		this.timestamp = timestamp;
-		this.coordinates = coordinate;
+		this.time = time;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 }

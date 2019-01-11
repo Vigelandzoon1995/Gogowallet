@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Environment, GoogleMap, GoogleMapOptions, GoogleMaps, Marker } from '@ionic-native/google-maps';
 import { Storage } from '@ionic/storage';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Coordinate from '../../shared/models/coordinate';
 import User from '../../shared/models/user.model';
+import { LocationService } from '../../shared/services/location.service';
 
 @IonicPage()
 @Component({
@@ -13,22 +14,27 @@ import User from '../../shared/models/user.model';
 })
 export class TrackPage {
 	currentUser: User = null;
-	map: GoogleMap;
-	userCoordinates: Coordinate = new Coordinate();
 	walletCoordinates: Coordinate = new Coordinate();
+	lastTime: string;
+	map: GoogleMap;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation, private storage: Storage) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private locationService: LocationService,
+		private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController) {
+	}
+
+	ionViewDidEnter() {
 		this.getCurrentUser();
-		this.getLatestLocation();
 	}
 
 	ionViewDidLoad() {
-		this.loadMap();
 	}
 
 	getCurrentUser() {
 		this.storage.get('currentUser').then(
-			(response) => this.currentUser = response
+			(response) => {
+				this.currentUser = response;
+				this.getLatestLocation();
+			}
 		);
 	}
 
@@ -43,10 +49,10 @@ export class TrackPage {
 			controls: {
 				'compass': true,
 				'myLocationButton': true,
-				'myLocation': true,   // (blue dot)
+				'myLocation': true,		// (blue dot)
 				'indoorPicker': true,
-				'zoom': true,          // android only
-				'mapToolbar': true     // android only
+				'zoom': true,			// android only
+				'mapToolbar': true		// android only
 			},
 			gestures: {
 				scroll: true,
@@ -69,13 +75,34 @@ export class TrackPage {
 	}
 
 	getLatestLocation() {
-		this.walletCoordinates.latitude = 51.92003086849325;
-		this.walletCoordinates.longitude = 4.470789797980501;
+		this.locationService.getLastLocation(this.currentUser.user_id).subscribe(
+			(response) => {
+				this.walletCoordinates.latitude = Number(response[0].latitude);
+				this.walletCoordinates.longitude = Number(response[0].longitude);
+				this.lastTime = response[0].time.replace(/\//g, '-');
+
+				console.log(this.walletCoordinates);
+				this.loadMap();
+			},
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while retrieving last known location. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 
 	showLocation() {
 		let walletMarker: Marker = this.map.addMarkerSync({
-			title: 'Wallet',
+			title: 'Time of location: ' + this.lastTime,
 			icon: {
 				url: 'assets/icon/wallet_marker.png',
 				size: {
@@ -90,10 +117,12 @@ export class TrackPage {
 			}
 		});
 
-		this.map.moveCamera({
-			target: { lat: this.walletCoordinates.latitude, lng: this.walletCoordinates.longitude },
-			zoom: 14,
-			tilt: 30
-		});
+		if (this.walletCoordinates.latitude == null || this.walletCoordinates.longitude == null) {
+			this.map.moveCamera({
+				target: { lat: this.walletCoordinates.latitude, lng: this.walletCoordinates.longitude },
+				zoom: 14,
+				tilt: 30
+			});
+		}
 	}
 }

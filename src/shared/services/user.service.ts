@@ -24,7 +24,7 @@ export class UserService {
 	getById(id: number): Observable<User> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/getById?id=' + id, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -35,7 +35,7 @@ export class UserService {
 	getByEmail(email: string): Observable<User> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/getByEmail?email=' + email, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getByEmail?email=${email}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -57,7 +57,7 @@ export class UserService {
 	update(user: User): Observable<boolean> {
 		this.loadingService.show();
 
-		return this.http.put(this.apiURL + '/update', user, { headers: this.headers })
+		return this.http.post(this.apiURL + '/update', user, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -68,7 +68,7 @@ export class UserService {
 	resetPassword(email: string): Observable<any> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + '/resetPassword?email=' + email)
+		return this.http.get(this.apiURL + `/resetPassword?email=${email}`)
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {

@@ -7,7 +7,7 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Geolocation } from '@ionic-native/geolocation';
-import { LocationService } from '@ionic-native/google-maps';
+import { LocationService } from '../shared/services/location.service';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -36,9 +36,6 @@ import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPage } from '../pages/track/track';
 import { ViewContactPage } from '../pages/view-contact/view-contact';
-//Todo Delete ../services/### BudgetsService2, EmergencyContactService when shareService is integrated
-import { BudgetsService2 } from '../services/budgets/budgets';
-import { EmergencyContactService } from '../services/emergency-contacts/emergency-contacts-service';
 import { AuthenticationService } from '../shared/helpers/auth.service';
 import { LoadingService } from '../shared/helpers/loading.service';
 import { BudgetService } from '../shared/services/budget.service';
@@ -125,11 +122,10 @@ import { MyApp } from './app.component';
 		LocationService,
 		ContactService,
 		BudgetService,
-		BudgetsService2,
-		EmergencyContactService,
 		TransactionService,
 		Geolocation,
 		LoadingService,
+		LocationService,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler }
 	]
 })

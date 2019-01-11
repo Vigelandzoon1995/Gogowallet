@@ -9,6 +9,8 @@ import Transaction from '../models/transaction.model';
 
 @Injectable()
 export class TransactionService {
+	private apiURL = ENV.BASE_URL + '/transaction';
+
 	private headers = new Headers({
 		'Content-Type': 'application/json',
 	});
@@ -19,10 +21,10 @@ export class TransactionService {
 		);
 	}
 
-	get(id: number): Observable<Transaction> {
+	getById(id: number): Observable<Transaction> {
 		this.loadingService.show();
 
-		return this.http.get(ENV.BASE_URL + '/getById?id=' + id, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -33,7 +35,7 @@ export class TransactionService {
 	getAll(bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
-		return this.http.get(ENV.BASE_URL + '/getByBankAccount?account=' + bank_account, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getByBankAccount?bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -41,10 +43,10 @@ export class TransactionService {
 			});
 	}
 
-	getOfToday(bank_account: string): Observable<Transaction[]> {
+	getToday(bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
-		return this.http.get(ENV.BASE_URL + '/getToday?id=' + bank_account, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getToday?id=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -52,10 +54,10 @@ export class TransactionService {
 			});
 	}
 
-	getSince(start: Date, bank_account: string): Observable<Transaction[]> {
+	getSince(date: Date, bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
-		return this.http.get(ENV.BASE_URL + '/getSince?start=' + start + '&account=' + bank_account, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getSince?date=${date}&bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -66,7 +68,7 @@ export class TransactionService {
 	getBetweenDates(start: Date, end: Date, bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
-		return this.http.get(ENV.BASE_URL + '/getBetweenDates?start=' + start + '&end=' + end + '&account=' + bank_account, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getBetweenDates?start=${start}&end=${end}&bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -77,7 +79,7 @@ export class TransactionService {
 	create(transaction: Transaction): Observable<Transaction> {
 		this.loadingService.show();
 
-		return this.http.post(ENV.BASE_URL + '/create', transaction, { headers: this.headers })
+		return this.http.post(this.apiURL + '/create', transaction, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {
@@ -88,7 +90,7 @@ export class TransactionService {
 	delete(id: number): Observable<boolean> {
 		this.loadingService.show();
 
-		return this.http.delete(ENV.BASE_URL + '/delete?id=' + id, { headers: this.headers })
+		return this.http.get(this.apiURL + `/delete?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			._finally(() => {

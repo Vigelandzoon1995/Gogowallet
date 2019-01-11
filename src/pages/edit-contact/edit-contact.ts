@@ -10,24 +10,17 @@ import { ContactService } from '../../shared/services/contact.service';
 	templateUrl: 'edit-contact.html',
 })
 export class EditContactPage {
-	contact: Contact;
 	contactForm: FormGroup;
-	name: string;
-	phone: string;
-	notes: string;
-	thumbnail: string;
+	contact: Contact;
 
 	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private contactService: ContactService, private alertCtrl: AlertController) {
-		this.prepareContactForm();
+		this.contact = this.navParams.get('data');
 		this.createFormGroup();
 	}
 
 	ionViewDidLoad() {
 	}
 
-	prepareContactForm() {
-		this.contact = this.navParams.get('data');
-	}
 	createFormGroup() {
 		this.contactForm = this.formBuilder.group({
 			name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
@@ -40,7 +33,19 @@ export class EditContactPage {
 	delete() {
 		this.contactService.delete(this.contact.user_id, this.contact.id).subscribe(
 			(response) => this.navCtrl.popTo(this.navCtrl.getByIndex(2)),
-
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while deleting. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
 		);
 	}
 
