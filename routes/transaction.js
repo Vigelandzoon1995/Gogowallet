@@ -33,6 +33,15 @@ router.get('/getById', auth.verifyToken, function (req, res) {
         })
 })
 
+router.get('/getByBankAccount', auth.verifyToken, function (req, res) {
+    var bank_account = req.body.bank_account
+    db.query("SELECT * FROM transactions WHERE bank_account=?",
+        [bank_account],
+        function (error, results) {
+            res.send(results);
+        })
+})
+
 router.get('/getToday', auth.verifyToken, function (req, res) {
     var bank_account = req.body.bank_account
     db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d')=CURDATE()",
