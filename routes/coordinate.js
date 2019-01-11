@@ -44,6 +44,16 @@ router.get('/getAll', auth.verifyToken, function (req, res) {
 		});
 })
 
+router.get('/getLast', auth.verifyToken, function (req, res) {
+	//Take the user id directly from the jwt middleware to ensure the user only can get the coordinates of his own device
+	var user_id = res.locals.user_id;
+	db.query('SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.id ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC  LIMIT 1',
+		[user_id],
+		function (error, results, fields) {
+			res.send(results);
+		});
+})
+
 router.get('/getBetweenDates', auth.verifyToken, function (req, res) {
 	//Take the user id directly from the jwt middleware to ensure the user only can get the coordinates of his own device
 	var user_id = res.locals.user_id;
