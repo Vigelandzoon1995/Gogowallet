@@ -35,7 +35,7 @@ router.get('/getById', auth.verifyToken, function (req, res) {
 
 router.get('/getByBankAccount', auth.verifyToken, function (req, res) {
     var bank_account = req.query.bank_account;
-    db.query("SELECT * FROM transactions WHERE bank_account=?",
+    db.query("SELECT * FROM transactions WHERE bank_account=? ORDER BY date DESC",
         [bank_account],
         function (error, results) {
             res.send(results);
@@ -44,7 +44,7 @@ router.get('/getByBankAccount', auth.verifyToken, function (req, res) {
 
 router.get('/getToday', auth.verifyToken, function (req, res) {
     var bank_account = req.query.bank_account;
-    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d')=CURDATE()",
+    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d')=CURDATE() ORDER BY date DESC",
         [bank_account],
         function (error, results) {
             res.send(results);
@@ -54,7 +54,7 @@ router.get('/getToday', auth.verifyToken, function (req, res) {
 router.get('/getSince', auth.verifyToken, function (req, res) {
     var bank_account = req.query.bank_account;
     var date = req.query.date;
-    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d')",
+    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY date DESC",
         [bank_account, date],
         function (error, results) {
             res.send(results);
@@ -65,7 +65,7 @@ router.get('/getBetweenDates', auth.verifyToken, function (req, res) {
     var bank_account = req.query.bank_account;
     var start = req.query.start;
     var end = req.query.end;
-    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d')",
+    db.query("SELECT * FROM transactions WHERE bank_account=? AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY date DESC",
         [bank_account, start, end],
         function (error, results) {
             res.send(results);
