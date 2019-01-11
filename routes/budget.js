@@ -37,10 +37,9 @@ router.get('/getAll', auth.verifyToken, function (req, res) {
 })
 
 router.get('/getById', auth.verifyToken, function (req, res) {
-    var user_id = res.locals.user_id
     var id = req.query.id
-    db.query("SELECT * FROM budgets WHERE user_id=? AND id=?",
-        [user_id, id],
+    db.query("SELECT * FROM budgets WHERE id=?",
+        [id],
         function (error, results) {
             res.send(results);
         })
@@ -74,10 +73,9 @@ router.post('/update', auth.verifyToken, function (req, res) {
 
 router.get('/delete', auth.verifyToken, function (req, res, next) {
     //Take the user id directly from the jwt middleware to ensure the user only can remove budgets of his own account
-    var user_id = res.locals.user_id
     var id = req.query.id
-    db.query('DELETE from budgets WHERE user_id=? AND id=?',
-        [user_id, id],
+    db.query('DELETE from budgets WHERE id=?',
+        [id],
         function (error, results, fields) {
             if (results != null && results.affectedRows == 1) {
                 res.json({
