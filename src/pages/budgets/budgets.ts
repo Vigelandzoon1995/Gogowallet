@@ -129,8 +129,8 @@ export class BudgetsPage {
 	}
 
 	checkBudgetBalance() {
-		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonalds', 'Burger King'];
-		let leisureWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser'];
+		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonald', 'Burger King', 'Takeaway',];
+		let leisureWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser', 'Bar', 'Cafe'];
 
 		this.budgets.forEach(budget => {
 			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(

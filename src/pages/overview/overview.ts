@@ -2,13 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
 import { AlertController, Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
+import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
 import { BudgetService } from '../../shared/services/budget.service';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { UserService } from '../../shared/services/user.service';
-import Transaction from '../../shared/models/transaction.model';
 
 @IonicPage()
 @Component({
@@ -35,7 +34,6 @@ export class OverviewPage {
 	}
 
 	ionViewDidLoad() {
-		this.createChart();
 		if (this.askPin) {
 			this.askForPin();
 		}
@@ -111,7 +109,6 @@ export class OverviewPage {
 					buttons: ['OK']
 				});
 				alert.present();
-				Observable.throw(error);
 			}
 		);
 	}
@@ -127,7 +124,7 @@ export class OverviewPage {
 	getTotalBudget() {
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
-				response.map(item => this.budgetTotal += item.amount);
+				this.budgetTotal = response.reduce((a, b) => a + b.amount, 0);
 				this.getTotalSpendings();
 			}
 		);
@@ -136,8 +133,9 @@ export class OverviewPage {
 	getTotalSpendings() {
 		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
 			(response) => {
-				this.transactions = response.sort(function (a, b) { return a.date.getTime() - b.date.getTime(); }).slice(0, 10);
-				response.map(item => this.spendingsTotal += item.amount);
+				this.spendingsTotal = response.reduce((a, b) => a + b.amount, 0);
+				this.transactions = response.slice(0, 10);
+				this.createChart();
 			}
 		);
 	}
@@ -158,6 +156,17 @@ export class OverviewPage {
 						'#eaaf00'
 					]
 				}]
+			},
+			options: {
+				tooltips: {
+					callbacks: {
+						title: (tooltipItem, data) => {
+							return data['labels'][tooltipItem[0]['index']];
+						}, label: (tooltipItem, data) => {
+							return ' €' + (data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toFixed(2);
+						},
+					}
+				}
 			}
 		});
 	}

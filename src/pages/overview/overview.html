@@ -13,9 +13,11 @@
 	<ion-card>
 		<ion-card-header>Overview</ion-card-header>
 		<ion-card-content>
-			<canvas #pieCanvas [hidden]="!pieChart || (!spendingsTotal || !budgetTotal)"></canvas>
+			<div [hidden]="!spendingsTotal && !budgetTotal">
+				<canvas #pieCanvas></canvas>
+			</div>
 
-			<div [hidden]="pieChart || (spendingsTotal || budgetTotal)">
+			<div [hidden]="spendingsTotal && budgetTotal">
 				<h2 text-center>Start with creating your own budgets!</h2>
 				<ion-row>
 					<button ion-button (click)="navigateToBudgets()">CREATE BUDGET</button>
@@ -42,9 +44,9 @@
 		<ion-card-content>
 			<ion-list *ngIf="transactions.length > 0">
 				<ion-item *ngFor="let transaction of transactions">
-					<small>{{ transaction.date | date: 'dd MMM yyyy HH:mm' }}</small>
-					<ion-label>{{ transaction.name }}}</ion-label>
-					<ion-note item-end>&euro; {{transaction.amount}}</ion-note>
+					<h2>{{ transaction.name }}</h2>
+					<p>{{ transaction.date | date: 'dd-MM HH:mm' }}</p>
+					<ion-note item-end>&euro; {{ transaction.amount | number: '1.2-2' }}</ion-note>
 				</ion-item>
 			</ion-list>
 
