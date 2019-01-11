@@ -19,51 +19,51 @@ router.post('/create', auth.verifyToken, function (req, res) {
 					if (result) {
 						res.json({
 							response: 'Gps inserted'
-						})
+						});
 					} else {
 						res.json({
 							response: 'Error when inserting gps'
-						})
+						});
 					}
 				});
 			} else {
 				res.json({
 					response: 'Error when inserting gps'
-				})
+				});
 			}
-		})
-})
+		});
+});
 
 router.get('/getAll', auth.verifyToken, function (req, res) {
 	//Take the user id directly from the jwt middleware to ensure the user only can get the coordinates of his own device
 	var user_id = res.locals.user_id;
-	db.query('SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.id ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC',
+	db.query("SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.id ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC",
 		[user_id],
 		function (error, results, fields) {
 			res.send(results);
 		});
-})
+});
 
 router.get('/getLast', auth.verifyToken, function (req, res) {
 	//Take the user id directly from the jwt middleware to ensure the user only can get the coordinates of his own device
 	var user_id = res.locals.user_id;
-	db.query('SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.id ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC  LIMIT 1',
+	db.query("SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.id ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC  LIMIT 1",
 		[user_id],
 		function (error, results, fields) {
 			res.send(results);
 		});
-})
+});
 
 router.get('/getBetweenDates', auth.verifyToken, function (req, res) {
 	//Take the user id directly from the jwt middleware to ensure the user only can get the coordinates of his own device
 	var user_id = res.locals.user_id;
-    var start = req.query.start
-    var end = req.query.end
-    db.query("SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.device_id AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC",
-        [bank_account, start, end],
-        function (error, results) {
-            res.send(results);
-        })
-})
+	var start = req.query.start;
+	var end = req.query.end;
+	db.query("SELECT g.id, g.latitude, g.longtitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.device_id AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC",
+		[bank_account, start, end],
+		function (error, results) {
+			res.send(results);
+		});
+});
 
 module.exports = router;
