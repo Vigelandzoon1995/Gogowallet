@@ -17,6 +17,7 @@ var gpsRouter = require('./routes/coordinate');
 var contactRouter = require('./routes/contact')
 var budgetRouter = require('./routes/budget')
 var transactionRouter = require('./routes/transaction')
+var solenoidRouter = require('./routes/solenoid');
 
 
 var app = express();
@@ -70,9 +71,10 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
 app.use('/gps', gpsRouter);
-app.use('/contact', contactRouter)
 app.use('/budget', budgetRouter)
 app.use('/transaction', transactionRouter)
+app.use('/contact', contactRouter);
+app.use('/solenoid', solenoidRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
