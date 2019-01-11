@@ -8,7 +8,7 @@ export class LoadingService {
 	constructor(private loadingCtrl: LoadingController) {
 	}
 
-	initLoader() {
+	init() {
 		this.loader = this.loadingCtrl.create({
 			spinner: 'circles',
 			showBackdrop: true,
@@ -19,11 +19,16 @@ export class LoadingService {
 	}
 
 	show() {
-		this.initLoader();
+		if (!this.loader) {
+			this.init();
+		}
 		this.loader.present();
 	}
 
 	hide() {
-		this.loader.dismiss();
+		if (this.loader) {
+			this.loader.dismiss();
+			this.loader = null;
+		}
 	}
 }

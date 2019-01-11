@@ -7,7 +7,9 @@
 <ion-content padding>
 	<form novalidate [formGroup]="contactForm">
 		<ion-row>
-			<ion-col>
+			<ion-col text-center>
+				<ion-icon name="{{contact.thumbnail}}"></ion-icon>
+
 				<ion-list>
 					<ion-item>
 						<ion-label floating>Name Organization</ion-label>
@@ -22,11 +24,6 @@
 					<ion-item>
 						<ion-label floating>Notes</ion-label>
 						<ion-input type="text" formControlName="notes" [(ngModel)]="contact.notes" readonly="true"></ion-input>
-					</ion-item>
-
-					<ion-item>
-						<ion-label>Type of Card</ion-label>
-						<ion-input type="text" formControlName="thumbnail" [(ngModel)]="contact.thumbnail" readonly="true"></ion-input>
 					</ion-item>
 
 					<div hidden></div>

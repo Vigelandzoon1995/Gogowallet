@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>Overview</ion-title>
+		<ion-title>GoGo Wallet</ion-title>
 		<ion-buttons end>
 			<button (click)="signout()">
 				SIGN OUT
@@ -10,31 +10,50 @@
 </ion-header>
 
 <ion-content>
-	<ion-list no-border>
-		<ion-list-header>
-			Spendings
-		</ion-list-header>
+	<ion-card>
+		<ion-card-header>Overview</ion-card-header>
+		<ion-card-content>
+			<canvas #pieCanvas [hidden]="!pieChart || (!spendingsTotal || !budgetTotal)"></canvas>
 
-		<ion-item>
-			<ion-icon name='logo-euro' item-start></ion-icon>
-			Balance
-			<ion-note item-end *ngIf="currentUser">
-				{{ currentUser != null ? currentUser.balance : '-' }}
-			</ion-note>
-		</ion-item>
-	</ion-list>
+			<div [hidden]="pieChart || (spendingsTotal || budgetTotal)">
+				<h2 text-center>Start with creating your own budgets!</h2>
+				<ion-row>
+					<button ion-button (click)="navigateToBudgets()">CREATE BUDGET</button>
+				</ion-row>
+			</div>
+		</ion-card-content>
+	</ion-card>
 
-	<ion-list>
-		<ion-list-header>
-			Features
-		</ion-list-header>
+	<ion-card>
+		<ion-card-header>Features</ion-card-header>
+		<ion-card-content>
+			<ion-list>
+				<ion-item type="button" (click)="navigateToBudgets()">
+					<ion-icon name="logo-euro" item-start></ion-icon>
+					<ion-label>Budgets</ion-label>
+					<ion-note item-end>Manage</ion-note>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
 
-		<ion-item type="button" (click)="navigateToBudgets()">
-			<ion-label>Budgets</ion-label>
-			<ion-icon name='logo-euro' item-start></ion-icon>
-			<ion-note item-end>Manage</ion-note>
-		</ion-item>
-	</ion-list>
+	<ion-card>
+		<ion-card-header>Transactions</ion-card-header>
+		<ion-card-content>
+			<ion-list *ngIf="transactions.length > 0">
+				<ion-item *ngFor="let transaction of transactions">
+					<small>{{ transaction.date | date: 'dd MMM yyyy HH:mm' }}</small>
+					<ion-label>{{ transaction.name }}}</ion-label>
+					<ion-note item-end>&euro; {{transaction.amount}}</ion-note>
+				</ion-item>
+			</ion-list>
 
-	<button ion-button (click)="notify()">Notify</button>
+			<div *ngIf="transactions.length == 0">
+				<h2 text-center>Start with syncing your bank account!</h2>
+				<ion-row>
+					<button ion-button (click)="navigateToProfile()">SET BANK ACCOUNT</button>
+				</ion-row>
+			</div>
+		</ion-card-content>
+	</ion-card>
 </ion-content>

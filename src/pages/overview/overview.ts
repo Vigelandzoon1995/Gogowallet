@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Chart } from 'chart.js';
 import { AlertController, Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import { PopoverComponent } from '../../components/popover/popover';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import User from '../../shared/models/user.model';
+import { BudgetService } from '../../shared/services/budget.service';
+import { TransactionService } from '../../shared/services/transaction.service';
 import { UserService } from '../../shared/services/user.service';
+import Transaction from '../../shared/models/transaction.model';
 
 @IonicPage()
 @Component({
@@ -14,25 +16,40 @@ import { UserService } from '../../shared/services/user.service';
 	templateUrl: 'overview.html',
 })
 export class OverviewPage {
+	@ViewChild('pieCanvas') pieCanvas;
+
 	currentUser: User = null;
+	pieChart: any;
+	budgetTotal: number;
+	spendingsTotal: number;
+	transactions: Transaction[] = [];
+	askPin: boolean = false;
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
-		private localNotifications: LocalNotifications, private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService,
-		private userService: UserService) {
+		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
+		private budgetService: BudgetService, private transactionService: TransactionService) {
+	}
+
+	ionViewDidEnter() {
 		this.getCurrentUser();
 	}
 
 	ionViewDidLoad() {
+		this.createChart();
+		if (this.askPin) {
+			this.askForPin();
+		}
 	}
 
 	getCurrentUser() {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
+				this.getTotalBudget();
 
 				// Check if user has pin already set, else ask to provide one
 				if (this.currentUser.pin_code == null) {
-					this.askForPin();
+					this.askPin = true;
 				}
 			}
 		);
@@ -99,43 +116,49 @@ export class OverviewPage {
 		);
 	}
 
-	presentPopover(myEvent) {
-		let popover = this.popoverCtrl.create(PopoverComponent);
-		popover.present({
-			ev: myEvent
-		});
-
-		popover.onDidDismiss(popoverData => {
-			try {
-				if (popoverData.item.match("Sign Out")) {
-					this.signout();
-				}
-				else if (popoverData.item.match("Settings")) {
-					this.goToSettingsPage()
-				}
-			} catch (Nullpointerexception) {
-			}
-		})
-	}
-
 	signout() {
 		this.events.publish('user:signout');
-	}
-
-	goToSettingsPage() {
-		this.events.publish('navTo:settings');
 	}
 
 	navigateToBudgets() {
 		this.events.publish('navTo:budgets');
 	}
 
-	notify() {
-		this.localNotifications.schedule({
-			text: 'Delayed ILocalNotification',
-			trigger: { at: new Date(new Date().getTime() + 3600) },
-			led: 'FF0000',
-			sound: null
+	getTotalBudget() {
+		this.budgetService.getAll(this.currentUser.user_id).subscribe(
+			(response) => {
+				response.map(item => this.budgetTotal += item.amount);
+				this.getTotalSpendings();
+			}
+		);
+	}
+
+	getTotalSpendings() {
+		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
+			(response) => {
+				this.transactions = response.sort(function (a, b) { return a.date.getTime() - b.date.getTime(); }).slice(0, 10);
+				response.map(item => this.spendingsTotal += item.amount);
+			}
+		);
+	}
+
+	createChart() {
+		this.pieChart = new Chart(this.pieCanvas.nativeElement, {
+			type: 'pie',
+			data: {
+				labels: ['Spendings', 'Total Budget'],
+				datasets: [{
+					data: [this.spendingsTotal, this.budgetTotal],
+					backgroundColor: [
+						'#0083ff',
+						'#ffbf00',
+					],
+					hoverBackgroundColor: [
+						'#006fd8',
+						'#eaaf00'
+					]
+				}]
+			}
 		});
 	}
 }

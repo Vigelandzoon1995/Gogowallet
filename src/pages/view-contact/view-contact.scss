@@ -3,4 +3,15 @@ page-view-contact {
 	ion-item:nth-child(4) {
 		padding-top: 3rem;
 	}
+
+	ion-icon {
+		font-size: 8rem;
+		background-color: #0080ff;
+		color: #fff;
+		border-radius: 50%;
+		margin-left: 1rem;
+		padding: 28px 38px;
+		margin-bottom: 2rem;
+	}
+
 }

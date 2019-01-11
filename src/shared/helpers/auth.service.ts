@@ -19,16 +19,10 @@ export class AuthenticationService {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		// Show spinner
-		this.loadingService.show();
-
 		this.http.post(ENV.BASE_URL + '/login', { email: email, password: password }, { headers: headers })
 			.map((result) => result.json())
 			.subscribe(
 				(response) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					if (response) {
 						if (response.token != false) {
 							this.setToken(response, password);
@@ -53,9 +47,6 @@ export class AuthenticationService {
 					}
 				},
 				(error) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					// Show error message
 					const alert = this.alertCtrl.create({
 						title: 'Sign In',
@@ -79,16 +70,10 @@ export class AuthenticationService {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		// Show spinner
-		this.loadingService.show();
-
 		this.http.post(ENV.BASE_URL + '/login/pin', { email: email, password: password, pin: pin }, { headers: headers })
 			.map((result) => result.json())
 			.subscribe(
 				(response) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					if (response) {
 						if (response.token != false) {
 							this.setToken(response, password);
@@ -113,9 +98,6 @@ export class AuthenticationService {
 					}
 				},
 				(error) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					// Show error message
 					const alert = this.alertCtrl.create({
 						title: 'Sign In',
@@ -139,16 +121,10 @@ export class AuthenticationService {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		// Show spinner
-		this.loadingService.show();
-
 		this.http.post(ENV.BASE_URL + '/register', user, { headers: headers })
 			.map((result) => result.json())
 			.subscribe(
 				(response) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					if (response) {
 						if (response.success != false) {
 							//Show success message
@@ -170,9 +146,6 @@ export class AuthenticationService {
 					}
 				},
 				(error) => {
-					// Hide spinner
-					this.loadingService.hide();
-
 					// Show error message
 					const alert = this.alertCtrl.create({
 						title: 'Registration',

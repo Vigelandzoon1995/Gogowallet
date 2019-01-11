@@ -1,6 +1,35 @@
 page-overview {
-    ion-navbar button:nth-child(1) {
-        background: transparent;
-        color: #fff;
-    }
+	ion-navbar button:nth-child(1) {
+		background: transparent;
+		color: #fff;
+	}
+
+	ion-card.card {
+
+		h2 {
+			font-size: 1.8rem;
+			font-weight: 400;
+		}
+
+		ion-card-content.card-content {
+			padding: 1rem 1.5rem;
+		}
+
+		ion-card-header {
+			background-color: map-get($colors, primary);
+			color: white;
+			position: relative;
+			font-weight: bold;
+		}
+
+		ion-row.row {
+			text-align: center;
+
+			button {
+				background: #eaaf00;
+				color: #fff;
+				margin: 1.5rem auto;
+			}
+		}
+	}
 }

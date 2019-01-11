@@ -28,7 +28,6 @@ export class BudgetsPage {
 	ionViewDidLoad() { }
 
 	ionViewCanEnter() {
-		this.getBudgetList();
 		this.getUser();
 	}
 
@@ -37,6 +36,7 @@ export class BudgetsPage {
 			(response) => {
 				this.currentUser = response;
 				if (this.currentUser.bank_account) {
+					this.getBudgetList();
 					this.checkBudgetBalance();
 				}
 			}

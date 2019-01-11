@@ -22,57 +22,32 @@ export class BudgetService {
 	}
 
 	getById(id: number): Observable<Budget> {
-		this.loadingService.show();
-
 		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			._finally(() => {
-				this.loadingService.hide()
-			});
+			.map((res) => res.json());
 	}
 
 	getAll(user: number): Observable<Budget[]> {
-		this.loadingService.show();
-
 		return this.http.get(this.apiURL + `/getAll?user_id=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			._finally(() => {
-				this.loadingService.hide()
-			});
+			.map((res) => res.json());
 	}
 
 	create(budget: Budget): Observable<Budget> {
-		this.loadingService.show();
-
 		return this.http.post(this.apiURL + '/create', budget, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			._finally(() => {
-				this.loadingService.hide()
-			});
+			.map((res) => res.json());
 	}
 
 	update(budget: Budget): Observable<Budget> {
-		this.loadingService.show();
-
 		return this.http.post(this.apiURL + '/update', budget, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			._finally(() => {
-				this.loadingService.hide()
-			});
+			.map((res) => res.json());
 	}
 
 	delete(id: number): Observable<boolean> {
-		this.loadingService.show();
-
 		return this.http.get(this.apiURL + `/delete?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			._finally(() => {
-				this.loadingService.hide()
-			});
+			.map((res) => res.json());
 	}
 }
