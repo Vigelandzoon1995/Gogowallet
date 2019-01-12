@@ -22,20 +22,29 @@ export class LocationService {
 	}
 
 	getAll(user: number): Observable<Location[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getAll?user_id=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getLastLocation(user: number): Observable<Location> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getLast?user_id=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getBetweenDates(start: Date, end: Date): Observable<Location[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getBetweenDates?start=${start}&end=${end}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 }

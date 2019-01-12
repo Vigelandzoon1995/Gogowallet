@@ -22,44 +22,65 @@ export class TransactionService {
 	}
 
 	getById(id: number): Observable<Transaction> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getAll(bank_account: string): Observable<Transaction[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getByBankAccount?bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getToday(bank_account: string): Observable<Transaction[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getToday?id=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getSince(date: Date, bank_account: string): Observable<Transaction[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getSince?date=${date}&bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getBetweenDates(start: Date, end: Date, bank_account: string): Observable<Transaction[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getBetweenDates?start=${start}&end=${end}&bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	create(transaction: Transaction): Observable<Transaction> {
+		this.loadingService.show();
+
 		return this.http.post(this.apiURL + '/create', transaction, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	delete(id: number): Observable<boolean> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/delete?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 }

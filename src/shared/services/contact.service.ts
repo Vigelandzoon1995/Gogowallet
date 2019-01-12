@@ -22,32 +22,47 @@ export class ContactService {
 	}
 
 	getById(id: number): Observable<Contact> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getAll(user: number): Observable<Contact[]> {
+		this.loadingService.show();
+
 		return this.http.get(this.apiURL + `/getAll?user=${user}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	create(contact: Contact): Observable<Contact> {
+		this.loadingService.show();
+
 		return this.http.post(this.apiURL + '/create', contact, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	update(contact: Contact): Observable<Contact> {
+		this.loadingService.show();
+
 		return this.http.post(this.apiURL + '/update', contact, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 
 	delete(user_id: number, contact: number): Observable<boolean> {
-		return this.http.get(this.apiURL + '/delete?user=' + user_id + '&contact=' + contact, { headers: this.headers })
+		this.loadingService.show();
+
+		return this.http.get(this.apiURL + '/delete?user_id=' + user_id + '&id=' + contact, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json());
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
 	}
 }

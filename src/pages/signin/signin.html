@@ -103,11 +103,11 @@
 			<ion-col *ngIf="usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="usePassword()" *ngIf="usePin">Use password</button>
 				<button ion-button clear class="register-link" type="button" (click)="usePIN()" *ngIf="!usePin">Use PIN</button>
-				<button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
+				<!-- <button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button> -->
 			</ion-col>
 			<ion-col *ngIf="!usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>
-				<button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button>
+				<!-- <button ion-button clear class="small-link" type="button" (click)="navigateToReset()">Forgot Password?</button> -->
 			</ion-col>
 		</ion-row>
 	</form>

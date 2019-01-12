@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
+import User from '../../shared/models/user.model';
 import { ContactService } from '../../shared/services/contact.service';
 
 @IonicPage()
@@ -10,14 +11,23 @@ import { ContactService } from '../../shared/services/contact.service';
 	templateUrl: 'add-contact.html',
 })
 export class AddContactPage {
+	currentUser: User = null;
 	contactForm: FormGroup;
 	contact: Contact = new Contact();
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService, private alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private contactService: ContactService, private alertCtrl: AlertController,
+		private storage: Storage) {
+		this.getCurrentUser();
 		this.createFormGroup();
 	}
 
 	ionViewDidLoad() {
+	}
+
+	getCurrentUser() {
+		this.storage.get('currentUser').then(
+			(response) => this.currentUser = response
+		);
 	}
 
 	createFormGroup() {
@@ -30,6 +40,7 @@ export class AddContactPage {
 	}
 
 	submit() {
+		this.contact.user_id = this.currentUser.user_id;
 		this.contactService.create(this.contact).subscribe(
 			(response) => this.navCtrl.pop(),
 			(error) => {
