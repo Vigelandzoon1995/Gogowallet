@@ -3,7 +3,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, Navbar } from 'ionic-angular';
 import { SigninPage } from '../pages/signin/signin';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AuthenticationService } from '../shared/helpers/auth.service';
@@ -14,6 +14,7 @@ import { AuthenticationService } from '../shared/helpers/auth.service';
 export class MyApp {
 	@ViewChild('mainNav') nav: NavController;
 	rootPage: any = null;
+	hideSplash: boolean = true;
 
 	constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
 		private localNotifications: LocalNotifications, private authService: AuthenticationService) {
@@ -36,11 +37,14 @@ export class MyApp {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
 			statusBar.styleBlackTranslucent();
-			this.splashScreen.hide();
 
-			setTimeout(() => {
-				this.askPermissions();
-			}, 1000);
+			this.checkPermissions();
+
+			if (!this.hideSplash) {
+				setTimeout(() => {
+					this.splashScreen.hide();
+				}, 300);
+			}
 		});
 	}
 
@@ -56,6 +60,7 @@ export class MyApp {
 
 		if (!this.localNotifications.hasPermission) hasPermissions = false;
 		if (!hasPermissions) this.askPermissions();
+		else this.hideSplash = false;
 	}
 
 	askPermissions() {
@@ -69,5 +74,6 @@ export class MyApp {
 				this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS
 			]);
 		this.localNotifications.requestPermission();
+		this.hideSplash = false;
 	}
 }

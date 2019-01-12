@@ -20,7 +20,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="SplashScreenDelay" value="12000" />
     <preference name="FadeSplashScreen" value="true" />
-    <preference name="FadeSplashScreenDuration" value="700" />
+    <preference name="FadeSplashScreenDuration" value="1000" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
