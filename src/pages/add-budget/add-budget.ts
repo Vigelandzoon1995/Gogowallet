@@ -21,9 +21,6 @@ export class AddBudgetPage {
 		this.createFormGroup();
 	}
 
-	ionViewDidLoad() {
-	}
-
 	createFormGroup() {
 		this.budgetForm = this.formBuilder.group({
 			category: new FormControl('', Validators.compose([Validators.required])),

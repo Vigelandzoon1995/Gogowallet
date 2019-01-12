@@ -18,9 +18,6 @@ export class ResetPasswordPage {
 		this.createFormGroup();
 	}
 
-	ionViewDidLoad() {
-	}
-
 	createFormGroup() {
 		this.resetForm = this.formBuilder.group({
 			email: new FormControl('', [Validators.required, Validators.email]),

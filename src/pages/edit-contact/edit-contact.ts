@@ -18,9 +18,6 @@ export class EditContactPage {
 		this.createFormGroup();
 	}
 
-	ionViewDidLoad() {
-	}
-
 	createFormGroup() {
 		this.contactForm = this.formBuilder.group({
 			name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),

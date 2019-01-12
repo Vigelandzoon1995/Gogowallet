@@ -8,11 +8,5 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FeedbackPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
-	}
-
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad FeedbackPage');
-	}
-
+	constructor(public navCtrl: NavController, public navParams: NavParams) { }
 }

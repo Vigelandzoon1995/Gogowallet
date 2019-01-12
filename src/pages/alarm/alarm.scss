@@ -1,6 +1,14 @@
 page-alarm {
-
 	ion-content {
 		background-color: #4da6ff;
+	}
+
+	.item {
+		border-bottom: 1px solid #dedede;
+
+		ion-icon[item-start]+.item-inner {
+			margin-left: 10px;
+			border-bottom: none;
+		}
 	}
 }

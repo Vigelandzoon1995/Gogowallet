@@ -6,7 +6,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
-import { LoadingService } from '../../shared/helpers/loading.service';
 import User from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
 
@@ -25,12 +24,9 @@ export class EditProfilePage {
 	newPassword: string = null;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-		private userService: UserService, private authService: AuthenticationService, private storage: Storage, private loadingService: LoadingService) {
+		private userService: UserService, private authService: AuthenticationService, private storage: Storage) {
 		this.createFormGroup();
 		this.getUser();
-	}
-
-	ionViewDidLoad() {
 	}
 
 	createFormGroup() {
@@ -59,9 +55,6 @@ export class EditProfilePage {
 		let newUser = this.user;
 		newUser.password = null;
 
-		// Show spinner
-		this.loadingService.show();
-
 		// Check if password has changed
 		if (this.password != null && this.newPassword != null) {
 			if (this.password != this.newPassword) {
@@ -74,14 +67,9 @@ export class EditProfilePage {
 				this.authService.removeUser(false);
 				this.authService.saveUser(newUser, false);
 
-				// Hide spinner
-				this.loadingService.hide();
-
 				this.navCtrl.pop();
 			},
 			(error) => {
-				// Hide spinner
-				this.loadingService.hide();
 				Observable.throw(error);
 			}
 		);

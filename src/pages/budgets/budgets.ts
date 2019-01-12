@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
+import { environment as ENV } from '../../environments/environment';
 import Budget from '../../shared/models/budget.model';
 import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
@@ -22,10 +23,7 @@ export class BudgetsPage {
 	today = new Date();
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams,
-		private transactionService: TransactionService, private budgetService: BudgetService, private storage: Storage) {
-	}
-
-	ionViewDidLoad() { }
+		private transactionService: TransactionService, private budgetService: BudgetService, private storage: Storage) { }
 
 	ionViewCanEnter() {
 		this.getUser();
@@ -131,8 +129,8 @@ export class BudgetsPage {
 	}
 
 	checkBudgetBalance() {
-		let groceriesWhiteList: String[] = ['Albert Heijn', 'Spar', 'Bakker', 'McDonald', 'Burger King', 'Takeaway',];
-		let leisureWhiteList: String[] = ['Pathe', 'Bioscoop', 'Kart', 'Laser', 'Bar', 'Cafe'];
+		let groceriesWhiteList: String[] = ENV.groceriesWhiteList;
+		let leisureWhiteList: String[] = ENV.leisureWhiteList;
 
 		this.budgets.forEach(budget => {
 			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(

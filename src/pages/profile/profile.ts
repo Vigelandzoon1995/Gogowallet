@@ -15,9 +15,6 @@ export class ProfilePage {
 		this.getCurrentUser();
 	}
 
-	ionViewDidLoad() {
-	}
-
 	getCurrentUser() {
 		this.storage.get('currentUser').then(
 			(response) => this.currentUser = response

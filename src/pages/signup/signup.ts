@@ -19,9 +19,6 @@ export class SignupPage {
 		this.createFormGroup();
 	}
 
-	ionViewDidLoad() {
-	}
-
 	createFormGroup() {
 		this.registerForm = this.formBuilder.group({
 			email: new FormControl('', [Validators.required, Validators.email]),

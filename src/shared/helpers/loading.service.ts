@@ -5,8 +5,7 @@ import { Loading, LoadingController } from 'ionic-angular';
 export class LoadingService {
 	loader: Loading;
 
-	constructor(private loadingCtrl: LoadingController) {
-	}
+	constructor(private loadingCtrl: LoadingController) { }
 
 	init() {
 		this.loader = this.loadingCtrl.create({

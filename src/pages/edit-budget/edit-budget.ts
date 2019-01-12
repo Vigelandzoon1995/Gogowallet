@@ -25,9 +25,6 @@ export class EditBudgetPage {
 		this.end = moment(this.budget.end_date).local(true).format('YYYY-MM-DDTHH:mm');
 	}
 
-	ionViewDidLoad() {
-	}
-
 	createFormGroup() {
 		this.budgetForm = this.formBuilder.group({
 			category: new FormControl('', Validators.compose([Validators.required])),

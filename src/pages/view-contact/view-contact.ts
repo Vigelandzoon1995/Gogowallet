@@ -16,9 +16,6 @@ export class ViewContactPage {
 		this.contact = this.navParams.get('data');
 	}
 
-	ionViewDidLoad() {
-	}
-
 	editContact() {
 		this.navCtrl.push(EditContactPage, { data: this.contact });
 	}

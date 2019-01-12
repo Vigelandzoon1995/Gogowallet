@@ -1,5 +1,4 @@
 page-emergency-contacts {
-
 	ion-card {
 		position: relative;
 		text-align: center;
@@ -47,5 +46,17 @@ page-emergency-contacts {
 		top: 52%;
 		width: 100%;
 		color: #fff;
+	}
+
+	.item {
+		border-bottom: 1px solid #dedede;
+
+		ion-icon[item-start]+.item-inner {
+			margin-left: 10px;
+		}
+	}
+
+	.list .item-block .item-inner {
+		border: none;
 	}
 }

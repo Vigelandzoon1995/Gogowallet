@@ -5,7 +5,6 @@ import { AlertController } from 'ionic-angular';
 import { environment as ENV } from '../../environments/environment';
 import User from '../models/user.model';
 import { LoadingService } from './loading.service';
-import { _finally } from 'rxjs/operator/finally';
 
 @Injectable()
 export class AuthenticationService {
@@ -26,7 +25,6 @@ export class AuthenticationService {
 		this.http.post(ENV.BASE_URL + '/login', { email: email, password: password }, { headers: headers })
 			.map((result) => result.json())
 			._finally(() => {
-				//Hide loading spinner
 				this.loadingService.hide();
 			})
 			.subscribe(
@@ -84,7 +82,6 @@ export class AuthenticationService {
 		this.http.post(ENV.BASE_URL + '/login/pin', { email: email, password: password, pin: pin }, { headers: headers })
 			.map((result) => result.json())
 			._finally(() => {
-				//Hide loading spinner
 				this.loadingService.hide();
 			})
 			.subscribe(
@@ -142,7 +139,6 @@ export class AuthenticationService {
 		this.http.post(ENV.BASE_URL + '/register', user, { headers: headers })
 			.map((result) => result.json())
 			._finally(() => {
-				//Hide loading spinner
 				this.loadingService.hide();
 			})
 			.subscribe(

@@ -19,14 +19,10 @@ export class TrackPage {
 	map: GoogleMap;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private locationService: LocationService,
-		private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController) {
-	}
+		private geolocation: Geolocation, private storage: Storage, private alertCtrl: AlertController) { }
 
 	ionViewDidEnter() {
 		this.getCurrentUser();
-	}
-
-	ionViewDidLoad() {
 	}
 
 	getCurrentUser() {

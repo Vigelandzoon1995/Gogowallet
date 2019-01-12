@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, Platform } from 'ionic-angular';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
@@ -7,7 +8,6 @@ import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
 @IonicPage()
 @Component({
@@ -27,14 +27,10 @@ export class SigninPage {
 	pinCodeInput: string;
 
 	constructor(private navCtrl: NavController, private formBuilder: FormBuilder, public alertCtrl: AlertController, private authService: AuthenticationService,
-		private storage: Storage, private splashScreen: SplashScreen, private platform: Platform) {
-	}
+		private storage: Storage, private splashScreen: SplashScreen, private platform: Platform) { }
 
 	ionViewCanEnter() {
 		this.init();
-	}
-
-	ionViewDidLoad() {
 	}
 
 	init() {

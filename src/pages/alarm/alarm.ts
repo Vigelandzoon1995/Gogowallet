@@ -8,10 +8,5 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AlarmPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
-	}
-
-	ionViewDidLoad() {
-	}
-
+	constructor(public navCtrl: NavController, public navParams: NavParams) { }
 }

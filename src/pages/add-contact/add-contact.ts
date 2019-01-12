@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import Contact from '../../shared/models/contact.model';
 import User from '../../shared/models/user.model';
@@ -19,9 +20,6 @@ export class AddContactPage {
 		private storage: Storage) {
 		this.getCurrentUser();
 		this.createFormGroup();
-	}
-
-	ionViewDidLoad() {
 	}
 
 	getCurrentUser() {
@@ -58,5 +56,4 @@ export class AddContactPage {
 			}
 		);
 	}
-
 }
