@@ -4,13 +4,19 @@ page-view-contact {
 		padding-top: 3rem;
 	}
 
-	ion-icon {
-		font-size: 8rem;
-		background-color: #0080ff;
+	ion-col ion-icon {
+		display: inline-block;
+		margin: -1px;
+		width: 110px;
+		height: 110px;
+		padding: 20px;
+		font-size: 6.3rem;
+		background-color: map-get($colors, primary);
 		color: #fff;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
 		border-radius: 50%;
-		margin-left: 1rem;
-		padding: 28px 38px;
+		text-align: center;
 		margin-bottom: 2rem;
 	}
 

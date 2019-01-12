@@ -15,15 +15,21 @@ page-emergency-contacts {
 	}
 
 	ion-list ion-thumbnail ion-icon {
+		display: inline-block;
+		margin: -1px;
+		width: 65px;
+		height: 65px;
+		padding: 16px;
 		position: fixed;
 		top: 50%;
-		font-size: 3rem;
-		background-color: #0080ff;
-		color: #fff;
-		border-radius: 50%;
 		transform: translateY(-50%);
-		margin-left: 1rem;
-		padding: 14px 16px;
+		font-size: 3.3rem;
+		background-color: map-get($colors, primary);
+		color: #fff;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+		text-align: center;
 	}
 
 	.card-title {

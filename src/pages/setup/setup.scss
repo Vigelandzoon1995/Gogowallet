@@ -1,7 +1,20 @@
 page-setup {
 
 	ion-slide ion-icon {
-		font-size: 4.5rem;
+		display: inline-block;
+		margin: -1px;
+		width: 65px;
+		height: 65px;
+		padding: 15px !important;
+		font-size: 3.5rem;
+		background-color: map-get($colors, primary);
+		color: #fff;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+		text-align: center;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
 	}
 
 	.slide-content {
