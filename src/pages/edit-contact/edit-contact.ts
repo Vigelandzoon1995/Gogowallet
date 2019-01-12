@@ -31,24 +31,41 @@ export class EditContactPage {
 	}
 
 	delete() {
-		if (confirm('Are you sure you want to delete this contact?') == true) {
-			this.contactService.delete(this.contact.user_id, this.contact.id).subscribe(
-				(response) => this.navCtrl.popTo(this.navCtrl.getByIndex(2)),
-				(error) => {
-					// Show error message
-					const alert = this.alertCtrl.create({
-						title: 'Error',
-						subTitle: 'An error occured while deleting. Please try again!',
-						buttons: [
-							{
-								text: 'OK',
-							}
-						]
-					});
-					alert.present();
+		const confirm = this.alertCtrl.create({
+			title: 'Deleting ' + this.contact.name,
+			message: 'Are you sure you want to delete this contact?',
+			buttons: [
+				{
+					text: 'No'
+				},
+				{
+					text: 'Yes',
+					handler: () => {
+						this.deleteContact();
+					}
 				}
-			);
-		}
+			]
+		});
+		confirm.present();
+	}
+
+	deleteContact() {
+		this.contactService.delete(this.contact.user_id, this.contact.id).subscribe(
+			(response) => this.navCtrl.popTo(this.navCtrl.getByIndex(2)),
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while deleting. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
+		);
 	}
 
 	submit() {

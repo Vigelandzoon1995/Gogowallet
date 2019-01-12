@@ -72,11 +72,11 @@ export class BudgetsPage {
 
 	delete(item) {
 		const confirm = this.alertCtrl.create({
-			title: 'Delete ' + item.category,
-			message: 'Are you sure you want to delete this profile?',
+			title: 'Deleting ' + item.category,
+			message: 'Are you sure you want to delete this budget?',
 			buttons: [
 				{
-					text: 'No'
+					text: 'Cancel'
 				},
 				{
 					text: 'Yes',
