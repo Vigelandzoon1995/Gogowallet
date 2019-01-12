@@ -56,4 +56,11 @@ export class UserService {
 			.map((res) => res.json())
 			.finally(() => { this.loadingService.hide(); });
 	}
+
+	resetPassword(email: string): Observable<any> {
+		return this.http.get(this.apiURL + `/resetPassword?email=${email}`)
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
+	}
 }
