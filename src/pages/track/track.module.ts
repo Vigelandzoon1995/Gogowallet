@@ -9,5 +9,6 @@ import { TrackPage } from './track';
 	imports: [
 		IonicPageModule.forChild(TrackPage),
 	],
+	exports: [TrackPage]
 })
 export class TrackPageModule { }

@@ -9,5 +9,6 @@ import { AlarmPage } from './alarm';
 	imports: [
 		IonicPageModule.forChild(AlarmPage),
 	],
+	exports: [AlarmPage]
 })
 export class AlarmPageModule { }

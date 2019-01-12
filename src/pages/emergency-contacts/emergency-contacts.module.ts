@@ -10,6 +10,6 @@ import { Storage } from '@ionic/storage';
 	imports: [
 		IonicPageModule.forChild(EmergencyContactsPage),
 	],
-	providers: [Storage]
+	exports: [EmergencyContactsPage]
 })
 export class EmergencyContactsPageModule { }

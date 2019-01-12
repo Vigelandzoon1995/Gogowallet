@@ -7,7 +7,6 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { Geolocation } from '@ionic-native/geolocation';
-import { LocationService } from '../shared/services/location.service';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,30 +15,31 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 import { PopoverComponent } from '../components/popover/popover';
-import { AboutUsPage } from '../pages/about-us/about-us';
-import { AddBudgetPage } from '../pages/add-budget/add-budget';
-import { AddContactPage } from '../pages/add-contact/add-contact';
-import { AlarmPage } from '../pages/alarm/alarm';
-import { BudgetsPage } from '../pages/budgets/budgets';
-import { EditBudgetPage } from '../pages/edit-budget/edit-budget';
-import { EditContactPage } from '../pages/edit-contact/edit-contact';
-import { EditProfilePage } from '../pages/edit-profile/edit-profile';
-import { EmergencyContactsPage } from '../pages/emergency-contacts/emergency-contacts';
-import { FeedbackPage } from '../pages/feedback/feedback';
-import { OverviewPage } from '../pages/overview/overview';
-import { ProfilePage } from '../pages/profile/profile';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password';
-import { SettingsPage } from '../pages/settings/settings';
-import { SetupPage } from '../pages/setup/setup';
-import { SigninPage } from '../pages/signin/signin';
-import { SignupPage } from '../pages/signup/signup';
+import { AboutUsPageModule } from '../pages/about-us/about-us.module';
+import { AddBudgetPageModule } from '../pages/add-budget/add-budget.module';
+import { AddContactPageModule } from '../pages/add-contact/add-contact.module';
+import { AlarmPageModule } from '../pages/alarm/alarm.module';
+import { BudgetsPageModule } from '../pages/budgets/budgets.module';
+import { EditBudgetPageModule } from '../pages/edit-budget/edit-budget.module';
+import { EditContactPageModule } from '../pages/edit-contact/edit-contact.module';
+import { EditProfilePageModule } from '../pages/edit-profile/edit-profile.module';
+import { EmergencyContactsPageModule } from '../pages/emergency-contacts/emergency-contacts.module';
+import { FeedbackPageModule } from '../pages/feedback/feedback.module';
+import { OverviewPageModule } from '../pages/overview/overview.module';
+import { ProfilePageModule } from '../pages/profile/profile.module';
+import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
+import { SettingsPageModule } from '../pages/settings/settings.module';
+import { SetupPageModule } from '../pages/setup/setup.module';
+import { SigninPageModule } from '../pages/signin/signin.module';
+import { SignupPageModule } from '../pages/signup/signup.module';
 import { TabsPage } from '../pages/tabs/tabs';
-import { TrackPage } from '../pages/track/track';
-import { ViewContactPage } from '../pages/view-contact/view-contact';
+import { TrackPageModule } from '../pages/track/track.module';
+import { ViewContactPageModule } from '../pages/view-contact/view-contact.module';
 import { AuthenticationService } from '../shared/helpers/auth.service';
 import { LoadingService } from '../shared/helpers/loading.service';
 import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
+import { LocationService } from '../shared/services/location.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
@@ -47,32 +47,32 @@ import { MyApp } from './app.component';
 @NgModule({
 	declarations: [
 		MyApp,
-		SigninPage,
-		SignupPage,
-		OverviewPage,
-		TrackPage,
-		AlarmPage,
-		ProfilePage,
 		PopoverComponent,
 		BudgetItemPopoverComponent,
-		FeedbackPage,
-		SettingsPage,
-		BudgetsPage,
-		AddBudgetPage,
 		TabsPage,
-		ResetPasswordPage,
-		EditProfilePage,
-		EmergencyContactsPage,
-		AddContactPage,
-		EditBudgetPage,
-		EditContactPage,
-		AboutUsPage,
-		ViewContactPage,
-		SetupPage
 	],
 	imports: [
 		BrowserModule,
 		HttpModule,
+		SigninPageModule,
+		SignupPageModule,
+		OverviewPageModule,
+		TrackPageModule,
+		AlarmPageModule,
+		ProfilePageModule,
+		FeedbackPageModule,
+		SettingsPageModule,
+		BudgetsPageModule,
+		AddBudgetPageModule,
+		ResetPasswordPageModule,
+		EditProfilePageModule,
+		EmergencyContactsPageModule,
+		AddContactPageModule,
+		EditBudgetPageModule,
+		EditContactPageModule,
+		AboutUsPageModule,
+		ViewContactPageModule,
+		SetupPageModule,
 		IonicModule.forRoot(MyApp, {
 			scrollAssist: false,
 			autoFocusAssist: false,
@@ -83,28 +83,9 @@ import { MyApp } from './app.component';
 	bootstrap: [IonicApp],
 	entryComponents: [
 		MyApp,
-		SigninPage,
-		SignupPage,
-		OverviewPage,
-		TrackPage,
-		AlarmPage,
-		ProfilePage,
 		PopoverComponent,
 		BudgetItemPopoverComponent,
-		SettingsPage,
-		BudgetsPage,
-		AddBudgetPage,
 		TabsPage,
-		ResetPasswordPage,
-		EditProfilePage,
-		EmergencyContactsPage,
-		AddContactPage,
-		EditBudgetPage,
-		EditContactPage,
-		FeedbackPage,
-		AboutUsPage,
-		ViewContactPage,
-		SetupPage
 	],
 	providers: [
 		AuthenticationService,

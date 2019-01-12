@@ -31,11 +31,6 @@ export class SigninPage {
 	}
 
 	ionViewCanEnter() {
-		setTimeout(() => {
-			if (this.platform.is('cordova') || this.platform.is('android')) {
-				this.splashScreen.hide();
-			}
-		}, 300);
 		this.init();
 	}
 

@@ -9,5 +9,6 @@ import { EditContactPage } from './edit-contact';
 	imports: [
 		IonicPageModule.forChild(EditContactPage),
 	],
+	exports: [EditContactPage]
 })
 export class EditContactPageModule { }

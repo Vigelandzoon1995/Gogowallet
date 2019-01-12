@@ -9,5 +9,6 @@ import { FeedbackPage } from './feedback';
 	imports: [
 		IonicPageModule.forChild(FeedbackPage),
 	],
+	exports: [FeedbackPage]
 })
 export class FeedbackPageModule { }

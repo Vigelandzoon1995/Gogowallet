@@ -9,5 +9,6 @@ import { EditBudgetPage } from './edit-budget';
 	imports: [
 		IonicPageModule.forChild(EditBudgetPage),
 	],
+	exports: [EditBudgetPage]
 })
 export class EditBudgetPageModule { }

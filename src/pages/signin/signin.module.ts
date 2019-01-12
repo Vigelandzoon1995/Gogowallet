@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { IonicPageModule } from 'ionic-angular';
 import { SigninPage } from './signin';
 
@@ -8,8 +7,8 @@ import { SigninPage } from './signin';
 		SigninPage,
 	],
 	imports: [
-		FormsModule,
 		IonicPageModule.forChild(SigninPage),
 	],
+	exports: [SigninPage]
 })
 export class SigninPageModule { }

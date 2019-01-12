@@ -13,7 +13,7 @@ import { AuthenticationService } from '../shared/helpers/auth.service';
 })
 export class MyApp {
 	@ViewChild('mainNav') nav: NavController;
-	rootPage: any = SigninPage;
+	rootPage: any = null;
 
 	constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
 		private localNotifications: LocalNotifications, private authService: AuthenticationService) {
@@ -30,12 +30,17 @@ export class MyApp {
 			}
 		);
 
+		this.rootPage = SigninPage;
+
 		platform.ready().then(() => {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
-			statusBar.styleDefault();
+			statusBar.styleBlackTranslucent();
+			this.splashScreen.hide();
 
-			this.askPermissions();
+			setTimeout(() => {
+				this.askPermissions();
+			}, 1000);
 		});
 	}
 

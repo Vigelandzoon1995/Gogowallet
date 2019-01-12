@@ -9,5 +9,7 @@ import { ViewContactPage } from './view-contact';
 	imports: [
 		IonicPageModule.forChild(ViewContactPage),
 	],
+	exports: [ViewContactPage]
+
 })
 export class ViewContactPageModule { }
