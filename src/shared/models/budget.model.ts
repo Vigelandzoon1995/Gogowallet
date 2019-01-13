@@ -7,10 +7,9 @@ export default class Budget {
 	current_amount: number;
 	alarm: boolean;
 	limit_lock: boolean;
-	last_checked: Date;
 
 	constructor(id?: number, category?: string, start_date?: Date, end_date?: Date, amount?: number, alarm?: boolean,
-		limit_lock?: boolean, last_checked?: Date) {
+		limit_lock?: boolean) {
 		this.id = id;
 		this.category = category;
 		this.start_date = start_date;
@@ -18,6 +17,5 @@ export default class Budget {
 		this.amount = amount;
 		this.alarm = alarm == null ? false : alarm;
 		this.limit_lock = limit_lock == null ? false : limit_lock;
-		this.last_checked = last_checked;
 	}
 }
