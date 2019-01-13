@@ -9,10 +9,9 @@ router.post('/create', auth.verifyToken, function (req, res) {
     var end_date = req.body.start_date
     var amount = req.body.amount
     var alarm = req.body.alarm
-    var last_checked = req.body.last_checked
     var limit_lock = req.body.limit_lock == true
-    db.query("INSERT INTO budgets (category, start_date, end_date, amount, alarm, last_checked, user_id, limit_lock) VALUES (?,?,?,?,?,?,?,?)",
-        [category, start_date, end_date, amount, alarm, last_checked, user_id, limit_lock],
+    db.query("INSERT INTO budgets (category, start_date, end_date, amount, alarm, user_id, limit_lock) VALUES (?,?,?,?,?,?,?)",
+        [category, start_date, end_date, amount, alarm, user_id, limit_lock],
         function (error, results) {
             if (results != null && results.affectedRows == 1) {
                 res.json({
@@ -53,10 +52,9 @@ router.post('/update', auth.verifyToken, function (req, res) {
     var end_date = req.body.start_date
     var amount = req.body.amount
     var alarm = req.body.alarm
-    var last_checked = req.body.last_checked
     var limit_lock = req.body.limit_lock == true
-    db.query('UPDATE budgets SET category=?, start_date=?, end_date=?, amount=?, alarm=?, last_checked=?, limit_lock=? WHERE user_id=? AND id=?',
-        [category, start_date, end_date, amount, alarm, last_checked, limit_lock, user_id, id],
+    db.query('UPDATE budgets SET category=?, start_date=?, end_date=?, amount=?, alarm=?, limit_lock=? WHERE user_id=? AND id=?',
+        [category, start_date, end_date, amount, alarm, limit_lock, user_id, id],
         function (error, results, fields) {
             if (results != null && results.affectedRows == 1) {
                 res.json({
