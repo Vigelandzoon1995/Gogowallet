@@ -40,6 +40,15 @@ export class UserService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
+	savePreferences(preferences: Preferences): Observable<boolean> {
+		this.loadingService.show();
+
+		return this.http.post(this.apiURL + `/savePreferences`, preferences, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
+	}
+
 	getByEmail(email: string): Observable<User> {
 		this.loadingService.show();
 
