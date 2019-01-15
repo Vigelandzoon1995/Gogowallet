@@ -6,7 +6,7 @@ var user;
 var Request = require("request");
 require('../modules/compareObjects')
 
-
+/*
 describe("user HTTP test", () => {
     var server;
     beforeAll(() => {
@@ -20,6 +20,7 @@ describe("user HTTP test", () => {
 
         });
     });
+    
     describe("GET User/GetByEmail", () => {
         it("Status 403: Forbidden", () => {
             Request.get("http://localhost:4444/user/GetByEmail?id=verhagen.frank@gmail.com", (error, response, body) => {
@@ -68,7 +69,7 @@ describe("user", () => {
                 }
             };
         });
-        it("To succeed", () => {
+        /*it("To succeed", () => {
             user.stack[0].route.stack[1]
                 .handle({ query: { id: 2 } }
                     , {
@@ -147,4 +148,4 @@ describe("user", () => {
                     })
         });
     });
-});
+});*/
