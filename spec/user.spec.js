@@ -6,7 +6,7 @@ var user;
 var Request = require("request");
 require('../modules/compareObjects')
 
-/*
+
 describe("user HTTP test", () => {
     var server;
     beforeAll(() => {
@@ -23,7 +23,7 @@ describe("user HTTP test", () => {
     
     describe("GET User/GetByEmail", () => {
         it("Status 403: Forbidden", () => {
-            Request.get("http://localhost:4444/user/GetByEmail?id=verhagen.frank@gmail.com", (error, response, body) => {
+            Request.get("http://localhost:4444/user/getByEmail?id=verhagen.frank@gmail.com", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
             });
 
@@ -31,7 +31,7 @@ describe("user HTTP test", () => {
     });
     describe("GET User/GetAll", () => {
         it("Status 403: Forbidden", () => {
-            Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
+            Request.get("http://localhost:4444/user/getAll", (error, response, body) => {
                 expect(response.statusCode).toBe(403);
             });
 
@@ -40,7 +40,7 @@ describe("user HTTP test", () => {
     describe("POST User/Update", () => {
         it("Status 403: Forbidden", () => {
             Request.post({
-                url: 'http://localhost:4444/user/Update',
+                url: 'http://localhost:4444/user/update',
                 form: { key: 'value' }
             },
                 function (err, response, body) {
@@ -69,7 +69,7 @@ describe("user", () => {
                 }
             };
         });
-        /*it("To succeed", () => {
+        it("To succeed", () => {
             user.stack[0].route.stack[1]
                 .handle({ query: { id: 2 } }
                     , {
@@ -77,7 +77,7 @@ describe("user", () => {
                             expect(response).toEqual(mockdata.filter(
                                 function (data) { return data.user_id == 2 }
                             ))
-                        }
+                        }, 
                     })
         });
         it("To fail", () => {
@@ -148,4 +148,4 @@ describe("user", () => {
                     })
         });
     });
-});*/
+});
