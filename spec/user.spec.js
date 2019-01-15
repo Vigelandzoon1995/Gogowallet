@@ -47,14 +47,6 @@ describe("user HTTP test", () => {
                 })
         });
     });
-    describe("GET User/GetAll", () => {
-        it("Status 403: Forbidden", () => {
-            Request.get("http://localhost:4444/user/GetAll", (error, response, body) => {
-                expect(response.statusCode).toBe(403);
-            });
-
-        });
-    });
 });
 
 describe("user", () => {
