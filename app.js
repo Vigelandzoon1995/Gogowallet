@@ -9,10 +9,9 @@ var logger = require('morgan');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
-var userRouter = require('./routes/user')
 var gpsRouter = require('./routes/coordinate');
 var contactRouter = require('./routes/contact')
 var budgetRouter = require('./routes/budget')
@@ -66,10 +65,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Set the routes that are allowed to be used
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/user', userRouter);
 app.use('/gps', gpsRouter);
 app.use('/budget', budgetRouter)
 app.use('/transaction', transactionRouter)
