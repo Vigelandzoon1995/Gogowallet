@@ -1,9 +1,19 @@
 var express = require('express');
 var auth = require('../modules/auth')
+var roles = require('../modules/roles')
 var router = express.Router();
 const bcrypt = require('bcrypt');
 
-router.get('/getById', auth.verifyToken, function (req, res, next) {
+router.get('/get', auth.verifyToken, function(){
+    var user_id = res.locals.user_id
+    db.query('SELECT user_id, email, first_name, last_name, profile_picture, budget, bank_account from users WHERE user_id=?',
+        [user_id],
+        function (error, results, fields) {
+            res.send(results);
+        });
+})
+
+router.get('/getById', auth.verifyToken, roles.isAdmin, function (req, res, next) {
     var id = req.query.id
     db.query('SELECT user_id, email, first_name, last_name, profile_picture, budget, bank_account from users WHERE user_id=?',
         [id],
@@ -12,7 +22,7 @@ router.get('/getById', auth.verifyToken, function (req, res, next) {
         });
 });
 
-router.get('/getByEmail', auth.verifyToken, function (req, res, next) {
+router.get('/getByEmail', auth.verifyToken, roles.isAdmin, function (req, res, next) {
     var email = req.query.email
     db.query('SELECT user_id, email, first_name, last_name, profile_picture, budget, bank_account from users WHERE email=?',
         [email],
@@ -21,7 +31,7 @@ router.get('/getByEmail', auth.verifyToken, function (req, res, next) {
         });
 });
 
-router.get('/getAll', auth.verifyToken, function (req, res, next) {
+router.get('/getAll', auth.verifyToken, roles.isAdmin, function (req, res, next) {
     db.query('SELECT user_id, email, first_name, last_name, profile_picture, budget, bank_account from users',
         function (error, results, fields) {
             res.send(results);

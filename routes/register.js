@@ -20,9 +20,20 @@ router.post('/', async function (req, res) {
                         [email, hash],
                         function (error, results, fields) {
                             if (results != null && results.affectedRows == 1) {
-                                res.json({
-                                    success: true
-                                })
+                                db.query('INSERT INTO user_roles (user_id, role) VALUES((SELECT user_id FROM users WHERE email=?), \'0\')',
+                                    [email],
+                                    function (error, results, fields) {
+                                        if (results != null && results.affectedRows == 1) {
+                                            res.json({
+                                                success: true
+                                            })
+                                        } else {
+                                            console.log(error)
+                                            res.json({
+                                                success: false
+                                            })
+                                        }
+                                    })
                             } else {
                                 console.log(error)
                                 res.json({
@@ -31,7 +42,6 @@ router.post('/', async function (req, res) {
                             }
                         });
                 } else {
-                    console.log(error)
                     res.json({
                         success: false
                     })
