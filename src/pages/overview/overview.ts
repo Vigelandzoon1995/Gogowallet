@@ -49,7 +49,18 @@ export class OverviewPage {
 				if (this.currentUser.pin_code == null) {
 					this.askPin = true;
 				}
+
+				this.getPreferences(this.currentUser.user_id);
 			}
+		);
+	}
+
+	getPreferences(user: number) {
+		this.userService.getPreferences(user).subscribe(
+			(response) => {
+				this.storage.set('preferences', response);
+			},
+			(error) => { }
 		);
 	}
 

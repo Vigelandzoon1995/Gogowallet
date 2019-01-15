@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment as ENV } from '../../environments/environment';
 import { AuthenticationService } from '../helpers/auth.service';
 import { LoadingService } from '../helpers/loading.service';
+import Preferences from '../models/preferences.model';
 import User from '../models/user.model';
 
 @Injectable()
@@ -25,6 +26,15 @@ export class UserService {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
+	}
+
+	getPreferences(user_id: number): Observable<Preferences> {
+		this.loadingService.show();
+
+		return this.http.get(this.apiURL + `/getPreferences?user_id=${user_id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			.finally(() => { this.loadingService.hide(); });
