@@ -133,18 +133,20 @@ export class OverviewPage {
 	}
 
 	getTotalBudget() {
+		var today = new Date();
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
-				this.budgetTotal = response.reduce((a, b) => a + b.amount, 0);
+				this.budgetTotal = response.filter(f => new Date(f.start_date) >= today && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
 				this.getTotalSpendings();
 			}
 		);
 	}
 
 	getTotalSpendings() {
+		var today = new Date();
 		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
 			(response) => {
-				this.spendingsTotal = response.reduce((a, b) => a + b.amount, 0);
+				this.spendingsTotal = response.filter(f => new Date(f.date) >= today && today < new Date(f.date)).reduce((a, b) => a + b.amount, 0);
 				this.transactions = response.slice(0, 10);
 				this.createChart();
 			}
