@@ -33,8 +33,8 @@ export class AddBudgetPage {
 	}
 
 	save() {
-		this.budget.start_date = moment.utc(this.start).format('YYYY-MM-DD');
-		this.budget.end_date = moment.utc(this.end).format('YYYY-MM-DD');
+		this.budget.start_date = moment.utc(this.start).format('YYYY-MM-DD HH:mm');
+		this.budget.end_date = moment.utc(this.end).format('YYYY-MM-DD HH:mm');
 		this.budget.amount = parseFloat(this.budget.amount.toString());
 
 		this.budgetService.create(this.budget).subscribe(

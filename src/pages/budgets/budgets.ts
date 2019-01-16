@@ -112,7 +112,7 @@ export class BudgetsPage {
 
 	deleteBudget(budget: Budget) {
 		this.budgetService.delete(budget.id).subscribe(
-			(response) => { },
+			(response) => this.getBudgetList(),
 			(error) => {
 				// Show error message
 				const alert = this.alertCtrl.create({

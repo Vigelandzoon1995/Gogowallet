@@ -37,8 +37,8 @@ export class EditBudgetPage {
 	}
 
 	update() {
-		this.budget.start_date = moment.utc(this.start).format('YYYY-MM-DD');
-		this.budget.end_date = moment.utc(this.end).format('YYYY-MM-DD');
+		this.budget.start_date = moment.utc(this.start).format('YYYY-MM-DD HH:mm');
+		this.budget.end_date = moment.utc(this.end).format('YYYY-MM-DD HH:mm');
 
 		this.budgetService.update(this.budget).subscribe(
 			(response) => this.navCtrl.pop(),
