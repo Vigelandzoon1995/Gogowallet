@@ -10,6 +10,7 @@ import { BudgetService } from '../../shared/services/budget.service';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -133,7 +134,7 @@ export class BudgetsPage {
 		let leisureWhiteList: String[] = ENV.leisureWhiteList;
 
 		this.budgets.forEach(budget => {
-			this.transactionService.getBetweenDates(budget.start_date, budget.end_date, this.currentUser.bank_account).subscribe(
+			this.transactionService.getBetweenDates(moment(budget.start_date).format(), moment(budget.end_date).format(), this.currentUser.bank_account).subscribe(
 				(response) => {
 					response.forEach(transaction => {
 						if (groceriesWhiteList.some((v: string) => { return transaction.name.indexOf(v) >= 0; })) {

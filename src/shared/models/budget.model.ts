@@ -1,14 +1,14 @@
 export default class Budget {
 	id: number;
 	category: string;
-	start_date: Date;
-	end_date: Date;
+	start_date: string;
+	end_date: string;
 	amount: number;
 	current_amount: number;
 	alarm: boolean;
 	limit_lock: boolean;
 
-	constructor(id?: number, category?: string, start_date?: Date, end_date?: Date, amount?: number, alarm?: boolean,
+	constructor(id?: number, category?: string, start_date?: string, end_date?: string, amount?: number, alarm?: boolean,
 		limit_lock?: boolean) {
 		this.id = id;
 		this.category = category;

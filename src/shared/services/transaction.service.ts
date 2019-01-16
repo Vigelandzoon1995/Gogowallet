@@ -48,7 +48,7 @@ export class TransactionService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
-	getSince(date: Date, bank_account: string): Observable<Transaction[]> {
+	getSince(date: string, bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/getSince?date=${date}&bank_account=${bank_account}`, { headers: this.headers })
@@ -57,7 +57,7 @@ export class TransactionService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
-	getBetweenDates(start: Date, end: Date, bank_account: string): Observable<Transaction[]> {
+	getBetweenDates(start: string, end: string, bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/getBetweenDates?start=${start}&end=${end}&bank_account=${bank_account}`, { headers: this.headers })

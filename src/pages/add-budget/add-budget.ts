@@ -26,15 +26,16 @@ export class AddBudgetPage {
 			category: new FormControl('', Validators.compose([Validators.required])),
 			start_date: new FormControl('', Validators.compose([Validators.required])),
 			end_date: new FormControl('', Validators.compose([Validators.required])),
-			amount: new FormControl('', Validators.compose([Validators.required])),
+			amount: new FormControl(0, Validators.compose([Validators.required])),
 			limit_lock: new FormControl('', Validators.compose([Validators.required])),
 			alarm: new FormControl('', Validators.compose([Validators.required])),
 		});
 	}
 
 	save() {
-		this.budget.start_date = moment.utc(this.start).toDate();
-		this.budget.end_date = moment.utc(this.end).toDate();
+		this.budget.start_date = moment.utc(this.start).format('YYYY-MM-DD');
+		this.budget.end_date = moment.utc(this.end).format('YYYY-MM-DD');
+		this.budget.amount = parseFloat(this.budget.amount.toString());
 
 		this.budgetService.create(this.budget).subscribe(
 			(response) => this.navCtrl.pop(),
