@@ -22,7 +22,7 @@ export class EditContactPage {
 		this.contactForm = this.formBuilder.group({
 			name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
 			phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[0-9]{0,}$/)])),
-			notes: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9\.\-\,\(\)\ ]{4,}$/)])),
+			notes: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9\.\-\,\ ]{4,}$/)])),
 			thumbnail: new FormControl('', [Validators.required]),
 		});
 	}

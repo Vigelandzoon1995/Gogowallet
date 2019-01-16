@@ -26,7 +26,7 @@ export class AddBudgetPage {
 			category: new FormControl('', Validators.compose([Validators.required])),
 			start_date: new FormControl('', Validators.compose([Validators.required])),
 			end_date: new FormControl('', Validators.compose([Validators.required])),
-			amount: new FormControl(0, Validators.compose([Validators.required])),
+			amount: new FormControl(0, Validators.compose([Validators.required, Validators.min(0), Validators.pattern(/^\d+(\.\d{1,2})?$/)])),
 			limit_lock: new FormControl('', Validators.compose([Validators.required])),
 			alarm: new FormControl('', Validators.compose([Validators.required])),
 		});
