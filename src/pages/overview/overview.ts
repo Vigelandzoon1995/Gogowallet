@@ -137,6 +137,9 @@ export class OverviewPage {
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
 				this.budgetTotal = response.filter(f => new Date(f.start_date) >= today && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
+				if (!this.budgetTotal) {
+					this.budgetTotal = 0;
+				}
 				this.getTotalSpendings();
 			}
 		);

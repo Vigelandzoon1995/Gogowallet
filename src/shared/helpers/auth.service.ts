@@ -191,6 +191,7 @@ export class AuthenticationService {
 	}
 
 	setToken(response: any, password: string) {
+		this.storage.clear();
 		this.storage.set('auth_token', JSON.stringify(response.token));
 		this.storage.set('pass', password);
 		this.saveUser(response.user, true);
