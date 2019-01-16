@@ -56,6 +56,8 @@ export class MyApp {
 		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
 		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
 		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.BLUETOOTH).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.BLUETOOTH_ADMIN).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
 
 
 		if (!this.localNotifications.hasPermission) hasPermissions = false;
@@ -71,7 +73,9 @@ export class MyApp {
 				this.androidPermissions.PERMISSION.VIBRATE,
 				this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION,
 				this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION,
-				this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS
+				this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS,
+				this.androidPermissions.PERMISSION.BLUETOOTH,
+				this.androidPermissions.PERMISSION.BLUETOOTH_ADMIN,
 			]);
 		this.localNotifications.requestPermission();
 		this.hideSplash = false;
