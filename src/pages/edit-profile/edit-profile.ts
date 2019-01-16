@@ -32,8 +32,8 @@ export class EditProfilePage {
 	createFormGroup() {
 		this.profileForm = this.formBuilder.group({
 			email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
-			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
+			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
 			bank_account: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9]+$/)])),
 			pin: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]*$/)])),
 			password: new FormControl('', [
