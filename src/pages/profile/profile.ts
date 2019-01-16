@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Events, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Events, IonicPage, NavController, NavParams, Thumbnail } from 'ionic-angular';
 import User from '../../shared/models/user.model';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,9 @@ export class ProfilePage {
 	}
 
 	navigateToEditProfile() {
-		this.events.publish('navTo:editprofilepage');
+		this.navCtrl.push(EditProfilePage, {
+			data: this.currentUser.user_id
+		});
 	}
 
 	navigateToContacts() {

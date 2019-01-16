@@ -22,7 +22,6 @@ export class OverviewPage {
 	budgetTotal: number;
 	spendingsTotal: number;
 	transactions: Transaction[] = [];
-	askPin: boolean = false;
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
 		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
@@ -33,23 +32,17 @@ export class OverviewPage {
 		this.getCurrentUser();
 	}
 
-	ionViewDidLoad() {
-		if (this.askPin) {
-			this.askForPin();
-		}
-	}
-
 	getCurrentUser() {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
-				this.getTotalBudget();
 
 				// Check if user has pin already set, else ask to provide one
 				if (this.currentUser.pin_code == null) {
-					this.askPin = true;
+					this.askForPin();
 				}
 
+				this.getTotalBudget();
 				this.getPreferences(this.currentUser.user_id);
 			}
 		);
@@ -58,7 +51,9 @@ export class OverviewPage {
 	getPreferences(user: number) {
 		this.userService.getPreferences(user).subscribe(
 			(response) => {
-				this.storage.set('preferences', response);
+				if (response != null) {
+					this.storage.set('preferences', response);
+				}
 			},
 			(error) => { }
 		);

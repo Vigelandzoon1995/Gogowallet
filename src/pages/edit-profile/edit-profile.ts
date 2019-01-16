@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
@@ -16,6 +16,7 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class EditProfilePage {
 	profileForm: FormGroup;
+	userId: number;
 	user: User;
 	base64Image: string;
 
@@ -23,9 +24,13 @@ export class EditProfilePage {
 	password: string = null;
 	newPassword: string = null;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-		private userService: UserService, private authService: AuthenticationService, private storage: Storage) {
+	constructor(public navParams: NavParams, public navCtrl: NavController, private formBuilder: FormBuilder, private camera: Camera,
+		private userService: UserService, private authService: AuthenticationService, private storage: Storage, private alertCtrl: AlertController) {
 		this.createFormGroup();
+	}
+
+	ionViewWillEnter() {
+		this.userId = this.navParams.get('data');
 		this.getUser();
 	}
 
@@ -46,8 +51,21 @@ export class EditProfilePage {
 	}
 
 	getUser() {
-		this.storage.get('currentUser').then(
-			(response) => this.user = response
+		this.userService.getById(this.userId).subscribe(
+			(response) => this.user = response,
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while retrieving user details. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
 		);
 	}
 

@@ -10,7 +10,7 @@ import { UserService } from '../../shared/services/user.service';
 	templateUrl: 'alarm.html',
 })
 export class AlarmPage {
-	preferences: Preferences;
+	preferences: Preferences = null;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private storage: Storage, private alertCtrl: AlertController) { }
 
@@ -19,7 +19,7 @@ export class AlarmPage {
 	}
 
 	getPreferences() {
-		this.storage.get('preferences').then((result) => this.preferences = result);
+		this.storage.get('preferences').then((result) => { if (result) this.preferences = result; });
 	}
 
 	submit() {

@@ -3,7 +3,7 @@
     <name>Go Go Wallet</name>
     <description>The companion app for the Go Go Wallet</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">SendNubes B.V.</author>
-    <content original-src="index.html" src="http://145.137.102.133:8100" />
+    <content src="index.html" />
     <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
         <activity android:name="MainActivity" android:windowSoftInputMode="adjustPan" />
     </edit-config>
@@ -117,7 +117,6 @@
     <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-local-notification" spec="0.9.0-beta.2" />
     <plugin name="cordova-sqlite-storage" spec="2.6.0" />
-    <allow-navigation href="http://145.137.102.133:8100" sessionid="a742080b" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>
