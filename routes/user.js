@@ -144,6 +144,7 @@ router.get('/get', auth.verifyToken, function (req, res, next) {
         [user_id],
         function (error, results, fields) {
             res.send(results);
+            console.log(error)
         });
 })
 module.exports = router;
