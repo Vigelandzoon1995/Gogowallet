@@ -25,7 +25,7 @@ export class UserService {
 	getById(id: number): Observable<User> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + `/getById?id=${id}`, { headers: this.headers })
+		return this.http.get(this.apiURL + `/get?user_id=${id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			.finally(() => { this.loadingService.hide(); });
