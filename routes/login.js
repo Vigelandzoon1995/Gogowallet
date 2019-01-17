@@ -64,6 +64,7 @@ router.post('/pin', function (req, res) {
               }
             })
           } else {
+            console.log(error)
             res.json({
               token: false
             })
