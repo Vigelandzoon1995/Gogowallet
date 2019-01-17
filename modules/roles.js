@@ -10,7 +10,8 @@ function isAdmin(req, res, next) {
                     res.sendStatus(403);
                 }
             })
-    }
+        }
+        
 }
 
 exports.isAdmin = isAdmin;
