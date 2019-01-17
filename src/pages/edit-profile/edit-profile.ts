@@ -16,7 +16,6 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class EditProfilePage {
 	profileForm: FormGroup;
-	userId: number;
 	user: User;
 	base64Image: string;
 
@@ -26,12 +25,8 @@ export class EditProfilePage {
 
 	constructor(public navParams: NavParams, public navCtrl: NavController, private formBuilder: FormBuilder, private camera: Camera,
 		private userService: UserService, private authService: AuthenticationService, private storage: Storage, private alertCtrl: AlertController) {
-		this.createFormGroup();
-	}
-
-	ionViewWillEnter() {
-		this.userId = this.navParams.get('data');
 		this.getUser();
+		this.createFormGroup();
 	}
 
 	createFormGroup() {
@@ -51,7 +46,7 @@ export class EditProfilePage {
 	}
 
 	getUser() {
-		this.userService.getById(this.userId).subscribe(
+		this.userService.get().subscribe(
 			(response) => this.user = response,
 			(error) => {
 				// Show error message
