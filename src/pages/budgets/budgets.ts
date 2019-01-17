@@ -95,7 +95,7 @@ export class BudgetsPage {
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
 				this.budgets = response;
-				this.activeBudgets = this.budgets.filter(f => new Date(f.start_date) >= today && today < new Date(f.end_date));
+				this.activeBudgets = this.budgets.filter(f => today >= new Date(f.start_date) && today < new Date(f.end_date));
 				this.finishedBudgets = this.budgets.filter(f => today > new Date(f.end_date));
 
 				this.checkBudgetBalance();

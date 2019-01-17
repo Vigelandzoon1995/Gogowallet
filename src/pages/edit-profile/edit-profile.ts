@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
+import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
@@ -32,8 +33,8 @@ export class EditProfilePage {
 	createFormGroup() {
 		this.profileForm = this.formBuilder.group({
 			email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
-			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
+			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/)])),
+			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/)])),
 			bank_account: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9]+$/)])),
 			pin: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]*$/)])),
 			password: new FormControl('', [
@@ -65,6 +66,7 @@ export class EditProfilePage {
 	}
 
 	submit() {
+		let removePass = false;
 		let newUser = this.user;
 		newUser.password = null;
 
@@ -72,15 +74,16 @@ export class EditProfilePage {
 		if (this.password != null && this.newPassword != null) {
 			if (this.password != this.newPassword) {
 				newUser.password = this.newPassword;
+				removePass = true;
 			}
 		}
 
 		this.userService.update(newUser).subscribe(
 			(response) => {
-				this.authService.removeUser(false);
+				this.authService.removeUser(false, removePass);
 				this.authService.saveUser(newUser, false);
 
-				this.navCtrl.pop();
+				this.navCtrl.push(ProfilePage);
 			},
 			(error) => {
 				Observable.throw(error);

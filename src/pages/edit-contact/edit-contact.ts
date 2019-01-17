@@ -20,9 +20,9 @@ export class EditContactPage {
 
 	createFormGroup() {
 		this.contactForm = this.formBuilder.group({
-			name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9\.\-\ ]{4,}$/)])),
+			name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/)])),
 			phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[0-9]{0,}$/)])),
-			notes: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9\.\-\,\ ]{4,}$/)])),
+			notes: new FormControl('', Validators.compose([Validators.pattern(/^([a-zA-Z-0-9]+?)([-\s'][a-zA-Z-0-9]+)*?$/)])),
 			thumbnail: new FormControl('', [Validators.required]),
 		});
 	}

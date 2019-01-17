@@ -227,9 +227,11 @@ export class AuthenticationService {
 		}
 	}
 
-	removeUser(login: boolean) {
+	removeUser(login: boolean, removeLocalPass: boolean) {
 		this.storage.remove('currentUser');
-		this.storage.remove('pass');
+		if (removeLocalPass) {
+			this.storage.remove('pass');
+		}
 		if (login) {
 			this.isLoggedIn = false;
 		}
@@ -237,6 +239,6 @@ export class AuthenticationService {
 
 	clear() {
 		this.clearToken();
-		this.removeUser(true);
+		this.removeUser(true, false);
 	}
 }

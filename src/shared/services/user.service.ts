@@ -27,7 +27,7 @@ export class UserService {
 
 		return this.http.get(this.apiURL + `/get`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
+			.map((res) => res.json()[0])
 			.finally(() => { this.loadingService.hide(); });
 	}
 

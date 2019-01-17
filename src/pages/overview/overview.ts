@@ -19,8 +19,8 @@ export class OverviewPage {
 
 	currentUser: User = null;
 	pieChart: any;
-	budgetTotal: number;
-	spendingsTotal: number;
+	budgetTotal: number = 0;
+	spendingsTotal: number = 0;
 	transactions: Transaction[] = [];
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
@@ -131,7 +131,7 @@ export class OverviewPage {
 		var today = new Date();
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
-				this.budgetTotal = response.filter(f => new Date(f.start_date) >= today && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
+				this.budgetTotal = response.filter(f => today >= new Date(f.start_date) && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
 				if (!this.budgetTotal) {
 					this.budgetTotal = 0;
 				}
@@ -144,7 +144,10 @@ export class OverviewPage {
 		var today = new Date();
 		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
 			(response) => {
-				this.spendingsTotal = response.filter(f => new Date(f.date) >= today && today < new Date(f.date)).reduce((a, b) => a + b.amount, 0);
+				this.spendingsTotal = response.filter(f => today >= new Date(f.date) && today < new Date(f.date)).reduce((a, b) => a + b.amount, 0);
+				if (!this.spendingsTotal) {
+					this.spendingsTotal = 0;
+				}
 				this.transactions = response.slice(0, 10);
 				this.createChart();
 			}
@@ -152,6 +155,9 @@ export class OverviewPage {
 	}
 
 	createChart() {
+		console.log(this.budgetTotal);
+		console.log(this.spendingsTotal);
+
 		this.pieChart = new Chart(this.pieCanvas.nativeElement, {
 			type: 'pie',
 			data: {
