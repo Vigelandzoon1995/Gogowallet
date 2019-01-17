@@ -33,7 +33,7 @@ router.get('/status/get', auth.verifyToken, function (req, res) {
 	var user_id = res.locals.user_id
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
-		function (err, result) {
+		function (err, results) {
 			if (results[0] != null) {
 				res.json(results[0].solenoidstate)
 			} else {
