@@ -140,7 +140,7 @@ async function hashPassword(password) {
 
 router.get('/get', auth.verifyToken, function (req, res, next) {
     var user_id = res.locals.user_id
-    db.query('SELECT user_id, email, first_name, last_name, profile_picture, budget, bank_account from users WHERE user_id=?',
+    db.query('SELECT user_id, email, first_name, last_name, profile_picture, bank_account from users WHERE user_id=?',
         [user_id],
         function (error, results, fields) {
             res.send(results);
