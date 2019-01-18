@@ -11,7 +11,7 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 		function (err, result) {
 			if (result[0] != null) {
 				db.query("UPDATE devices SET solenoidstate=? WHERE id=?", [solenoidstate, device_id], function (err, result) {
-					if (result != null && results.affectedRows == 1) {
+					if (result != null && result.affectedRows == 1) {
 						res.json({
 							response: 'Solenoidstate changed'
 						})
@@ -54,7 +54,7 @@ router.post('/pin/set', auth.verifyToken, function (req, res) {
 				if (err) {
 					throw err;
 				}
-				if (result != null && results.affectedRows == 1) {
+				if (result != null && result.affectedRows == 1) {
 					res.json({
 						response: 'rpi pin changed'
 					})
