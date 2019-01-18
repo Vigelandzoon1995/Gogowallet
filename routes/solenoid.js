@@ -5,7 +5,7 @@ var router = express.Router();
 router.post('/status/set', auth.verifyToken, function (req, res) {
 	var device_id = req.body.device_id;
 	var user_id = res.locals.user_id
-	var solenoidstate = req.body.solenoidstate;
+	var solenoidstate = req.body.status;
 
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
@@ -14,7 +14,7 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 				if (err) {
 					throw err;
 				}
-				if (result) {
+				if (result != null && results.affectedRows == 1) {
 					res.json({
 						response: 'Solenoidstate changed'
 					})
@@ -29,7 +29,7 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 })
 
 router.get('/status/get', auth.verifyToken, function (req, res) {
-	var device_id = req.query.id;
+	var device_id = req.query.device_id;
 	var user_id = res.locals.user_id
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
@@ -54,7 +54,7 @@ router.post('/pin/set', auth.verifyToken, function (req, res) {
 				if (err) {
 					throw err;
 				}
-				if (result) {
+				if (result != null && results.affectedRows == 1) {
 					res.json({
 						response: 'rpi pin changed'
 					})
@@ -69,7 +69,7 @@ router.post('/pin/set', auth.verifyToken, function (req, res) {
 })
 
 router.get('/pin/get', auth.verifyToken, function (req, res) {
-	var device_id = req.query.id;
+	var device_id = req.query.device_id;
 	var user_id = res.locals.user_id
 
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
