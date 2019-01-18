@@ -6,15 +6,11 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 	var device_id = req.body.device_id;
 	var user_id = res.locals.user_id
 	var solenoidstate = req.body.status;
-
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
 		function (err, result) {
 			if (result[0] != null) {
 				db.query("UPDATE devices SET solenoidstate=? WHERE id=?", [solenoidstate, device_id], function (err, result) {
-					if (err) {
-						throw err;
-					}
 					if (result != null && results.affectedRows == 1) {
 						res.json({
 							response: 'Solenoidstate changed'
@@ -26,7 +22,7 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 					}
 				});
 			} else {
-				res.json(err)
+				res.json(result)
 			}
 		})
 
