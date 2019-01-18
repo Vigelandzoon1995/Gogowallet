@@ -43,6 +43,7 @@ import { LocationService } from '../shared/services/location.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { BLEComponent } from '../components/bleComponent/ble';
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import { MyApp } from './app.component';
 		PopoverComponent,
 		BudgetItemPopoverComponent,
 		TabsPage,
+		BLEComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -86,6 +88,7 @@ import { MyApp } from './app.component';
 		PopoverComponent,
 		BudgetItemPopoverComponent,
 		TabsPage,
+		BLEComponent
 	],
 	providers: [
 		AuthenticationService,
