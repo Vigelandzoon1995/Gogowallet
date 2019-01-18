@@ -46,7 +46,12 @@ export class UserService {
 
 		return this.http.get(this.apiURL + `/getPreferences?user_id=${user_id}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
+			.map((res) => {
+				let response = res.json()[0];
+				let result = new Preferences(response['user_id'], Boolean(response['lock_protection']), Boolean(response['distance_alarm']), response['max_distance']); 
+
+				return result;
+			})
 			.finally(() => { this.loadingService.hide(); });
 	}
 

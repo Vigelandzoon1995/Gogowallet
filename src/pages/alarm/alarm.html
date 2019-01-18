@@ -7,7 +7,7 @@
 <ion-content>
 	<p padding>By using "Distance Alarm", you will be notified once you are about to leave your wallet behind.</p>
 
-	<form novalidate [formGroup]="alarmForm">
+	<form novalidate [formGroup]="alarmForm" *ngIf="preferences">
 		<ion-item>
 			<ion-icon name="power" item-start></ion-icon>
 			<ion-label>Enable Distance Alarm</ion-label>

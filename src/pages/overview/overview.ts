@@ -12,6 +12,7 @@ import { BLEComponent } from '../../components/bleComponent/ble';
 import { BLE } from '@ionic-native/ble';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import Preferences from '../../shared/models/preferences.model';
 
 @IonicPage()
 @Component({
@@ -27,15 +28,15 @@ export class OverviewPage {
 	budgetTotal: number = 0;
 	spendingsTotal: number = 0;
 	transactions: Transaction[] = [];
+	preferences: Preferences;
 
 	constructor(public bleComponent: BLEComponent,public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
 		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
 		private budgetService: BudgetService, private transactionService: TransactionService) {
 	}
 
-	ionViewDidEnter() {
+	ionViewWillEnter() {
 		this.getCurrentUser();
-		this.bleComponent.startBackgroundScan();
 	}
 
 	getCurrentUser() {
@@ -57,9 +58,9 @@ export class OverviewPage {
 	getPreferences(user: number) {
 		this.userService.getPreferences(user).subscribe(
 			(response) => {
-				if (response != null) {
-					this.storage.set('preferences', response);
-				}
+				this.storage.set('preferences', response);
+				this.preferences = response;
+				this.bleComponent.startBackgroundScan(this.preferences);
 			},
 			(error) => { }
 		);

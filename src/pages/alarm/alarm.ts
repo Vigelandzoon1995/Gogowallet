@@ -14,7 +14,6 @@ export class AlarmPage {
 	preferences: Preferences;
 	alarmForm: FormGroup;
 	constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private storage: Storage, private alertCtrl: AlertController, private formBuilder: FormBuilder) {
-		this.getPreferences();
 		this.createFormGroup();
 	 }
 
@@ -31,11 +30,7 @@ export class AlarmPage {
 	}
 
 	getPreferences() {
-		//this.storage.get('preferences').then((result) => this.preferences = result);
-		this.preferences = new Preferences();
-		this.preferences.distance_alarm = true;
-		this.preferences.lock_protection = true;
-		this.preferences.max_distance = 5;
+		this.storage.get('preferences').then((result) => this.preferences = result);
 	}
 
 	submit() {
