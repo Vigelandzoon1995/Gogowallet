@@ -75,7 +75,7 @@ router.get('/pin/get', auth.verifyToken, function (req, res) {
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
 		function (err, result) {
-			if (results[0] != null) {
+			if (result[0] != null) {
 				res.json(result[0].rpi_pin)
 			} else {
 				res.json(result)
