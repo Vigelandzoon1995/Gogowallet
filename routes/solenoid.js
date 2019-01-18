@@ -10,6 +10,7 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
 		function (err, result) {
+			console.log(err)
 			db.query("UPDATE devices SET solenoidstate=? WHERE id=?", [solenoidstate, device_id], function (err, result) {
 				if (err) {
 					throw err;
