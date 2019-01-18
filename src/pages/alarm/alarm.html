@@ -7,37 +7,37 @@
 <ion-content>
 	<p padding>By using "Distance Alarm", you will be notified once you are about to leave your wallet behind.</p>
 
-	<form novalidate *ngIf="preferences">
+	<form novalidate [formGroup]="alarmForm">
 		<ion-item>
 			<ion-icon name="power" item-start></ion-icon>
 			<ion-label>Enable Distance Alarm</ion-label>
-			<ion-toggle [(ngModel)]="preferences.distance_alarm" name="alarm" item-end></ion-toggle>
+			<ion-toggle item-end [(ngModel)]="preferences.distance_alarm" formControlName="distance_alarm"></ion-toggle>
 		</ion-item>
 
 		<ion-item>
-			<ion-icon name="lock" item-start></ion-icon>
+			<ion-icon name="lock" item-start ></ion-icon>
 			<ion-label>
 				Enable Lock Protection
 				<p text-wrap>
 					<small>This will lock your wallet once it disconnects with your device.</small>
 				</p>
 			</ion-label>
-			<ion-toggle [(ngModel)]="preferences.lock_protection" name="lock" item-end></ion-toggle>
+			<ion-toggle item-end [(ngModel)]="preferences.lock_protection" formControlName="lock_protection"></ion-toggle>
 		</ion-item>
 
 		<ion-item>
 			<ion-icon name="link" item-start></ion-icon>
 			<ion-label style="color: #000;" item-end>Maximum Distance</ion-label>
-			<ion-select [(ngModel)]="preferences.max_distance" name="distance">
+			<ion-select [(ngModel)]="preferences.max_distance" formControlName="max_distance">
 				<ion-option value="5" checked>5</ion-option>
 				<ion-option value="10">10</ion-option>
 			</ion-select>
 		</ion-item>
-	</form>
 
-	<ion-row margin-top>
-		<ion-col>
-			<button ion-button full round type="button" (click)="submit()">Save</button>
-		</ion-col>
-	</ion-row>
+		<ion-row>
+			<ion-col>
+				<button ion-button full round type="button" [disabled]="!alarmForm.valid" (click)="submit()">Save</button>
+			</ion-col>
+		</ion-row>
+	</form>
 </ion-content>

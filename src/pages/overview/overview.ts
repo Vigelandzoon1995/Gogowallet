@@ -8,11 +8,16 @@ import User from '../../shared/models/user.model';
 import { BudgetService } from '../../shared/services/budget.service';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { UserService } from '../../shared/services/user.service';
+import { BLEComponent } from '../../components/bleComponent/ble';
+import { BLE } from '@ionic-native/ble';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @IonicPage()
 @Component({
 	selector: 'page-overview',
 	templateUrl: 'overview.html',
+	providers:[BLE,LocalNotifications,BLEComponent,BackgroundMode]
 })
 export class OverviewPage {
 	@ViewChild('pieCanvas') pieCanvas;
@@ -23,13 +28,14 @@ export class OverviewPage {
 	spendingsTotal: number = 0;
 	transactions: Transaction[] = [];
 
-	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
+	constructor(public bleComponent: BLEComponent,public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
 		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
 		private budgetService: BudgetService, private transactionService: TransactionService) {
 	}
 
 	ionViewDidEnter() {
 		this.getCurrentUser();
+		this.bleComponent.startBackgroundScan();
 	}
 
 	getCurrentUser() {
