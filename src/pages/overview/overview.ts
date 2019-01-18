@@ -155,9 +155,6 @@ export class OverviewPage {
 	}
 
 	createChart() {
-		console.log(this.budgetTotal);
-		console.log(this.spendingsTotal);
-
 		this.pieChart = new Chart(this.pieCanvas.nativeElement, {
 			type: 'pie',
 			data: {
