@@ -40,7 +40,7 @@ export class AlarmPage {
 
 	submit() {
 		this.userService.savePreferences(this.preferences).subscribe(
-			(response) => { },
+			(response) => this.storage.set('preferences', response),
 			(error) => {
 				// Show error message
 				const alert = this.alertCtrl.create({
