@@ -76,9 +76,9 @@ router.get('/pin/get', auth.verifyToken, function (req, res) {
 		[device_id, user_id],
 		function (err, result) {
 			if (results[0] != null) {
-				res.json(results[0].rpi_pin)
+				res.json(result[0].rpi_pin)
 			} else {
-				res.json(results)
+				res.json(result)
 			}
 		})
 
