@@ -29,9 +29,14 @@ export class TrackPage {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
-				this.getLatestLocation();
+				this.setUpMap();
 			}
 		);
+	}
+
+	setUpMap() {
+		this.getLatestLocation();
+		this.loadMap();
 	}
 
 	loadMap() {
@@ -73,12 +78,11 @@ export class TrackPage {
 	getLatestLocation() {
 		this.locationService.getLastLocation(this.currentUser.user_id).subscribe(
 			(response) => {
-				this.walletCoordinates.latitude = Number(response[0].latitude);
-				this.walletCoordinates.longitude = Number(response[0].longitude);
-				this.lastTime = response[0].time.replace(/\//g, '-');
-
-				console.log(this.walletCoordinates);
-				this.loadMap();
+				if (response != null && response.length > 0) {
+					this.walletCoordinates.latitude = Number(response[0].latitude);
+					this.walletCoordinates.longitude = Number(response[0].longitude);
+					this.lastTime = response[0].time.replace(/\//g, '-');
+				}
 			},
 			(error) => {
 				// Show error message
@@ -97,23 +101,23 @@ export class TrackPage {
 	}
 
 	showLocation() {
-		let walletMarker: Marker = this.map.addMarkerSync({
-			title: 'Time of location: ' + this.lastTime,
-			icon: {
-				url: 'assets/icon/wallet_marker.png',
-				size: {
-					width: 32,
-					height: 32
+		if (this.walletCoordinates.latitude != null || this.walletCoordinates.longitude != null) {
+			let walletMarker: Marker = this.map.addMarkerSync({
+				title: 'Time of location: ' + this.lastTime,
+				icon: {
+					url: 'assets/icon/wallet_marker.png',
+					size: {
+						width: 32,
+						height: 32
+					}
+				},
+				animation: 'DROP',
+				position: {
+					lat: this.walletCoordinates.latitude,
+					lng: this.walletCoordinates.longitude
 				}
-			},
-			animation: 'DROP',
-			position: {
-				lat: this.walletCoordinates.latitude,
-				lng: this.walletCoordinates.longitude
-			}
-		});
+			});
 
-		if (this.walletCoordinates.latitude == null || this.walletCoordinates.longitude == null) {
 			this.map.moveCamera({
 				target: { lat: this.walletCoordinates.latitude, lng: this.walletCoordinates.longitude },
 				zoom: 14,

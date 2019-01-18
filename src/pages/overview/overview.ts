@@ -24,10 +24,9 @@ export class OverviewPage {
 
 	currentUser: User = null;
 	pieChart: any;
-	budgetTotal: number;
-	spendingsTotal: number;
+	budgetTotal: number = 0;
+	spendingsTotal: number = 0;
 	transactions: Transaction[] = [];
-	askPin: boolean = false;
 
 	constructor(public bleComponent: BLEComponent,public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
 		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
@@ -39,23 +38,17 @@ export class OverviewPage {
 		this.bleComponent.startBackgroundScan();
 	}
 
-	ionViewDidLoad() {
-		if (this.askPin) {
-			this.askForPin();
-		}
-	}
-
 	getCurrentUser() {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
-				this.getTotalBudget();
 
 				// Check if user has pin already set, else ask to provide one
 				if (this.currentUser.pin_code == null) {
-					this.askPin = true;
+					this.askForPin();
 				}
 
+				this.getTotalBudget();
 				this.getPreferences(this.currentUser.user_id);
 			}
 		);
@@ -64,7 +57,9 @@ export class OverviewPage {
 	getPreferences(user: number) {
 		this.userService.getPreferences(user).subscribe(
 			(response) => {
-				this.storage.set('preferences', response);
+				if (response != null) {
+					this.storage.set('preferences', response);
+				}
 			},
 			(error) => { }
 		);
@@ -139,18 +134,26 @@ export class OverviewPage {
 	}
 
 	getTotalBudget() {
+		var today = new Date();
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
-				this.budgetTotal = response.reduce((a, b) => a + b.amount, 0);
+				this.budgetTotal = response.filter(f => today >= new Date(f.start_date) && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
+				if (!this.budgetTotal) {
+					this.budgetTotal = 0;
+				}
 				this.getTotalSpendings();
 			}
 		);
 	}
 
 	getTotalSpendings() {
+		var today = new Date();
 		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
 			(response) => {
-				this.spendingsTotal = response.reduce((a, b) => a + b.amount, 0);
+				this.spendingsTotal = response.filter(f => today >= new Date(f.date) && today < new Date(f.date)).reduce((a, b) => a + b.amount, 0);
+				if (!this.spendingsTotal) {
+					this.spendingsTotal = 0;
+				}
 				this.transactions = response.slice(0, 10);
 				this.createChart();
 			}
@@ -158,6 +161,9 @@ export class OverviewPage {
 	}
 
 	createChart() {
+		console.log(this.budgetTotal);
+		console.log(this.spendingsTotal);
+
 		this.pieChart = new Chart(this.pieCanvas.nativeElement, {
 			type: 'pie',
 			data: {

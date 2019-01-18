@@ -27,7 +27,7 @@
 					</ion-item>
 
 					<!-- First name error-->
-					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('first_name').hasError('required') || profileForm.get('first_name').hasError('pattern')) && contactForm.get('first_name').touched">
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('first_name').hasError('required') || profileForm.get('first_name').hasError('pattern')) && profileForm.get('first_name').touched">
 						<span *ngIf="profileForm.get('first_name').hasError('required') && profileForm.get('first_name').touched">
 							* First name is required.
 						</span>
@@ -42,7 +42,7 @@
 					</ion-item>
 
 					<!-- Last name error-->
-					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('last_name').hasError('required') || profileForm.get('last_name').hasError('pattern')) && contactForm.get('last_name').touched">
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('last_name').hasError('required') || profileForm.get('last_name').hasError('pattern')) && profileForm.get('last_name').touched">
 						<span *ngIf="profileForm.get('last_name').hasError('required') && profileForm.get('last_name').touched">
 							* Last name is required.
 						</span>
@@ -57,7 +57,7 @@
 					</ion-item>
 
 					<!-- Bank account error-->
-					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('bank_account').hasError('required') || profileForm.get('bank_account').hasError('pattern')) && contactForm.get('bank_account').touched">
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="(profileForm.get('bank_account').hasError('required') || profileForm.get('bank_account').hasError('pattern')) && profileForm.get('bank_account').touched">
 						<span *ngIf="profileForm.get('bank_account').hasError('required') && profileForm.get('bank_account').touched">
 							* Bank account is required.
 						</span>
@@ -87,7 +87,7 @@
 					</ion-item>
 
 					<!-- PIN error-->
-					<ion-item no-lines no-padding class="error error-padding" *ngIf="profileForm.get('pin').hasError('pattern') && contactForm.get('pin').touched">
+					<ion-item no-lines no-padding class="error error-padding" *ngIf="profileForm.get('pin').hasError('pattern') && profileForm.get('pin').touched">
 						<span *ngIf="profileForm.get('pin').hasError('pattern') && profileForm.get('pin').touched">
 							* Only numbers are allowed.
 						</span>

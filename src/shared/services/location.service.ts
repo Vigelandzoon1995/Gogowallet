@@ -30,7 +30,7 @@ export class LocationService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
-	getLastLocation(user: number): Observable<Location> {
+	getLastLocation(user: number): Observable<Location[]> {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/getLast?user_id=${user}`, { headers: this.headers })

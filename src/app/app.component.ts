@@ -14,7 +14,7 @@ import { AuthenticationService } from '../shared/helpers/auth.service';
 export class MyApp {
 	@ViewChild('mainNav') nav: NavController;
 	rootPage: any = null;
-	hideSplash: boolean = true;
+	showPermissions: boolean = false;
 
 	constructor(platform: Platform, statusBar: StatusBar, private splashScreen: SplashScreen, private androidPermissions: AndroidPermissions,
 		private localNotifications: LocalNotifications, private authService: AuthenticationService) {
@@ -37,30 +37,28 @@ export class MyApp {
 			// Okay, so the platform is ready and our plugins are available.
 			// Here you can do any higher level native things you might need.
 			statusBar.styleBlackTranslucent();
-
+			this.splashScreen.hide();
 			this.checkPermissions();
 
-			if (!this.hideSplash) {
-				setTimeout(() => {
-					this.splashScreen.hide();
-				}, 300);
-			}
+			setTimeout(() => {
+				if (this.showPermissions) {
+					this.askPermissions();
+				}
+			}, 1000);
 		});
 	}
 
 	checkPermissions() {
-		let hasPermissions = true;
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.VIBRATE).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
-		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS).then((result) => { if (!result.hasPermission) { hasPermissions = false; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.VIBRATE).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.BLUETOOTH).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
+		this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.BLUETOOTH_ADMIN).then((result) => { if (!result.hasPermission) { this.showPermissions = true; } });
 
-
-		if (!this.localNotifications.hasPermission) hasPermissions = false;
-		if (!hasPermissions) this.askPermissions();
-		else this.hideSplash = false;
+		if (!this.localNotifications.hasPermission) this.showPermissions = false;
 	}
 
 	askPermissions() {
@@ -71,9 +69,10 @@ export class MyApp {
 				this.androidPermissions.PERMISSION.VIBRATE,
 				this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION,
 				this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION,
-				this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS
+				this.androidPermissions.PERMISSION.ACCESS_LOCATION_EXTRA_COMMANDS,
+				this.androidPermissions.PERMISSION.BLUETOOTH,
+				this.androidPermissions.PERMISSION.BLUETOOTH_ADMIN,
 			]);
 		this.localNotifications.requestPermission();
-		this.hideSplash = false;
 	}
 }

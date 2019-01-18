@@ -29,14 +29,13 @@ export class SigninPage {
 	constructor(private navCtrl: NavController, private formBuilder: FormBuilder, public alertCtrl: AlertController, private authService: AuthenticationService,
 		private storage: Storage, private splashScreen: SplashScreen, private platform: Platform) { }
 
+
 	ionViewCanEnter() {
 		this.init();
 	}
 
 	init() {
 		this.createFormGroup();
-		this.checkSavedPassword();
-		this.checkLocalUser();
 	}
 
 	createFormGroup() {
@@ -45,6 +44,8 @@ export class SigninPage {
 			password: new FormControl('', [Validators.required]),
 			pinpass: new FormControl('', []),
 		});
+
+		this.checkLocalUser();
 	}
 
 	signIn() {
@@ -62,7 +63,7 @@ export class SigninPage {
 	checkLocalUser() {
 		this.storage.get('currentUser').then(
 			(result) => {
-				if (result != null && result.pin_code != null) {
+				if (result != null) {
 					this.currentUser = result;
 					this.checkSavedPassword();
 				}
@@ -75,7 +76,15 @@ export class SigninPage {
 			(result) => {
 				if (result != null) {
 					this.savedPassword = result;
-					this.usePIN();
+
+					if (this.currentUser.pin_code != null) {
+						this.usePIN();
+					} else {
+						this.usePassword();
+					}
+				}
+				else {
+					this.usePassword();
 				}
 			}
 		);
@@ -85,19 +94,33 @@ export class SigninPage {
 		this.usePinForm = true;
 		this.usePin = true;
 
+		this.checkSavedPassword();
+
 		// Remove email and password controls
 		// Change pin control to required
 		this.loginForm.removeControl('email');
 		this.loginForm.removeControl('password');
-		this.loginForm.controls['pinpass'].setValidators([Validators.required, Validators.minLength(4), Validators.maxLength(10), Validators.pattern(/^[0-9]*$/)]);
+		this.loginForm.controls['pinpass'].clearValidators();
+		this.loginForm.controls['pinpass'].setValidators(
+			[
+				Validators.required,
+				Validators.minLength(4),
+				Validators.maxLength(10),
+				Validators.pattern(/^[0-9]*$/)
+			]
+		);
 	}
 
 	usePassword() {
 		this.usePinForm = true;
 		this.usePin = false;
 
+		// Remove email and password controls
+		// Change pin control to required
 		// Reset pin control
 		// Add password validators
+		this.loginForm.removeControl('email');
+		this.loginForm.removeControl('password');
 		this.loginForm.controls['pinpass'].clearValidators();
 		this.loginForm.controls['pinpass'].setValidators(
 			[

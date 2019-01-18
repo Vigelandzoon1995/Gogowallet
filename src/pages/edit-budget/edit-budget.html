@@ -57,13 +57,17 @@
 			<ion-item>
 				<ion-icon name="logo-euro" item-start></ion-icon>
 				<ion-label>Amount</ion-label>
-				<ion-input type="number" min="0" [(ngModel)]="budget.amount" formControlName="amount" text-right item-end></ion-input>
+				<ion-input type="number" [min]=0 [(ngModel)]="budget.amount" formControlName="amount" text-right item-end
+				 clearInput></ion-input>
 			</ion-item>
 
 			<!-- Amount error-->
-			<ion-item no-padding no-lines class="error error-padding" *ngIf="budgetForm.get('amount').hasError('required') && budgetForm.get('amount').touched">
+			<ion-item no-padding no-lines class="error error-padding" *ngIf="(budgetForm.get('amount').hasError('required') || budgetForm.get('amount').hasError('pattern')) && budgetForm.get('amount').touched">
 				<span *ngIf="budgetForm.get('amount').hasError('required') && budgetForm.get('amount').touched">
 					* Amount is required.
+				</span>
+				<span *ngIf="budgetForm.get('amount').hasError('pattern') && budgetForm.get('amount').touched">
+					* Amount cannot be negative.
 				</span>
 			</ion-item>
 		</ion-card>

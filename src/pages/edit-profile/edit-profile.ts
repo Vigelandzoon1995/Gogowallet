@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user.service';
+import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
@@ -23,17 +24,17 @@ export class EditProfilePage {
 	password: string = null;
 	newPassword: string = null;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private camera: Camera,
-		private userService: UserService, private authService: AuthenticationService, private storage: Storage) {
-		this.createFormGroup();
+	constructor(public navParams: NavParams, public navCtrl: NavController, private formBuilder: FormBuilder, private camera: Camera,
+		private userService: UserService, private authService: AuthenticationService, private storage: Storage, private alertCtrl: AlertController) {
 		this.getUser();
+		this.createFormGroup();
 	}
 
 	createFormGroup() {
 		this.profileForm = this.formBuilder.group({
 			email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
-			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/[a-zA-Z0-9\.\-\_\ ]+(?!.*[\.\-\_]{4,})$/gm)])),
+			first_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/)])),
+			last_name: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/)])),
 			bank_account: new FormControl('', Validators.compose([Validators.pattern(/^[a-zA-Z0-9]+$/)])),
 			pin: new FormControl('', Validators.compose([Validators.pattern(/^[0-9]*$/)])),
 			password: new FormControl('', [
@@ -46,12 +47,26 @@ export class EditProfilePage {
 	}
 
 	getUser() {
-		this.storage.get('currentUser').then(
-			(response) => this.user = response
+		this.userService.get().subscribe(
+			(response) => this.user = response,
+			(error) => {
+				// Show error message
+				const alert = this.alertCtrl.create({
+					title: 'Error',
+					subTitle: 'An error occured while retrieving user details. Please try again!',
+					buttons: [
+						{
+							text: 'OK',
+						}
+					]
+				});
+				alert.present();
+			}
 		);
 	}
 
 	submit() {
+		let removePass = false;
 		let newUser = this.user;
 		newUser.password = null;
 
@@ -59,15 +74,16 @@ export class EditProfilePage {
 		if (this.password != null && this.newPassword != null) {
 			if (this.password != this.newPassword) {
 				newUser.password = this.newPassword;
+				removePass = true;
 			}
 		}
 
 		this.userService.update(newUser).subscribe(
 			(response) => {
-				this.authService.removeUser(false);
+				this.authService.removeUser(false, removePass);
 				this.authService.saveUser(newUser, false);
 
-				this.navCtrl.pop();
+				this.navCtrl.push(ProfilePage);
 			},
 			(error) => {
 				Observable.throw(error);
