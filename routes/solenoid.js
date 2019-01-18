@@ -10,23 +10,24 @@ router.post('/status/set', auth.verifyToken, function (req, res) {
 	db.query("SELECT * FROM devices WHERE id=? AND user_id=?",
 		[device_id, user_id],
 		function (err, result) {
-			if(err){
+			if (result[0] != null) {
+				db.query("UPDATE devices SET solenoidstate=? WHERE id=?", [solenoidstate, device_id], function (err, result) {
+					if (err) {
+						throw err;
+					}
+					if (result != null && results.affectedRows == 1) {
+						res.json({
+							response: 'Solenoidstate changed'
+						})
+					} else {
+						res.json({
+							response: 'Error when changing solenoidstate'
+						})
+					}
+				});
+			} else {
 				res.json(err)
 			}
-			db.query("UPDATE devices SET solenoidstate=? WHERE id=?", [solenoidstate, device_id], function (err, result) {
-				if (err) {
-					throw err;
-				}
-				if (result != null && results.affectedRows == 1) {
-					res.json({
-						response: 'Solenoidstate changed'
-					})
-				} else {
-					res.json({
-						response: 'Error when changing solenoidstate'
-					})
-				}
-			});
 		})
 
 })
