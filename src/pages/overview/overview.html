@@ -17,7 +17,7 @@
 				<canvas #pieCanvas></canvas>
 			</div>
 
-			<div [hidden]="spendingsTotal != null  || budgetTotal != null">
+			<div [hidden]="spendingsTotal != null && budgetTotal != null">
 				<h2 text-center>Start with creating your own budgets!</h2>
 				<ion-row>
 					<button ion-button (click)="navigateToBudgets()">CREATE BUDGET</button>
