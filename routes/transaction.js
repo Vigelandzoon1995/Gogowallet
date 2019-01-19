@@ -89,11 +89,9 @@ router.get('/getLastTen', auth.verifyToken, function (req, res) {
 
 router.get('/getSum', auth.verifyToken, function (req, res) {
 	var bank_account = req.query.bank_account;
-	var start = req.query.start;
-	var end = req.query.end;
 
-	db.query("SELECT SUM(amount) as amount FROM transactions WHERE bank_account = ? AND CURRENT_TIMESTAMP >= ? AND CURRENT_TIMESTAMP < ?",
-		[bank_account, start, end],
+	db.query("SELECT SUM(amount) as amount FROM transactions WHERE bank_account = ? date >= (SELECT start_date FROM budgets WHERE CURRENT_TIMESTAMP >= start_date ORDER BY start_date DESC LIMIT 1) AND date < (SELECT end_date FROM budgets WHERE CURRENT_TIMESTAMP < end_date ORDER BY end_date DESC LIMIT 1)",
+		[bank_account],
 		function (error, results) {
 			res.send(results[0]);
 		});
