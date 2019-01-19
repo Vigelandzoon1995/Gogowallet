@@ -66,6 +66,18 @@ export class TransactionService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
+	getLastTen(bank_account: string): Observable<Transaction[]> {
+		return this.http.get(this.apiURL + `/getLastTen?bank_account=${bank_account}`, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json());
+	}
+
+	getSum(bank_account: string): Observable<number> {
+		return this.http.get(this.apiURL + `/getSum?bank_account=${bank_account}`, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json().amount);
+	}
+
 	create(transaction: Transaction): Observable<Transaction> {
 		this.loadingService.show();
 

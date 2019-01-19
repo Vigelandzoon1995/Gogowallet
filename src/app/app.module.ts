@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BLEComponent } from '../components/bleComponent/ble';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 import { PopoverComponent } from '../components/popover/popover';
 import { AboutUsPageModule } from '../pages/about-us/about-us.module';
@@ -36,6 +37,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TrackPageModule } from '../pages/track/track.module';
 import { ViewContactPageModule } from '../pages/view-contact/view-contact.module';
 import { AuthenticationService } from '../shared/helpers/auth.service';
+import { BudgetHelper } from '../shared/helpers/budget.helper';
 import { LoadingService } from '../shared/helpers/loading.service';
 import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
@@ -43,7 +45,6 @@ import { LocationService } from '../shared/services/location.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { BLEComponent } from '../components/bleComponent/ble';
 
 @NgModule({
 	declarations: [
@@ -110,6 +111,7 @@ import { BLEComponent } from '../components/bleComponent/ble';
 		Geolocation,
 		LoadingService,
 		LocationService,
+		BudgetHelper,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler }
 	]
 })

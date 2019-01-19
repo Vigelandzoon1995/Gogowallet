@@ -1,42 +1,63 @@
 import { Component, ViewChild } from '@angular/core';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { BLE } from '@ionic-native/ble';
+import { ILocalNotification, LocalNotifications } from '@ionic-native/local-notifications';
 import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
 import { AlertController, Events, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { Observable } from 'rxjs';
+import { ISubscription } from 'rxjs/Subscription';
+import { BLEComponent } from '../../components/bleComponent/ble';
 import { AuthenticationService } from '../../shared/helpers/auth.service';
+import { BudgetHelper } from '../../shared/helpers/budget.helper';
+import Preferences from '../../shared/models/preferences.model';
 import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
 import { BudgetService } from '../../shared/services/budget.service';
 import { TransactionService } from '../../shared/services/transaction.service';
 import { UserService } from '../../shared/services/user.service';
-import { BLEComponent } from '../../components/bleComponent/ble';
-import { BLE } from '@ionic-native/ble';
-import { BackgroundMode } from '@ionic-native/background-mode';
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import Preferences from '../../shared/models/preferences.model';
 
 @IonicPage()
 @Component({
 	selector: 'page-overview',
 	templateUrl: 'overview.html',
-	providers:[BLE,LocalNotifications,BLEComponent,BackgroundMode]
+	providers: [BLE, LocalNotifications, BLEComponent, BackgroundMode]
 })
 export class OverviewPage {
 	@ViewChild('pieCanvas') pieCanvas;
 
+	today: Date = new Date();
 	currentUser: User = null;
+	subscription: ISubscription;
+
 	pieChart: any;
 	budgetTotal: number = 0;
 	spendingsTotal: number = 0;
+
 	transactions: Transaction[] = [];
 	preferences: Preferences;
 
-	constructor(public bleComponent: BLEComponent,public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams, public events: Events,
-		private storage: Storage, private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
-		private budgetService: BudgetService, private transactionService: TransactionService) {
+	notification: ILocalNotification = {
+		title: 'Gogowallet',
+		text: '',
+		vibrate: true,
+		foreground: true,
+		led: 'FFFFFF',
 	}
 
+	constructor(public bleComponent: BLEComponent, public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams,
+		private backgroundMode: BackgroundMode, private localNotifications: LocalNotifications, public events: Events, private storage: Storage,
+		private alertCtrl: AlertController, private authService: AuthenticationService, private userService: UserService,
+		private budgetService: BudgetService, private transactionService: TransactionService, private budgetHelper: BudgetHelper) { }
+
 	ionViewWillEnter() {
+	}
+
+	ionViewDidLoad() {
 		this.getCurrentUser();
+
+		// this.beginBudgetMonitor();
+		// this.bleComponent.startBackgroundScan(this.preferences);
 	}
 
 	getCurrentUser() {
@@ -50,7 +71,7 @@ export class OverviewPage {
 				}
 
 				this.getTotalBudget();
-				this.getPreferences(this.currentUser.user_id);
+				//this.getPreferences(this.currentUser.user_id);
 			}
 		);
 	}
@@ -60,7 +81,6 @@ export class OverviewPage {
 			(response) => {
 				this.storage.set('preferences', response);
 				this.preferences = response;
-				this.bleComponent.startBackgroundScan(this.preferences);
 			},
 			(error) => { }
 		);
@@ -135,29 +155,34 @@ export class OverviewPage {
 	}
 
 	getTotalBudget() {
-		var today = new Date();
-		this.budgetService.getAll(this.currentUser.user_id).subscribe(
+		this.budgetService.getSum().subscribe(
 			(response) => {
-				this.budgetTotal = response.filter(f => today >= new Date(f.start_date) && today < new Date(f.end_date)).reduce((a, b) => a + b.amount, 0);
+				this.budgetTotal = response;
 				if (!this.budgetTotal) {
 					this.budgetTotal = 0;
 				}
+
 				this.getTotalSpendings();
 			}
 		);
 	}
 
 	getTotalSpendings() {
-		var today = new Date();
-		this.transactionService.getAll(this.currentUser.bank_account).subscribe(
+		this.transactionService.getSum(this.currentUser.bank_account).subscribe(
 			(response) => {
-				this.spendingsTotal = response.filter(f => today >= new Date(f.date) && today < new Date(f.date)).reduce((a, b) => a + b.amount, 0);
+				this.spendingsTotal = response;
 				if (!this.spendingsTotal) {
 					this.spendingsTotal = 0;
 				}
-				this.transactions = response.slice(0, 10);
+
 				this.createChart();
 			}
+		);
+	}
+
+	getLastTransactions() {
+		this.transactionService.getLastTen(this.currentUser.bank_account).subscribe(
+			(response) => this.transactions = response
 		);
 	}
 
@@ -179,6 +204,10 @@ export class OverviewPage {
 				}]
 			},
 			options: {
+				animation: {
+					duration: 0,
+					easing: 'linear'
+				},
 				tooltips: {
 					callbacks: {
 						title: (tooltipItem, data) => {
@@ -189,6 +218,28 @@ export class OverviewPage {
 					}
 				}
 			}
+		});
+
+		this.getLastTransactions();
+	}
+
+	beginBudgetMonitor() {
+		this.backgroundMode.enable();
+		this.backgroundMode.on("activate").subscribe(() => {
+			this.subscription = Observable.interval(1000 * 60 * 3).subscribe(x => {
+				let count = 0;
+
+				this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then(
+					(response) => {
+						response.forEach(budget => { if (budget.current_amount >= budget.amount) { count++; } });
+					}
+				);
+
+				if (count >= 1) {
+					this.notification.text = 'One of your budgets has been exceeded.';
+					this.localNotifications.schedule(this.notification);
+				}
+			});
 		});
 	}
 }

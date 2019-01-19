@@ -13,11 +13,11 @@
 	<ion-card>
 		<ion-card-header>Overview</ion-card-header>
 		<ion-card-content>
-			<div [hidden]="spendingsTotal == null && budgetTotal == null">
+			<div *ngIf="spendingsTotal != null && budgetTotal != null">
 				<canvas #pieCanvas></canvas>
 			</div>
 
-			<div [hidden]="spendingsTotal != null && budgetTotal != null">
+			<div *ngIf="spendingsTotal == null && budgetTotal == null">
 				<h2 text-center>Start with creating your own budgets!</h2>
 				<ion-row>
 					<button ion-button (click)="navigateToBudgets()">CREATE BUDGET</button>

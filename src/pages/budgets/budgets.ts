@@ -2,15 +2,12 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AlertController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { BudgetItemPopoverComponent } from '../../components/budget-item-popover/budget-item-popover';
-import { environment as ENV } from '../../environments/environment';
+import { BudgetHelper } from '../../shared/helpers/budget.helper';
 import Budget from '../../shared/models/budget.model';
-import Transaction from '../../shared/models/transaction.model';
 import User from '../../shared/models/user.model';
 import { BudgetService } from '../../shared/services/budget.service';
-import { TransactionService } from '../../shared/services/transaction.service';
 import { AddBudgetPage } from '../add-budget/add-budget';
 import { EditBudgetPage } from '../edit-budget/edit-budget';
-import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -18,17 +15,16 @@ import * as moment from 'moment';
 	templateUrl: 'budgets.html',
 })
 export class BudgetsPage {
+	today = new Date();
 	currentUser: User = null;
-	budgets: Budget[] = [];
 	activeBudgets: Budget[] = [];
 	finishedBudgets: Budget[] = [];
-	transactions: Transaction[] = [];
-	today = new Date();
+	showList: boolean = false;
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams,
-		private transactionService: TransactionService, private budgetService: BudgetService, private storage: Storage) { }
+		private budgetHelper: BudgetHelper, private budgetService: BudgetService, private storage: Storage) { }
 
-	ionViewCanEnter() {
+	ionViewDidLoad() {
 		this.getUser();
 	}
 
@@ -37,7 +33,7 @@ export class BudgetsPage {
 			(response) => {
 				this.currentUser = response;
 				if (this.currentUser.bank_account) {
-					this.getBudgetList();
+					//this.checkBalance();
 				}
 			}
 		);
@@ -91,14 +87,10 @@ export class BudgetsPage {
 	}
 
 	getBudgetList() {
-		let today = new Date();
 		this.budgetService.getAll(this.currentUser.user_id).subscribe(
 			(response) => {
-				this.budgets = response;
-				this.activeBudgets = this.budgets.filter(f => today >= new Date(f.start_date) && today < new Date(f.end_date));
-				this.finishedBudgets = this.budgets.filter(f => today > new Date(f.end_date));
-
-				this.checkBudgetBalance();
+				this.activeBudgets = response.filter(f => this.today >= new Date(f.start_date) && this.today < new Date(f.end_date));
+				this.finishedBudgets = response.filter(f => this.today > new Date(f.end_date));
 			},
 			(error) => {
 				// Show error message
@@ -114,6 +106,14 @@ export class BudgetsPage {
 				alert.present();
 			}
 		);
+	}
+
+	checkBalance() {
+		this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then((response) => {
+			this.activeBudgets = response;
+			this.showList = true;
+		});
+		//this.finishedBudgets = this.budgetHelper.checkBudgetBalance(this.currentUser.user_id, this.currentUser.bank_account);
 	}
 
 	deleteBudget(budget: Budget) {
@@ -133,36 +133,5 @@ export class BudgetsPage {
 				alert.present();
 			}
 		);
-	}
-
-	checkBudgetBalance() {
-		let groceriesWhiteList: String[] = ENV.groceriesWhiteList;
-		let leisureWhiteList: String[] = ENV.leisureWhiteList;
-
-		this.budgets.forEach(budget => {
-			this.transactionService.getBetweenDates(moment(budget.start_date).format(), moment(budget.end_date).format(), this.currentUser.bank_account).subscribe(
-				(response) => {
-					response.forEach(transaction => {
-						if (groceriesWhiteList.some((v: string) => { return transaction.name.indexOf(v) >= 0; })) {
-							if (budget.category == 'Groceries') {
-								if (budget.current_amount == null) {
-									budget.current_amount = budget.amount;
-								}
-								budget.current_amount = budget.current_amount - transaction.amount;
-							}
-						}
-						if (leisureWhiteList.some((v: string) => { return transaction.name.indexOf(v) >= 0; })) {
-							console.log('Leisure');
-							if (budget.category == 'Leisure') {
-								if (budget.current_amount == null) {
-									budget.current_amount = budget.amount;
-								}
-								budget.current_amount = budget.current_amount - transaction.amount;
-							}
-						}
-					});
-				}
-			);
-		});
 	}
 }
