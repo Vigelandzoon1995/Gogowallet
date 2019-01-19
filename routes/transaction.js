@@ -77,6 +77,16 @@ router.get('/getBetweenDates', auth.verifyToken, function (req, res) {
 		});
 });
 
+router.get('/getLastTen', auth.verifyToken, function (req, res) {
+	var bank_account = req.query.bank_account;
+
+	db.query("SELECT * FROM transactions WHERE user_id = ? ORDER BY date DESC LIMIT 10",
+		[bank_account],
+		function (error, results) {
+			res.send(results);
+		});
+});
+
 router.get('/getSum', auth.verifyToken, function (req, res) {
 	var bank_account = req.query.bank_account;
 	var start = req.query.start;
