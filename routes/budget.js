@@ -52,7 +52,7 @@ router.get('/getSum', auth.verifyToken, function (req, res) {
 	db.query("SELECT SUM(amount) FROM budgets WHERE user_id = 6 AND CURRENT_TIMESTAMP >= start_date AND CURRENT_TIMESTAMP < end_date",
 		[user_id],
 		function (error, results) {
-			res.send(results);
+			res.send(results[0].SUM(amount));
 		});
 });
 
