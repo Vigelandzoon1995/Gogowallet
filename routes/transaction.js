@@ -92,10 +92,10 @@ router.get('/getSum', auth.verifyToken, function (req, res) {
 	var start = req.query.start;
 	var end = req.query.end;
 
-	db.query("SELECT SUM(amount) FROM transactions WHERE bank_account = ? AND CURRENT_TIMESTAMP >= ? AND CURRENT_TIMESTAMP < ?",
+	db.query("SELECT SUM(amount) as amount FROM transactions WHERE bank_account = ? AND CURRENT_TIMESTAMP >= ? AND CURRENT_TIMESTAMP < ?",
 		[bank_account, start, end],
 		function (error, results) {
-			res.send(results);
+			res.send(results[0]);
 		});
 });
 
