@@ -46,6 +46,16 @@ router.get('/getActive', auth.verifyToken, function (req, res) {
 		});
 });
 
+router.get('/getFinished', auth.verifyToken, function (req, res) {
+	var user_id = res.locals.user_id;
+
+	db.query("SELECT * FROM budgets WHERE user_id = 6 AND CURRENT_TIMESTAMP >= end_date",
+		[user_id],
+		function (error, results) {
+			res.send(results);
+		});
+});
+
 router.get('/getSum', auth.verifyToken, function (req, res) {
 	var user_id = res.locals.user_id;
 
