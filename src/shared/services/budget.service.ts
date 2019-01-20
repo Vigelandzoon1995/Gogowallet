@@ -48,6 +48,15 @@ export class BudgetService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
+	getFinished(user: number): Observable<Budget[]> {
+		this.loadingService.show();
+
+		return this.http.get(this.apiURL + `/getFinished?user_id=${user}`, { headers: this.headers })
+			.pipe(catchError(error => Observable.throw(error)))
+			.map((res) => res.json())
+			.finally(() => { this.loadingService.hide(); });
+	}
+
 	getSum(): Observable<number> {
 		return this.http.get(this.apiURL + `/getSum`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))

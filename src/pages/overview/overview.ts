@@ -53,11 +53,12 @@ export class OverviewPage {
 	ionViewWillEnter() {
 	}
 
+	ionViewDidEnter() {
+		//this.beginBudgetMonitor();
+	}
+
 	ionViewDidLoad() {
 		this.getCurrentUser();
-
-		// this.beginBudgetMonitor();
-		// this.bleComponent.startBackgroundScan(this.preferences);
 	}
 
 	getCurrentUser() {
@@ -71,7 +72,6 @@ export class OverviewPage {
 				}
 
 				this.getTotalBudget();
-				//this.getPreferences(this.currentUser.user_id);
 			}
 		);
 	}
@@ -79,8 +79,10 @@ export class OverviewPage {
 	getPreferences(user: number) {
 		this.userService.getPreferences(user).subscribe(
 			(response) => {
-				this.storage.set('preferences', response);
 				this.preferences = response;
+				this.storage.set('preferences', response).then(
+					(result) => this.bleComponent.startBackgroundScan(this.preferences)
+				);
 			},
 			(error) => { }
 		);
@@ -182,7 +184,10 @@ export class OverviewPage {
 
 	getLastTransactions() {
 		this.transactionService.getLastTen(this.currentUser.bank_account).subscribe(
-			(response) => this.transactions = response
+			(response) => {
+				this.transactions = response;
+				this.getPreferences(this.currentUser.user_id);
+			}
 		);
 	}
 
@@ -229,7 +234,7 @@ export class OverviewPage {
 			this.subscription = Observable.interval(1000 * 60 * 3).subscribe(x => {
 				let count = 0;
 
-				this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then(
+				this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account, true).then(
 					(response) => {
 						response.forEach(budget => { if (budget.current_amount >= budget.amount) { count++; } });
 					}

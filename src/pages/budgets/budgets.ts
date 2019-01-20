@@ -17,9 +17,12 @@ import { EditBudgetPage } from '../edit-budget/edit-budget';
 export class BudgetsPage {
 	today = new Date();
 	currentUser: User = null;
+
 	activeBudgets: Budget[] = [];
 	finishedBudgets: Budget[] = [];
-	showList: boolean = false;
+
+	showActive: boolean = false;
+	showFinished: boolean = false;
 
 	constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams,
 		private budgetHelper: BudgetHelper, private budgetService: BudgetService, private storage: Storage) { }
@@ -86,39 +89,21 @@ export class BudgetsPage {
 		confirm.present();
 	}
 
-	getBudgetList() {
-		this.budgetService.getAll(this.currentUser.user_id).subscribe(
-			(response) => {
-				this.activeBudgets = response.filter(f => this.today >= new Date(f.start_date) && this.today < new Date(f.end_date));
-				this.finishedBudgets = response.filter(f => this.today > new Date(f.end_date));
-			},
-			(error) => {
-				// Show error message
-				const alert = this.alertCtrl.create({
-					title: 'Error',
-					subTitle: 'An error occured while retrieving budgets. Please try again!',
-					buttons: [
-						{
-							text: 'OK',
-						}
-					]
-				});
-				alert.present();
-			}
-		);
-	}
-
 	async checkBalance() {
-		await this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then((response) => {
+		await this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account, true).then((response) => {
 			this.activeBudgets = response;
-			this.showList = true;
+			this.showActive = true;
 		});
-		//this.finishedBudgets = this.budgetHelper.checkBudgetBalance(this.currentUser.user_id, this.currentUser.bank_account);
+
+		await this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account, false).then((response) => {
+			this.finishedBudgets = response;
+			this.showFinished = true;
+		});
 	}
 
 	deleteBudget(budget: Budget) {
 		this.budgetService.delete(budget.id).subscribe(
-			(response) => this.getBudgetList(),
+			(response) => this.checkBalance(),
 			(error) => {
 				// Show error message
 				const alert = this.alertCtrl.create({

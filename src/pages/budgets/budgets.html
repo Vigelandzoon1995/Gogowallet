@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-	<ion-list [hidden]="!showList">
+	<ion-list [hidden]="!showActive">
 		<ion-list-header>Active</ion-list-header>
 		<ion-card *ngFor="let budget of activeBudgets">
 			<ion-card-header>
@@ -48,7 +48,7 @@
 
 	<hr />
 
-	<ion-list>
+	<ion-list [hidden]="!showFinished">
 		<ion-list-header>Finished</ion-list-header>
 		<ion-card *ngFor="let budget of finishedBudgets">
 			<ion-card-header>
