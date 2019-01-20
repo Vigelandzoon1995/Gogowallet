@@ -33,7 +33,7 @@ export class BudgetsPage {
 			(response) => {
 				this.currentUser = response;
 				if (this.currentUser.bank_account) {
-					//this.checkBalance();
+					this.checkBalance();
 				}
 			}
 		);
@@ -108,8 +108,8 @@ export class BudgetsPage {
 		);
 	}
 
-	checkBalance() {
-		this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then((response) => {
+	async checkBalance() {
+		await this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account).then((response) => {
 			this.activeBudgets = response;
 			this.showList = true;
 		});

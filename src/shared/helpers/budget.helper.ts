@@ -15,65 +15,78 @@ export class BudgetHelper {
 	budgets: Budget[];
 	transactions: Transaction[];
 
+	groceriesWhiteList: String[] = ENV.groceriesWhiteList;
+	leisureWhiteList: String[] = ENV.leisureWhiteList;
+
 	constructor(private budgetService: BudgetService, private transactionService: TransactionService) { }
 
 	getActiveBudgets(user: number, bank_account: string) {
-		this.budgetService.getActive(user).subscribe(
-			(response) => {
-				this.budgets = response;
-				this.getDates(bank_account);
-			},
-			(error) => { Observable.throw(error); }
-		);
+		return new Promise((resolve, reject) => {
+			this.budgetService.getActive(user).subscribe(
+				(response) => {
+					this.budgets = response;
+					resolve();
+				},
+				(error) => { Observable.throw(error); }
+			);
+		});
 	}
 
 	getTransactions(bank_account: string) {
-		this.transactionService.getBetweenDates(this.minDate, this.maxDate, bank_account).subscribe(
-			(response) => {
-				this.transactions = response;
-				this.checkAmount();
-			},
-			(error) => { Observable.throw(error); }
-		);
+		return new Promise((resolve, reject) => {
+			this.transactionService.getBetweenDates(this.minDate, this.maxDate, bank_account).subscribe(
+				(response) => {
+					this.transactions = response;
+					resolve();
+				},
+				(error) => { Observable.throw(error); }
+			);
+		});
 	}
 
-	getDates(bank_account: string) {
-		let sorted = this.budgets.sort((a, b) => { return new Date(a.start_date).getTime() - new Date(b.start_date).getTime(); });
-		this.minDate = sorted[0].start_date;
-		this.maxDate = sorted[sorted.length - 1].end_date;
+	getDates() {
+		return new Promise((resolve, reject) => {
+			let sorted = this.budgets.sort((a, b) => { return new Date(a.start_date).getTime() - new Date(b.start_date).getTime(); });
+			this.minDate = sorted[0].start_date;
+			this.maxDate = sorted[sorted.length - 1].end_date;
 
-		this.getTransactions(bank_account);
+			resolve();
+		});
 	}
 
-	checkAmount() {
-		let groceriesWhiteList: String[] = ENV.groceriesWhiteList;
-		let leisureWhiteList: String[] = ENV.leisureWhiteList;
+	async checkAmount(user: number, bank_account: string) {
+		await this.getActiveBudgets(user, bank_account).then((result) => this.getDates().then((result) => this.getTransactions(bank_account)));
 
-		// Check for each budget what currently is spent
-		this.budgets.forEach(budget => {
-			this.transactions.forEach(transaction => {
-				if (groceriesWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
-					if (budget.category == 'Groceries') {
-						if (budget.current_amount == null) {
-							budget.current_amount = budget.amount;
+		return await new Promise<Budget[]>((resolve, reject) => {
+			// Check for each budget what currently is spent
+			this.budgets.forEach(budget => {
+				this.transactions.forEach(transaction => {
+					if (this.groceriesWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
+						if (budget.category == 'Groceries') {
+							if (budget.current_amount == null) {
+								budget.current_amount = budget.amount;
+							}
+							budget.current_amount = budget.current_amount - transaction.amount;
 						}
-						budget.current_amount = budget.current_amount - transaction.amount;
 					}
-				}
-				if (leisureWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
-					if (budget.category == 'Leisure') {
-						if (budget.current_amount == null) {
-							budget.current_amount = budget.amount;
+					if (this.leisureWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
+						if (budget.category == 'Leisure') {
+							if (budget.current_amount == null) {
+								budget.current_amount = budget.amount;
+							}
+							budget.current_amount = budget.current_amount - transaction.amount;
 						}
-						budget.current_amount = budget.current_amount - transaction.amount;
 					}
-				}
+				});
 			});
+
+			resolve(this.budgets);
 		});
 	}
 
 	async checkBalance(user: number, bank_account: string): Promise<Budget[]> {
-		await this.getActiveBudgets(user, bank_account);
-		return this.budgets;
+		let result = null;
+		await this.checkAmount(user, bank_account).then((data) => { result = data; });
+		return result;
 	}
 }

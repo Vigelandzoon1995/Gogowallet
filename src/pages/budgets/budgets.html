@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-	<ion-list *ngIf="showList">
+	<ion-list [hidden]="!showList">
 		<ion-list-header>Active</ion-list-header>
 		<ion-card *ngFor="let budget of activeBudgets">
 			<ion-card-header>
