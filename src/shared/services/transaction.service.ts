@@ -42,7 +42,7 @@ export class TransactionService {
 	getToday(bank_account: string): Observable<Transaction[]> {
 		this.loadingService.show();
 
-		return this.http.get(this.apiURL + `/getToday?id=${bank_account}`, { headers: this.headers })
+		return this.http.get(this.apiURL + `/getToday?bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			.finally(() => { this.loadingService.hide(); });
