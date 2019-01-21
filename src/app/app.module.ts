@@ -44,6 +44,7 @@ import { LocationService } from '../shared/services/location.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
+import { SolenoidService } from '../shared/services/solenoid.service';
 
 @NgModule({
 	declarations: [
@@ -110,6 +111,7 @@ import { MyApp } from './app.component';
 		LoadingService,
 		LocationService,
 		BudgetHelper,
+		SolenoidService,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler }
 	]
 })
