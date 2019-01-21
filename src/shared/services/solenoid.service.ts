@@ -8,7 +8,7 @@ import { LoadingService } from '../helpers/loading.service';
 import Solenoid from '../models/solenoid.model';
 
 @Injectable()
-export class ContactService {
+export class SolenoidService {
 	private apiURL = ENV.BASE_URL + '/solenoid/status';
 
 	private headers = new Headers({
@@ -21,7 +21,7 @@ export class ContactService {
 		);
     }
 
-    getStatusById(id: number): Observable<Solenoid> {
+    getStatusById(id: number): Observable<number> {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/get?device_id=${id}`, { headers: this.headers })
@@ -30,7 +30,7 @@ export class ContactService {
 			.finally(() => { this.loadingService.hide(); });
 	}
 
-	updateStatus(solenoid: Solenoid): Observable<Solenoid> {
+	updateStatus(solenoid: Solenoid): Observable<string> {
 		this.loadingService.show();
 
 		return this.http.post(this.apiURL + '/set', solenoid, { headers: this.headers })
