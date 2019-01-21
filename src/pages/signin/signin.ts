@@ -6,7 +6,6 @@ import { AlertController, IonicPage, NavController, Platform } from 'ionic-angul
 import { AuthenticationService } from '../../shared/helpers/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators';
 import User from '../../shared/models/user.model';
-import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
 
 @IonicPage()
@@ -132,9 +131,5 @@ export class SigninPage {
 
 	navigateToRegister() {
 		this.navCtrl.push(SignupPage);
-	}
-
-	navigateToReset() {
-		this.navCtrl.push(ResetPasswordPage);
 	}
 }

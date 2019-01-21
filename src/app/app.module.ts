@@ -28,7 +28,6 @@ import { EmergencyContactsPageModule } from '../pages/emergency-contacts/emergen
 import { FeedbackPageModule } from '../pages/feedback/feedback.module';
 import { OverviewPageModule } from '../pages/overview/overview.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
-import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { SetupPageModule } from '../pages/setup/setup.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
@@ -67,7 +66,6 @@ import { MyApp } from './app.component';
 		SettingsPageModule,
 		BudgetsPageModule,
 		AddBudgetPageModule,
-		ResetPasswordPageModule,
 		EditProfilePageModule,
 		EmergencyContactsPageModule,
 		AddContactPageModule,
