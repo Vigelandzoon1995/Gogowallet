@@ -48,7 +48,7 @@ export class UserService {
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => {
 				let response = res.json()[0];
-				let result = new Preferences(response['user_id'], Boolean(response['lock_protection']), Boolean(response['distance_alarm']), response['max_distance']); 
+				let result = new Preferences(response['user_id'], Boolean(response['lock_protection']), Boolean(response['distance_alarm']), response['max_distance']);
 
 				return result;
 			})
@@ -86,13 +86,6 @@ export class UserService {
 		this.loadingService.show();
 
 		return this.http.post(this.apiURL + '/update', user, { headers: this.headers })
-			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			.finally(() => { this.loadingService.hide(); });
-	}
-
-	resetPassword(email: string): Observable<any> {
-		return this.http.get(this.apiURL + `/resetPassword?email=${email}`)
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
 			.finally(() => { this.loadingService.hide(); });
