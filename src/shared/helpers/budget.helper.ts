@@ -81,7 +81,7 @@ export class BudgetHelper {
 			// Check for each budget what currently is spent
 			this.budgets.forEach(budget => {
 				this.transactions.forEach(transaction => {
-					if (this.groceriesWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
+					if (this.groceriesWhiteList.some((name: string) => { return transaction.name.toLowerCase().indexOf(name.toLowerCase()) >= 0; })) {
 						if (budget.category == 'Groceries') {
 							if (budget.current_amount == null) {
 								budget.current_amount = budget.amount;
@@ -89,7 +89,7 @@ export class BudgetHelper {
 							budget.current_amount = budget.current_amount - transaction.amount;
 						}
 					}
-					if (this.leisureWhiteList.some((name: string) => { return transaction.name.indexOf(name) >= 0; })) {
+					if (this.leisureWhiteList.some((name: string) => { return transaction.name.toLowerCase().indexOf(name.toLowerCase()) >= 0; })) {
 						if (budget.category == 'Leisure') {
 							if (budget.current_amount == null) {
 								budget.current_amount = budget.amount;
