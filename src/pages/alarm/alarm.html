@@ -8,7 +8,9 @@
 	<p padding>By using "Distance Alarm", you will be notified once you are about to leave your wallet behind.</p>
 
 	<p padding margin-top *ngIf="!preferences">
-		You currently have no device setup to your account.
+		<b>
+			You currently have no device setup to your account.
+		</b>
 	</p>
 
 	<form novalidate [formGroup]="alarmForm" *ngIf="preferences">
