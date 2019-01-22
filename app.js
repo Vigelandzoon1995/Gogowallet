@@ -54,8 +54,8 @@ if (process.argv[1].includes("jasmine.js")) {
 } else {
   var privateKey = fs.readFileSync('../privkey.pem', 'utf8');
   var certificate = fs.readFileSync('../cert.pem', 'utf8');
-  https.createServer({ key: privateKey, cert: certificate }, app).listen(5555, "::");
-  console.log("https running at port 5555");
+  https.createServer({ key: privateKey, cert: certificate }, app).listen(3333, "::");
+  console.log("https running at port 3333");
 }
 
 app.use(cors());
