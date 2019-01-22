@@ -64,36 +64,37 @@ export class SigninPage {
 			(result) => {
 				if (result != null) {
 					this.currentUser = result;
-					this.checkSavedPassword();
+					this.checkSavedPassword().then((result) => {
+						if (result == true) {
+							this.usePIN()
+						} else {
+							this.usePassword();
+						}
+					});
 				}
 			}
 		);
 	}
 
-	checkSavedPassword() {
-		this.storage.get('pass').then(
-			(result) => {
-				if (result != null) {
-					this.savedPassword = result;
+	checkSavedPassword(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			this.storage.get('pass').then(
+				(result) => {
+					if (result != null) {
+						this.savedPassword = result;
 
-					if (this.currentUser.pin_code != null) {
-						this.usePIN();
-					} else {
-						this.usePassword();
+						if (this.currentUser.pin_code != null) {
+							resolve(true);
+						}
 					}
 				}
-				else {
-					this.usePassword();
-				}
-			}
-		);
+			);
+		});
 	}
 
 	usePIN() {
 		this.usePinForm = true;
 		this.usePin = true;
-
-		this.checkSavedPassword();
 
 		// Remove email and password controls
 		// Change pin control to required

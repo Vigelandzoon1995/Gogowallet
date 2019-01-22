@@ -58,7 +58,8 @@
 
 						<ion-item class="transparent-input">
 							<ion-label floating>{{ usePin == true ? 'PIN' : 'Password'}}</ion-label>
-							<ion-input class="pin-mask" [type]="usePin ? 'tel' : 'password'" [(ngModel)]="pinCodeInput" formControlName="pinpass"></ion-input>
+							<ion-input *ngIf="!usePin" class="pin-mask" type="password" [(ngModel)]="pinCodeInput" formControlName="pinpass"></ion-input>
+							<ion-input *ngIf="usePin" class="pin-mask" type="tel" [(ngModel)]="pinCodeInput" formControlName="pinpass"></ion-input>
 						</ion-item>
 
 						<!-- PIN error-->
@@ -106,7 +107,9 @@
 		<ion-row text-center>
 			<ion-col *ngIf="usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="usePassword()" *ngIf="usePin">Use password</button>
-				<button ion-button clear class="register-link" type="button" (click)="usePIN()" *ngIf="!usePin && savedPassword">UsePIN</button>
+				<button ion-button clear class="register-link" type="button" (click)="usePIN()" *ngIf="!usePin && savedPassword">
+					Use PIN
+				</button>
 			</ion-col>
 			<ion-col *ngIf="!usePinForm">
 				<button ion-button clear class="register-link" type="button" (click)="navigateToRegister()">Register</button>

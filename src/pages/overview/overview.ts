@@ -207,7 +207,7 @@ export class OverviewPage {
 			},
 			options: {
 				animation: {
-					duration: 2000,
+					duration: 0,
 					easing: 'linear'
 				},
 				tooltips: {
