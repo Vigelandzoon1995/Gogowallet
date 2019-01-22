@@ -45,7 +45,7 @@ parser.on('data', function (data) {
 setInterval(function () {
 if (lat1 != null && lon1 != null && timedate != null) {
 var options = {
-    url: 'http://145.24.222.187:3333/gps/create',
+    url: 'https://osirris.nl:3333/gps/create',
     method: 'POST',
     headers: headers,
     form: { 'lat': lat1, 'long': lon1, 'time': timedate }
@@ -58,4 +58,4 @@ request(options, function (error, response, body) {
             }
         })
     }
-}, 3000)
+}, 60000)
