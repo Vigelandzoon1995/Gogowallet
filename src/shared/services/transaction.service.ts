@@ -31,12 +31,9 @@ export class TransactionService {
 	}
 
 	getAll(bank_account: string): Observable<Transaction[]> {
-		this.loadingService.show();
-
 		return this.http.get(this.apiURL + `/getByBankAccount?bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
-			.map((res) => res.json())
-			.finally(() => { this.loadingService.hide(); });
+			.map((res) => res.json());
 	}
 
 	getToday(bank_account: string): Observable<Transaction[]> {
@@ -58,12 +55,9 @@ export class TransactionService {
 	}
 
 	getBetweenDates(start: string, end: string, bank_account: string): Observable<Transaction[]> {
-		this.loadingService.show();
-
 		return this.http.get(this.apiURL + `/getBetweenDates?start=${start}&end=${end}&bank_account=${bank_account}`, { headers: this.headers })
 			.pipe(catchError(error => Observable.throw(error)))
 			.map((res) => res.json())
-			.finally(() => { this.loadingService.hide(); });
 	}
 
 	getLastTen(bank_account: string): Observable<Transaction[]> {
