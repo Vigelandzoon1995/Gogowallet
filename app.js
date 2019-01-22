@@ -48,14 +48,14 @@ var https = require('https');
 if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
   console.log("running jasmine test environment at port 4444");
-} else if (process.argv[0].includes("pm2")) {
+} else if (process.argv[0].includes("node")) {
+  http.createServer(app).listen(3333, "::");
+  console.log("running at port 3333");
+} else {
   var privateKey = fs.readFileSync('/etc/letsencrypt/live/osirris.nl/privkey.pem', 'utf8');
   var certificate = fs.readFileSync('/etc/letsencrypt/live/osirris.nl/cert.pem', 'utf8');
   https.createServer({ key: privateKey, cert: certificate }, app).listen(443, "::");
   console.log("running at port 443");
-} else {
-  http.createServer(app).listen(3333, "::");
-  console.log("running at port 3333");
 }
 
 app.use(cors());
