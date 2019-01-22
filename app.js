@@ -52,8 +52,8 @@ if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(3333, "::");
   console.log("running at port 3333");
 } else {
-  var privateKey = fs.readFileSync('/etc/letsencrypt/live/osirris.nl/privkey.pem', 'utf8');
-  var certificate = fs.readFileSync('/etc/letsencrypt/live/osirris.nl/cert.pem', 'utf8');
+  var privateKey = fs.readFileSync('../privkey.pem', 'utf8');
+  var certificate = fs.readFileSync('../cert.pem', 'utf8');
   https.createServer({ key: privateKey, cert: certificate }, app).listen(443, "::");
   console.log("running at port 443");
 }
