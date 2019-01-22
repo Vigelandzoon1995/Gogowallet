@@ -7,6 +7,10 @@
 <ion-content>
 	<p padding>By using "Distance Alarm", you will be notified once you are about to leave your wallet behind.</p>
 
+	<p padding margin-top *ngIf="!preferences">
+		You currently have no device setup to your account.
+	</p>
+
 	<form novalidate [formGroup]="alarmForm" *ngIf="preferences">
 		<ion-item>
 			<ion-icon name="power" item-start></ion-icon>
@@ -15,7 +19,7 @@
 		</ion-item>
 
 		<ion-item>
-			<ion-icon name="lock" item-start ></ion-icon>
+			<ion-icon name="lock" item-start></ion-icon>
 			<ion-label>
 				Enable Lock Protection
 				<p text-wrap>
@@ -33,11 +37,11 @@
 				<ion-option value="10">10</ion-option>
 			</ion-select>
 		</ion-item>
-	</form>
 
-	<ion-row margin-top>
-		<ion-col>
-			<button ion-button full round type="button" (click)="submit()">Save</button>
-		</ion-col>
-	</ion-row>
+		<ion-row margin-top>
+			<ion-col>
+				<button ion-button full round type="button" (click)="submit()">Save</button>
+			</ion-col>
+		</ion-row>
+	</form>
 </ion-content>

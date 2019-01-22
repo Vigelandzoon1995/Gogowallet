@@ -19,9 +19,9 @@ export class SolenoidService {
 		this.authService.getToken().then((token) =>
 			this.headers.append('Authorization', 'Bearer ' + token)
 		);
-    }
+	}
 
-    getStatusById(id: number): Observable<number> {
+	getStatusById(id: number): Observable<number> {
 		this.loadingService.show();
 
 		return this.http.get(this.apiURL + `/get?device_id=${id}`, { headers: this.headers })

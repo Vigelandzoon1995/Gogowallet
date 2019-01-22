@@ -19,7 +19,6 @@ export class PopoverComponent {
 		try {
 			this.viewCtrl.dismiss(item);
 		} catch (Nullpointerexception) {
-			console.log(Nullpointerexception);
 		}
 	}
 }

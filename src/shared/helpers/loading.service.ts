@@ -9,7 +9,7 @@ export class LoadingService {
 
 	init() {
 		this.loader = this.loadingCtrl.create({
-			spinner: 'circles',
+			spinner: 'crescent',
 			showBackdrop: true,
 			enableBackdropDismiss: false,
 			content: '',

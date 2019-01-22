@@ -19,7 +19,6 @@ export class BudgetItemPopoverComponent {
 		try {
 			this.viewCtrl.dismiss(item);
 		} catch (Nullpointerexception) {
-			console.log(Nullpointerexception);
 		}
 	}
 }

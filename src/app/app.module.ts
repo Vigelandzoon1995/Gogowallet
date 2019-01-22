@@ -16,7 +16,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { BLEComponent } from '../components/bleComponent/ble';
 import { BudgetItemPopoverComponent } from '../components/budget-item-popover/budget-item-popover';
 import { PopoverComponent } from '../components/popover/popover';
-import { AboutUsPageModule } from '../pages/about-us/about-us.module';
 import { AddBudgetPageModule } from '../pages/add-budget/add-budget.module';
 import { AddContactPageModule } from '../pages/add-contact/add-contact.module';
 import { AlarmPageModule } from '../pages/alarm/alarm.module';
@@ -25,10 +24,8 @@ import { EditBudgetPageModule } from '../pages/edit-budget/edit-budget.module';
 import { EditContactPageModule } from '../pages/edit-contact/edit-contact.module';
 import { EditProfilePageModule } from '../pages/edit-profile/edit-profile.module';
 import { EmergencyContactsPageModule } from '../pages/emergency-contacts/emergency-contacts.module';
-import { FeedbackPageModule } from '../pages/feedback/feedback.module';
 import { OverviewPageModule } from '../pages/overview/overview.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
-import { SettingsPageModule } from '../pages/settings/settings.module';
 import { SetupPageModule } from '../pages/setup/setup.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
@@ -41,10 +38,10 @@ import { LoadingService } from '../shared/helpers/loading.service';
 import { BudgetService } from '../shared/services/budget.service';
 import { ContactService } from '../shared/services/contact.service';
 import { LocationService } from '../shared/services/location.service';
+import { SolenoidService } from '../shared/services/solenoid.service';
 import { TransactionService } from '../shared/services/transaction.service';
 import { UserService } from '../shared/services/user.service';
 import { MyApp } from './app.component';
-import { SolenoidService } from '../shared/services/solenoid.service';
 
 @NgModule({
 	declarations: [
@@ -63,8 +60,6 @@ import { SolenoidService } from '../shared/services/solenoid.service';
 		TrackPageModule,
 		AlarmPageModule,
 		ProfilePageModule,
-		FeedbackPageModule,
-		SettingsPageModule,
 		BudgetsPageModule,
 		AddBudgetPageModule,
 		EditProfilePageModule,
@@ -72,7 +67,6 @@ import { SolenoidService } from '../shared/services/solenoid.service';
 		AddContactPageModule,
 		EditBudgetPageModule,
 		EditContactPageModule,
-		AboutUsPageModule,
 		ViewContactPageModule,
 		SetupPageModule,
 		IonicModule.forRoot(MyApp, {

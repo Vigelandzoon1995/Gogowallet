@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-	<form novalidate [formGroup]="budgetForm">
+	<form novalidate [formGroup]="budgetForm" *ngIf="budget">
 		<ion-card>
 			<ion-card-header>Category</ion-card-header>
 

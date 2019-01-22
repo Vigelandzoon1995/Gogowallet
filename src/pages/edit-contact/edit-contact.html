@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-	<form novalidate [formGroup]="contactForm">
+	<form novalidate [formGroup]="contactForm" *ngIf="contact">
 		<ion-row>
 			<ion-col>
 				<ion-list>

@@ -4,7 +4,7 @@ import { BLE } from '@ionic-native/ble';
 import { ILocalNotification, LocalNotifications } from '@ionic-native/local-notifications';
 import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
-import { AlertController, Events, IonicPage, NavController, NavParams, PopoverController, Platform } from 'ionic-angular';
+import { AlertController, Events, IonicPage, NavController, NavParams, Platform, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { ISubscription } from 'rxjs/Subscription';
 import { BLEComponent } from '../../components/bleComponent/ble';
@@ -229,8 +229,7 @@ export class OverviewPage {
 		this.backgroundMode.on("activate").subscribe(() => {
 			this.backgroundMode.disableWebViewOptimizations();
 
-			this.subscription = Observable.interval(2000).subscribe(x => {
-				console.log('Budget notification');
+			this.subscription = Observable.interval(1000 * 60).subscribe(x => {
 				let count = 0;
 
 				this.budgetHelper.checkBalance(this.currentUser.user_id, this.currentUser.bank_account, true).then(
@@ -238,9 +237,6 @@ export class OverviewPage {
 						response.forEach(budget => { if (budget.current_amount >= budget.amount) { count++; } });
 					}
 				);
-
-				this.notification.text = 'One of your budgets has been exceeded.';
-				this.localNotifications.schedule(this.notification);
 
 				if (count >= 1) {
 					this.notification.text = 'One of your budgets has been exceeded.';

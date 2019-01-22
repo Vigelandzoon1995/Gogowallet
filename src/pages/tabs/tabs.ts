@@ -7,7 +7,6 @@ import { EditProfilePage } from '../edit-profile/edit-profile';
 import { EmergencyContactsPage } from '../emergency-contacts/emergency-contacts';
 import { OverviewPage } from '../overview/overview';
 import { ProfilePage } from '../profile/profile';
-import { SettingsPage } from '../settings/settings';
 import { SetupPage } from '../setup/setup';
 import { TrackPage } from '../track/track';
 
@@ -27,9 +26,6 @@ export class TabsPage {
 	subscribeEvents() {
 		this.events.subscribe('user:signout', () => {
 			this.authService.signOut();
-		});
-		this.events.subscribe('navTo:settings', () => {
-			this.navCtrl.push(SettingsPage);
 		});
 		this.events.subscribe('navTo:budgets', () => {
 			this.navCtrl.push(BudgetsPage);

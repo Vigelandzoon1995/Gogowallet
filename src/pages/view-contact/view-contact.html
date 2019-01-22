@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-	<form novalidate>
+	<form novalidate *ngIf="contact">
 		<ion-row>
 			<ion-col text-center>
 				<ion-icon name="{{contact.thumbnail}}"></ion-icon>
