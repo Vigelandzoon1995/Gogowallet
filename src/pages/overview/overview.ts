@@ -52,7 +52,7 @@ export class OverviewPage {
 
 		this.backgroundMode.enable();
 
-		this.bleComponent.startBackgroundScan(this.preferences);
+		
 		this.beginBudgetMonitor();
 	}
 
@@ -80,6 +80,7 @@ export class OverviewPage {
 			(response) => {
 				this.preferences = response;
 				this.storage.set('preferences', response);
+				this.bleComponent.startBackgroundScan(this.preferences);
 			},
 			(error) => { }
 		);
