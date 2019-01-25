@@ -29,14 +29,9 @@ export class TrackPage {
 		this.storage.get('currentUser').then(
 			(response) => {
 				this.currentUser = response;
-				this.setUpMap();
+				this.getLatestLocation();
 			}
 		);
-	}
-
-	setUpMap() {
-		this.getLatestLocation();
-		this.loadMap();
 	}
 
 	loadMap() {
@@ -83,6 +78,8 @@ export class TrackPage {
 					this.walletCoordinates.longitude = Number(response[0].longitude);
 					this.lastTime = response[0].time.replace(/\//g, '-');
 				}
+
+				this.loadMap();
 			},
 			(error) => {
 				// Show error message
@@ -101,7 +98,7 @@ export class TrackPage {
 	}
 
 	showLocation() {
-		if (this.walletCoordinates.latitude != null || this.walletCoordinates.longitude != null) {
+		if (this.walletCoordinates.latitude != null && this.walletCoordinates.longitude != null) {
 			let walletMarker: Marker = this.map.addMarkerSync({
 				title: 'Time of location: ' + this.lastTime,
 				icon: {

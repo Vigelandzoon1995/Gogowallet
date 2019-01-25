@@ -40,7 +40,6 @@ export class BLEComponent {
 
 	startBackgroundScan(preferences) {
 		this.preferences = preferences;
-		console.log("max distance: "+ this.preferences.max_distance);
 		this.backgroundMode.on("activate").subscribe(() => {
 			this.backgroundMode.disableWebViewOptimizations();
 
@@ -62,7 +61,7 @@ export class BLEComponent {
 				});
 				this.calculateDistanceDevice(device.rssi);
 			}
-			else if(device.id != 'B8:27:EB:7E:2C:47' && this.solenoid.status == 1){
+			else if (device.id != 'B8:27:EB:7E:2C:47' && this.solenoid.status == 1) {
 				this.updateStatus(0);
 			}
 		});
@@ -88,7 +87,6 @@ export class BLEComponent {
 			//check wheter state is off and if budget is not overspended to turn solenoid state on
 			this.getStatus(1);
 			if (this.solenoid.status == 0 && count == 0 && distance <= this.preferences.max_distance) {
-				console.log("Turning status on");
 				this.updateStatus(1);
 				// update status
 			}
@@ -101,7 +99,6 @@ export class BLEComponent {
 			if (this.preferences.lock_protection) {
 				this.getStatus(1);
 				if (this.solenoid.status == 1) {
-					console.log("Turn status off also on lock protection enabled");
 					this.updateStatus(0);
 				}
 			}
@@ -121,7 +118,6 @@ export class BLEComponent {
 			(response) => {
 				this.solenoid = new Solenoid(id, 0, 0);
 				this.solenoid.status = response;
-				console.log(JSON.stringify("DB Status: " + this.solenoid.status));
 			},
 			(error) => { }
 		);
@@ -129,7 +125,6 @@ export class BLEComponent {
 
 	updateStatus(status: number) {
 		this.solenoid.status = status;
-		console.log("New Status: " + this.solenoid.status)
 		this.solenoidService.updateStatus(this.solenoid).subscribe(
 			(response) => {
 				this.message = response;
