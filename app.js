@@ -49,7 +49,7 @@ if (process.argv[1].includes("jasmine.js")) {
   http.createServer(app).listen(4444, "0.0.0.0");
   console.log("running jasmine test environment at port 4444");
 } else if (process.argv[2] != null && process.argv[2].includes("--local")) {
-  http.createServer(app).listen(3333, "::");
+  http.createServer(app).listen(80, "::");
   console.log("running at port 3333");
 } else {
   var privateKey = fs.readFileSync('../privkey.pem', 'utf8');
