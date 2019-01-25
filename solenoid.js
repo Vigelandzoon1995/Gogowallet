@@ -27,16 +27,20 @@ function checking(Status, pinValue) {
 }
 
 function checkStatus() {
+
         var options = {
                 url: 'https://osirris.nl:3333/solenoid/status/get?device_id=1',
                 method: 'GET',
-                headers: headers
+                headers: headers,
+                rejectUnauthorized: false
         }
+
         return new Promise(resolve => {
                 request(options, function (error, response, body) {
 
                         if (!error && response.statusCode == 200) {
-                                resolve(body)
+
+                                resolve(body);
                         }
                 })
         });
@@ -44,16 +48,20 @@ function checkStatus() {
 }
 
 function checkPin() {
+
         var options = {
                 url: 'https://osirris.nl:3333/solenoid/pin/get?device_id=1',
                 method: 'GET',
-                headers: headers
+                headers: headers,
+                rejectUnauthorized: false
         }
+
         return new Promise(resolve => {
                 request(options, function (error, response, body) {
 
                         if (!error && response.statusCode == 200) {
-                                resolve(body)
+
+                                 resolve(body);
                         }
                 })
         });
@@ -66,7 +74,8 @@ function on() {
                 url: 'https://osirris.nl:3333/solenoid/pin/set',
                 method: 'POST',
                 headers: headers,
-                form: { 'device_id': 1, 'pin': 1 }
+                form: { 'device_id': 1, 'pin': 1 },
+                rejectUnauthorized: false
         }
         request(options, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -81,7 +90,8 @@ function off() {
                 url: 'https://osirris.nl:3333/solenoid/pin/set',
                 method: 'POST',
                 headers: headers,
-                form: { 'device_id': 1, 'pin': 0 }
+                form: { 'device_id': 1, 'pin': 0 },
+                rejectUnauthorized: false
         }
         request(options, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
