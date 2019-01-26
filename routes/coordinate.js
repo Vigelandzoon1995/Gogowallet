@@ -59,7 +59,7 @@ router.get('/getBetweenDates', auth.verifyToken, function (req, res) {
 	var user_id = res.locals.user_id;
 	var start = req.query.start;
 	var end = req.query.end;
-	db.query("SELECT g.id, g.latitude, g.longitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.device_id AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY STR_TO_DATE(g.time, '%Y-%m-%d %HH:%ii') DESC",
+	db.query("SELECT g.id, g.latitude, g.longitude, g.time, g.device_id FROM gps AS g, devices AS d WHERE d.user_id = ? AND g.device_id = d.device_id AND DATE_FORMAT(date, '%Y-%m-%d') >= DATE_FORMAT(?, '%Y-%m-%d') AND DATE_FORMAT(date, '%Y-%m-%d') <= DATE_FORMAT(?, '%Y-%m-%d') ORDER BY g.time DESC",
 		[bank_account, start, end],
 		function (error, results) {
 			res.send(results);
