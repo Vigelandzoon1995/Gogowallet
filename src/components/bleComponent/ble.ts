@@ -25,6 +25,7 @@ export class BLEComponent {
 	message: string
 	subscription: ISubscription;
 	preferences: Preferences;
+	counter: number;
 
 	constructor(private backgroundMode: BackgroundMode, private ble: BLE, private ngZone: NgZone, private localNotifications: LocalNotifications,
 		private solenoidService: SolenoidService, private budgetHelper: BudgetHelper, private storage: Storage) {
@@ -42,10 +43,10 @@ export class BLEComponent {
 		this.preferences = preferences;
 		this.backgroundMode.on("activate").subscribe(() => {
 			this.backgroundMode.disableWebViewOptimizations();
-
+			this.counter =0;
 			this.subscription = Observable.interval(1000).subscribe(x => {
 				this.getStatus(1);
-				this.ble.scan([], 5).subscribe(
+				this.ble.scan([], 1000).subscribe(
 					device => this.onDeviceDiscovered(device)
 				);
 			});
@@ -55,57 +56,58 @@ export class BLEComponent {
 	onDeviceDiscovered(device) {
 		this.ngZone.run(() => {
 			this.devices.push(device);
+			this.counter++;
 			if (device.id == 'B8:27:EB:7E:2C:47') {
 				this.backgroundMode.on("deactivate").subscribe(() => {
 					this.subscription.unsubscribe();
 				});
-				this.calculateDistanceDevice(device.rssi);
+				this.unlockCheck(this.calculateDistanceDevice(device.rssi));
+				this.showBluetoothNotification(this.calculateDistanceDevice(device.rssi));
 			}
-			else if (device.id != 'B8:27:EB:7E:2C:47' && this.solenoid.status == 1) {
+			else if (device.id != 'B8:27:EB:7E:2C:47' && this.solenoid.status == 1 && this.counter >=40) {
 				this.updateStatus(0);
+				this.counter = 0;
 			}
 		});
+	}
+	
+	unlockCheck(distance) {
+		let count = 0;
+		//var unlock = false;
+		this.budgetHelper.checkBalance(this.user.user_id, this.user.bank_account, true).then((response) => {
+			response.forEach(budget => { 
+				if (budget.current_amount >= budget.amount) {
+					 count++;
+					}
+				});
+		});
+		if (this.solenoid.status == 0 && count == 0 && distance <= this.preferences.max_distance) {
+			this.updateStatus(1);
+		}
 	}
 
 	disableBackgroundScan() {
 		this.backgroundMode.disable();
 	}
-
-	calculateDistanceDevice(rssi) {
-		var distance = (10 ** (((-41) - (rssi)) / (10 * 2)));
-		//compare prefered distance of user
-		if (distance >= this.preferences.max_distance) {
-			this.showBluetoothNotification();
-		}
-		else {
-			let count = 0;
-
-			this.budgetHelper.checkBalance(this.user.user_id, this.user.bank_account, true).then((response) => {
-				response.forEach(budget => { if (budget.current_amount >= budget.amount) { count++; } });
-			});
-
-			//check wheter state is off and if budget is not overspended to turn solenoid state on
-			this.getStatus(1);
-			if (this.solenoid.status == 0 && count == 0 && distance <= this.preferences.max_distance) {
-				this.updateStatus(1);
-				// update status
-			}
-		}
+	
+	 calculateDistanceDevice(rssi) : number {
+		let value = 0;
+		value = (10 ** (((-41) - (rssi)) / (10 * 2)));
+		return value;
 	}
 
-	showBluetoothNotification() {
-		if (this.preferences.distance_alarm) {
+
+	showBluetoothNotification(distance) {
+		if (this.preferences.distance_alarm && distance >= this.preferences.max_distance) {
 			this.triggerLocalNotification();
 			if (this.preferences.lock_protection) {
-				this.getStatus(1);
 				if (this.solenoid.status == 1) {
 					this.updateStatus(0);
 				}
 			}
 
 		}
-		else if (!this.preferences.distance_alarm && this.preferences.lock_protection) {
-			this.getStatus(1);
+		else if (!this.preferences.distance_alarm && this.preferences.lock_protection && distance >= this.preferences.max_distance) {
 			if (this.solenoid.status == 1) {
 				this.updateStatus(0);
 			}
@@ -113,8 +115,8 @@ export class BLEComponent {
 
 	}
 
-	getStatus(id: number) {
-		this.solenoidService.getStatusById(id).subscribe(
+	async getStatus(id: number) {
+		await this.solenoidService.getStatusById(id).subscribe(
 			(response) => {
 				this.solenoid = new Solenoid(id, 0, 0);
 				this.solenoid.status = response;
@@ -123,9 +125,9 @@ export class BLEComponent {
 		);
 	}
 
-	updateStatus(status: number) {
+	async updateStatus(status: number) {
 		this.solenoid.status = status;
-		this.solenoidService.updateStatus(this.solenoid).subscribe(
+		await this.solenoidService.updateStatus(this.solenoid).subscribe(
 			(response) => {
 				this.message = response;
 			},
