@@ -29,7 +29,7 @@ function checking(Status, pinValue) {
 function checkStatus() {
 
         var options = {
-                url: 'https://osirris.nl:3333/solenoid/status/get?device_id=1',
+                url: 'https://osirris.nl/solenoid/status/get?device_id=1',
                 method: 'GET',
                 headers: headers,
                 rejectUnauthorized: false
@@ -50,7 +50,7 @@ function checkStatus() {
 function checkPin() {
 
         var options = {
-                url: 'https://osirris.nl:3333/solenoid/pin/get?device_id=1',
+                url: 'https://osirris.nl/solenoid/pin/get?device_id=1',
                 method: 'GET',
                 headers: headers,
                 rejectUnauthorized: false
@@ -71,7 +71,7 @@ function on() {
 
         gpio.write(pin, 1);
         var options = {
-                url: 'https://osirris.nl:3333/solenoid/pin/set',
+                url: 'https://osirris.nl/solenoid/pin/set',
                 method: 'POST',
                 headers: headers,
                 form: { 'device_id': 1, 'pin': 1 },
@@ -87,7 +87,7 @@ function on() {
 function off() {
         gpio.write(pin, 0);
         var options = {
-                url: 'https://osirris.nl:3333/solenoid/pin/set',
+                url: 'https://osirris.nl/solenoid/pin/set',
                 method: 'POST',
                 headers: headers,
                 form: { 'device_id': 1, 'pin': 0 },
