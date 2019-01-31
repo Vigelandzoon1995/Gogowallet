@@ -3,7 +3,7 @@ var router = express.Router();
 
 const bcrypt = require('bcrypt');
 
-router.post('/', async function (req, res) {
+/×router.post('/', async function (req, res) {
     if (req.body.password != null &&
         req.body.password.length >= 8 &&
         /^.*(?=.{10,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.test(req.body.password) &&
@@ -66,7 +66,7 @@ async function hashPassword(password) {
     })
 
     return hashedPassword
-}
+}*/
 
 module.exports = router;
 
